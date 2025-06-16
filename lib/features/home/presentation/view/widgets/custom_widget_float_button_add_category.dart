@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:foodix/core/utils/dimensions.dart';
 import 'package:foodix/core/widgets/custom_button.dart';
 import 'package:foodix/core/widgets/custom_text_field.dart';
 import 'package:foodix/features/home/presentation/viewmodel/cubits/main_seller/main_seller_cubit.dart';
 import 'package:foodix/generated/l10n.dart';
+import 'package:go_router/go_router.dart';
 
-import '../../../../../core/shared/models/ProductModel.dart';
+import '../../../../../core/shared/models/category_model.dart';
 
 class CustomWidgetFloatButtonAddCategory extends StatelessWidget {
   final TextEditingController categoryController;
@@ -24,7 +24,7 @@ class CustomWidgetFloatButtonAddCategory extends StatelessWidget {
   void _addCategory(BuildContext context) {
     GoRouter.of(context).pop();
     context.read<MainSellerCubit>().addCategory(
-      ProductModel(category: categoryController.text),
+      CategoryModel(categoryName: categoryController.text),
     );
   }
 

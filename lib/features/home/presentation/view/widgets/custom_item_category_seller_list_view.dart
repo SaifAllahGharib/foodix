@@ -5,11 +5,11 @@ import 'package:foodix/core/utils/styles.dart';
 import 'package:foodix/features/category_foods/presentation/view/category_foods_view.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../../core/shared/models/ProductModel.dart';
+import '../../../../../core/shared/models/category_model.dart';
 
 class CustomItemCategorySellerListView extends StatelessWidget {
   final int index;
-  final List<ProductModel> list;
+  final List<CategoryModel> list;
   final TextEditingController searchFoodController;
 
   const CustomItemCategorySellerListView({
@@ -27,7 +27,10 @@ class CustomItemCategorySellerListView extends StatelessWidget {
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("${list[index].category}", style: Styles.textStyle18(context)),
+          Text(
+            "${list[index].categoryName}",
+            style: Styles.textStyle18(context),
+          ),
           if (index != list.length - 1) SizedBox(height: Dimensions.height20),
           if (index != list.length - 1)
             const Divider(height: 1, color: AppColors.gray),

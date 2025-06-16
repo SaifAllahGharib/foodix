@@ -8,12 +8,16 @@ import 'package:foodix/core/widgets/custom_dot_widget.dart';
 import 'package:foodix/core/widgets/custom_rating_widget.dart';
 import 'package:foodix/features/home/presentation/view/widgets/custom_image_item_sliver_list_view_buyer_view.dart';
 
+import '../../../data/models/restorant_model.dart';
+
 class CustomItemSliverListViewBuyerView extends StatelessWidget {
   final void Function() onClick;
+  final RestaurantModel restaurant;
 
   const CustomItemSliverListViewBuyerView({
     super.key,
     required this.onClick,
+    required this.restaurant,
   });
 
   @override
@@ -36,15 +40,9 @@ class CustomItemSliverListViewBuyerView extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "Bazoka",
-                  style: Styles.textStyle18(context),
-                ),
+                Text("Bazoka", style: Styles.textStyle18(context)),
                 SizedBox(height: Dimensions.height15),
-                const CustomRatingWidget(
-                  rating: 4.8,
-                  ratingCount: 265,
-                ),
+                const CustomRatingWidget(rating: 4.8, ratingCount: 265),
                 SizedBox(height: Dimensions.height10 * 0.6),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,

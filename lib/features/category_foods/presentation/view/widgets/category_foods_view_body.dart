@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../../core/shared/models/ProductModel.dart';
+import '../../../../../core/shared/models/category_model.dart';
 import '../../../../../core/utils/dimensions.dart';
 import '../../../../../core/utils/styles.dart';
 import '../../../../../core/widgets/custom_back_button.dart';
@@ -12,9 +12,9 @@ import '../../../../home/presentation/view/widgets/custom_grid_view_builder.dart
 import '../../../../home/presentation/view/widgets/custom_search_text_field.dart';
 
 class CategoryFoodsViewBody extends StatefulWidget {
-  final ProductModel productModel;
+  final CategoryModel category;
 
-  const CategoryFoodsViewBody({super.key, required this.productModel});
+  const CategoryFoodsViewBody({super.key, required this.category});
 
   @override
   State<CategoryFoodsViewBody> createState() => _CategoryFoodsViewBodyState();
@@ -53,19 +53,19 @@ class _CategoryFoodsViewBodyState extends State<CategoryFoodsViewBody> {
           ),
           SizedBox(height: Dimensions.height20),
           Text(
-            widget.productModel.category!,
+            widget.category.categoryName!,
             style: Styles.textStyle20(context),
           ),
           SizedBox(height: Dimensions.height20),
           Expanded(
-            child: widget.productModel.foods!.isEmpty
+            child: widget.category.foods!.isEmpty
                 ? const EmptyWidget()
-                : CustomGridViewBuilder(productModel: widget.productModel),
+                : CustomGridViewBuilder(category: widget.category),
           ),
           CustomFloatButton(
             onClick: () => context.push(
               AddFoodView.id,
-              extra: widget.productModel.category,
+              extra: widget.category.categoryName,
             ),
           ),
         ],

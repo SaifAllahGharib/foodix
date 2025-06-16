@@ -3,11 +3,11 @@ import 'package:foodix/core/utils/colors.dart';
 import 'package:foodix/core/utils/dimensions.dart';
 import 'package:foodix/core/utils/styles.dart';
 
-import '../../../../../core/shared/models/ProductModel.dart';
+import '../../../../../core/shared/models/category_model.dart';
 
 class CustomCategoryTabBar extends StatelessWidget {
   final TabController tabController;
-  final List<ProductModel> list;
+  final List<CategoryModel> list;
   final void Function(int index) onClickCategory;
 
   const CustomCategoryTabBar({
@@ -47,7 +47,7 @@ class CustomCategoryTabBar extends StatelessWidget {
         overlayColor: WidgetStateProperty.all(Colors.transparent),
         tabs: List.generate(
           list.length,
-          (index) => Text("${list[index].category}"),
+          (index) => Text("${list[index].categoryName}"),
         ),
       ),
     );

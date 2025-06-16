@@ -6,16 +6,16 @@ import 'package:foodix/core/viewmodel/cubits/local_cubit.dart';
 import 'package:foodix/core/widgets/custom_row_cost.dart';
 import 'package:foodix/features/home/presentation/view/widgets/custom_image_food.dart';
 
-import '../../../../../core/shared/models/ProductModel.dart';
+import '../../../../../core/shared/models/category_model.dart';
 
 class GridItemView extends StatelessWidget {
-  final ProductModel productModel;
+  final CategoryModel category;
   final int index;
   final void Function() onClick;
 
   const GridItemView({
     super.key,
-    required this.productModel,
+    required this.category,
     required this.index,
     required this.onClick,
   });
@@ -27,9 +27,7 @@ class GridItemView extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            CustomImageFood(
-              imageUrl: productModel.foods![index].foodImage ?? "",
-            ),
+            CustomImageFood(imageUrl: category.foods![index].foodImage ?? ""),
             SizedBox(height: Dimensions.height10),
             Padding(
               padding: EdgeInsets.symmetric(
@@ -42,7 +40,7 @@ class GridItemView extends StatelessWidget {
                         ? Alignment.centerRight
                         : Alignment.centerLeft,
                     child: Text(
-                      productModel.foods![index].foodName,
+                      category.foods![index].foodName,
                       style: Styles.textStyle18(context),
                     ),
                   ),
@@ -52,7 +50,7 @@ class GridItemView extends StatelessWidget {
                         ? Alignment.centerRight
                         : Alignment.centerLeft,
                     child: CustomRowCost(
-                      egp: productModel.foods![index].foodPrice,
+                      egp: category.foods![index].foodPrice,
                       fontWeight: FontWeight.w500,
                     ),
                   ),

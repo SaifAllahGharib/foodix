@@ -2,7 +2,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:foodix/core/services/db_services.dart';
 import 'package:foodix/core/services/firebase_service.dart';
 
-import '../shared/models/ProductModel.dart';
+import '../shared/models/category_model.dart';
 import '../shared/models/food_model.dart';
 import '../shared/models/user_model.dart';
 
@@ -38,14 +38,14 @@ class FirebaseDBServices extends DBServices {
   }
 
   @override
-  Future<void> addCategory(ProductModel product) async {
+  Future<void> addCategory(CategoryModel category) async {
     await _firebaseService.db
         .ref()
         .child("restaurants")
         .child(_firebaseService.auth.currentUser!.uid)
         .child("categories")
-        .child(product.category!)
-        .set(product.toJson());
+        .child(category.categoryName!)
+        .set(category.toJson());
   }
 
   @override
@@ -80,5 +80,10 @@ class FirebaseDBServices extends DBServices {
         .child(_firebaseService.auth.currentUser!.uid)
         .child(restaurantName)
         .set({});
+  }
+
+  @override
+  Future<DataSnapshot> getRestaurants() async {
+    return await _firebaseService.db.ref().child("restaurants").get();
   }
 }

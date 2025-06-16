@@ -4,11 +4,11 @@ import 'package:foodix/core/utils/dimensions.dart';
 import 'package:foodix/core/widgets/custom_back_button.dart';
 import 'package:foodix/features/restaurant/presentation/view/widgets/custom_category_tab_bar.dart';
 
-import '../../../../../core/shared/models/ProductModel.dart';
+import '../../../../../core/shared/models/category_model.dart';
 
 class CustomAppBarRestaurantView extends StatelessWidget {
   final double opacity;
-  final List<ProductModel> list;
+  final List<CategoryModel> list;
   final double appBarHeight;
   final TabController tabController;
   final void Function(int index) onClickCategory;

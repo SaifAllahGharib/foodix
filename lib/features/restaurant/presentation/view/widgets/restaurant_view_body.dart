@@ -8,7 +8,7 @@ import 'package:foodix/features/restaurant/presentation/view/widgets/top_section
 import 'package:foodix/features/restaurant/viewmodel/cubits/restaurant/restaurant_cubit.dart';
 import 'package:foodix/features/restaurant/viewmodel/cubits/restaurant/restaurant_state.dart';
 
-import '../../../../../core/shared/models/ProductModel.dart';
+import '../../../../../core/shared/models/category_model.dart';
 
 class RestaurantViewBody extends StatefulWidget {
   const RestaurantViewBody({super.key});
@@ -24,7 +24,7 @@ class _RestaurantViewBodyState extends State<RestaurantViewBody>
   late final List<GlobalKey> keys;
   double _opacity = 0.0;
   double _appBarHeight = 0.0;
-  final List<ProductModel> listOfFoodCategories = [];
+  final List<CategoryModel> listOfFoodCategories = [];
 
   @override
   void initState() {

@@ -1,4 +1,3 @@
-import 'package:foodix/core/shared/models/ProductModel.dart';
 import 'package:foodix/core/utils/my_shared_preferences.dart';
 import 'package:foodix/features/add_food/presentation/view/add_food_view.dart';
 import 'package:foodix/features/cart/presentation/view/cart_view.dart';
@@ -16,6 +15,8 @@ import 'package:foodix/features/signup/presentation/view/signup_view.dart';
 import 'package:foodix/features/verification/presentation/view/verification_view.dart';
 import 'package:foodix/features/your_addresses/view/your_addresses_view.dart';
 import 'package:go_router/go_router.dart';
+
+import '../shared/models/category_model.dart';
 
 abstract class AppRouter {
   static final router = GoRouter(
@@ -61,7 +62,7 @@ abstract class AppRouter {
       GoRoute(
         path: CategoryFoodsView.id,
         builder: (context, state) =>
-            CategoryFoodsView(productModel: state.extra as ProductModel),
+            CategoryFoodsView(category: state.extra as CategoryModel),
       ),
       GoRoute(
         path: AddFoodView.id,

@@ -15,6 +15,8 @@ import 'package:foodix/features/verification/data/repos/verificatoin_repo_imp.da
 import 'package:get_it/get_it.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../features/home/data/repos/main_buyer/main_buyer_repo_imp.dart';
+
 final GetIt getIt = GetIt.instance;
 
 void setupServiceLocator() {
@@ -60,4 +62,8 @@ void setupServiceLocator() {
   );
 
   getIt.registerSingleton<MySharedPreferences>(MySharedPreferences());
+
+  getIt.registerSingleton<MainBuyerRepoImp>(
+    MainBuyerRepoImp(getIt<DBServices>()),
+  );
 }

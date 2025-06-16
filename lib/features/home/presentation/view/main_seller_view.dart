@@ -14,7 +14,7 @@ import 'package:foodix/features/home/presentation/viewmodel/cubits/main_seller/m
 import 'package:foodix/features/home/presentation/viewmodel/cubits/main_seller/main_seller_state.dart';
 import 'package:foodix/generated/l10n.dart';
 
-import '../../../../core/shared/models/ProductModel.dart';
+import '../../../../core/shared/models/category_model.dart';
 
 class MainSellerView extends StatefulWidget {
   const MainSellerView({super.key});
@@ -27,7 +27,7 @@ class _MainSellerViewState extends State<MainSellerView> {
   late final TextEditingController _searchCategoryController;
   late final TextEditingController _searchFoodController;
   late final TextEditingController _categoryController;
-  final List<ProductModel> listOfFoodCategories = [];
+  final List<CategoryModel> listOfFoodCategories = [];
 
   @override
   void initState() {
@@ -69,7 +69,7 @@ class _MainSellerViewState extends State<MainSellerView> {
     if (snapshot.exists) {
       Map categories = snapshot.value as Map;
       categories.forEach((key, value) {
-        listOfFoodCategories.add(ProductModel.fromJson(value));
+        listOfFoodCategories.add(CategoryModel.fromJson(value));
       });
     }
   }

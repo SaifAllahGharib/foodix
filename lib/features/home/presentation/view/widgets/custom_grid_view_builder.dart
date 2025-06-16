@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:foodix/core/utils/dimensions.dart';
 import 'package:foodix/features/food_details/presentation/view/food_details_view.dart';
+import 'package:go_router/go_router.dart';
 
-import '../../../../../core/shared/models/ProductModel.dart';
+import '../../../../../core/shared/models/category_model.dart';
 import 'grid_item_view.dart';
 
 class CustomGridViewBuilder extends StatelessWidget {
-  final ProductModel productModel;
+  final CategoryModel category;
 
-  const CustomGridViewBuilder({super.key, required this.productModel});
+  const CustomGridViewBuilder({super.key, required this.category});
 
   @override
   Widget build(BuildContext context) {
@@ -21,11 +21,11 @@ class CustomGridViewBuilder extends StatelessWidget {
         childAspectRatio: Dimensions.screenHeight * 0.00087,
       ),
       padding: EdgeInsets.zero,
-      itemCount: productModel.foods!.length,
+      itemCount: category.foods!.length,
       itemBuilder: (context, index) {
         return GridItemView(
           index: index,
-          productModel: productModel,
+          category: category,
           onClick: () {
             GoRouter.of(context).push(FoodDetailsView.id);
           },

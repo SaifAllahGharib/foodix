@@ -1,32 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodix/core/utils/dimensions.dart';
-import 'package:foodix/core/viewmodel/cubits/local_cubit.dart';
+
+import '../../../../../core/utils/assets.dart';
+import '../../../../../core/widgets/custom_cashed_network_image.dart';
 
 class CustomImageItemSliverListViewBuyerView extends StatelessWidget {
-  const CustomImageItemSliverListViewBuyerView({super.key});
+  final String? imageUrl;
+
+  const CustomImageItemSliverListViewBuyerView({super.key, this.imageUrl});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: Dimensions.height130,
-      height: Dimensions.height130,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(
-              context.watch<LocalCubit>().isArabic ? 0 : Dimensions.radius20),
-          bottomLeft: Radius.circular(
-              context.watch<LocalCubit>().isArabic ? 0 : Dimensions.radius20),
-          topRight: Radius.circular(
-              context.watch<LocalCubit>().isArabic ? Dimensions.radius20 : 0),
-          bottomRight: Radius.circular(
-              context.watch<LocalCubit>().isArabic ? Dimensions.radius20 : 0),
-        ),
-        image: const DecorationImage(
-          fit: BoxFit.cover,
-          image: AssetImage(" "),
-        ),
-      ),
+    return CustomCashedNetworkImage(
+      imageURL: imageUrl,
+      placeholder: Assets.placeholder,
+      width: Dimensions.height80 * 1.2,
+      height: Dimensions.height80 * 1.2,
     );
   }
 }

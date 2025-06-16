@@ -3,10 +3,10 @@ import 'package:foodix/core/utils/dimensions.dart';
 import 'package:foodix/core/utils/styles.dart';
 import 'package:foodix/features/restaurant/presentation/view/widgets/custom_food_category_list_view.dart';
 
-import '../../../../../core/shared/models/ProductModel.dart';
+import '../../../../../core/shared/models/category_model.dart';
 
 class CustomRestaurantProductList extends StatelessWidget {
-  final List<ProductModel> listOfFoodCategories;
+  final List<CategoryModel> listOfFoodCategories;
   final List<GlobalKey> keys;
 
   const CustomRestaurantProductList({
@@ -29,7 +29,7 @@ class CustomRestaurantProductList extends StatelessWidget {
                 horizontal: Dimensions.height20,
               ),
               child: Text(
-                listOfFoodCategories[index].category!,
+                listOfFoodCategories[index].categoryName!,
                 style: Styles.textStyle18(context),
               ),
             ),

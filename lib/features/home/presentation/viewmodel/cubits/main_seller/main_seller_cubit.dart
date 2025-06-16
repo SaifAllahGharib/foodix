@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodix/features/home/data/repos/main_seller/main_seller_repo.dart';
 import 'package:foodix/features/home/presentation/viewmodel/cubits/main_seller/main_seller_state.dart';
 
-import '../../../../../../core/shared/models/ProductModel.dart';
+import '../../../../../../core/shared/models/category_model.dart';
 
 class MainSellerCubit extends Cubit<MainSellerState> {
   final MainSellerRepository _mainSellerRepository;
@@ -20,9 +20,9 @@ class MainSellerCubit extends Cubit<MainSellerState> {
     return super.close();
   }
 
-  Future<void> addCategory(ProductModel product) async {
+  Future<void> addCategory(CategoryModel category) async {
     emit(MainSellerLoading());
-    final result = await _mainSellerRepository.addCategory(product);
+    final result = await _mainSellerRepository.addCategory(category);
 
     result.fold(
       (l) => emit(MainSellerFailure(l.errorMsg)),

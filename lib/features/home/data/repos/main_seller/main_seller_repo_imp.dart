@@ -3,7 +3,7 @@ import 'package:foodix/core/errors/failure.dart';
 import 'package:foodix/core/services/db_services.dart';
 import 'package:foodix/features/home/data/repos/main_seller/main_seller_repo.dart';
 
-import '../../../../../core/shared/models/ProductModel.dart';
+import '../../../../../core/shared/models/category_model.dart';
 
 class MainSellerRepositoryImp extends MainSellerRepository {
   final DBServices _dbServices;
@@ -11,9 +11,9 @@ class MainSellerRepositoryImp extends MainSellerRepository {
   MainSellerRepositoryImp(this._dbServices);
 
   @override
-  Future<Either<Failure, void>> addCategory(ProductModel product) async {
+  Future<Either<Failure, void>> addCategory(CategoryModel category) async {
     try {
-      return right(await _dbServices.addCategory(product));
+      return right(await _dbServices.addCategory(category));
     } catch (e) {
       if (e is FirebaseDBFailure) {
         return left(FirebaseDBFailure(e.errorMsg));

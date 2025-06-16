@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:foodix/features/home/presentation/view/widgets/custom_item_category_seller_list_view.dart';
 
-import '../../../../../core/shared/models/ProductModel.dart';
+import '../../../../../core/shared/models/category_model.dart';
 
 class CategorySellerListView extends StatelessWidget {
-  final List<ProductModel> list;
+  final List<CategoryModel> list;
   final TextEditingController searchFoodController;
 
   const CategorySellerListView({
