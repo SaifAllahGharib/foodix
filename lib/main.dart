@@ -1,12 +1,14 @@
+import 'package:device_preview/device_preview.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:foodix/core/utils/app_router.dart';
 import 'package:foodix/core/utils/colors.dart';
+import 'package:foodix/core/utils/di.dart';
 import 'package:foodix/core/utils/functions/init_app.dart';
 import 'package:foodix/core/utils/functions/set_portrait_orientation.dart';
 import 'package:foodix/core/utils/image_picker_helper.dart';
-import 'package:foodix/core/utils/service_locator.dart';
 import 'package:foodix/core/viewmodel/cubits/local_cubit.dart';
 import 'package:foodix/core/widgets/loading.dart';
 import 'package:foodix/features/home/data/repos/home/home_repo_imp.dart';
@@ -21,7 +23,11 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   setPortraitOrientation();
 
-  runApp(const MyApp());
+  runApp(
+    DevicePreview(enabled: !kReleaseMode, builder: (context) => const MyApp()),
+  );
+
+  // runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

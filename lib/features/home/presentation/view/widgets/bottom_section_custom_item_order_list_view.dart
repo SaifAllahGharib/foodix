@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:foodix/core/utils/dimensions.dart';
+import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/utils/styles.dart';
 import 'package:foodix/core/widgets/custom_details_order_name_image.dart';
 import 'package:foodix/core/widgets/custom_row_cost.dart';
 import 'package:foodix/features/details_order/presentation/view/details_order_view.dart';
-import 'package:foodix/generated/l10n.dart';
+import 'package:go_router/go_router.dart';
 
 class BottomSectionCustomItemOrderListView extends StatelessWidget {
   const BottomSectionCustomItemOrderListView({super.key});
@@ -32,7 +32,7 @@ class BottomSectionCustomItemOrderListView extends StatelessWidget {
             splashColor: Colors.transparent,
             enableFeedback: false,
             child: Text(
-              S.of(context).orderDetails,
+              context.translate.orderDetails,
               style: Styles.textStyle15(context).copyWith(
                 fontWeight: FontWeight.w400,
                 color: Colors.black,

@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:foodix/core/utils/colors.dart';
 import 'package:foodix/core/utils/dimensions.dart';
+import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/utils/functions/snack_bar.dart';
 import 'package:foodix/core/utils/my_shared_preferences.dart';
 import 'package:foodix/core/widgets/custom_button.dart';
 import 'package:foodix/core/widgets/custom_text.dart';
-import 'package:foodix/core/widgets/custom_text_field.dart';
+import 'package:foodix/core/widgets/custom_text_form_field.dart';
 import 'package:foodix/core/widgets/loading.dart';
 import 'package:foodix/features/home/presentation/view/home_view.dart';
 import 'package:foodix/features/login/data/models/change_password_model.dart';
 import 'package:foodix/features/login/presentation/viewmodel/cubits/change_password/change_password_cubit.dart';
 import 'package:foodix/features/login/presentation/viewmodel/cubits/change_password/change_password_state.dart';
-import 'package:foodix/generated/l10n.dart';
+import 'package:go_router/go_router.dart';
 
 class ChangePasswordViewBody extends StatefulWidget {
   final String verifyCode;
@@ -59,9 +59,9 @@ class _ChangePasswordViewBodyState extends State<ChangePasswordViewBody> {
 
   void _validation(BuildContext context) {
     context.read<ChangePasswordCubit>().validationFields(
-          changePassword: _changePassword,
-          confirmPassword: _confirmPassword,
-        );
+      changePassword: _changePassword,
+      confirmPassword: _confirmPassword,
+    );
   }
 
   void _handleState(state) async {
@@ -79,16 +79,10 @@ class _ChangePasswordViewBodyState extends State<ChangePasswordViewBody> {
 
         GoRouter.of(context).go(HomeView.id);
       } else if (msg == "Failed to update password") {
-        snackBar(
-          context: context,
-          text: "change_password_failed",
-        );
+        snackBar(context: context, text: "change_password_failed");
       }
     } else if (state is ChangePasswordFailure) {
-      snackBar(
-        context: context,
-        text: "Error: ${state.errorMsg}",
-      );
+      snackBar(context: context, text: "Error: ${state.errorMsg}");
     }
   }
 
@@ -107,37 +101,39 @@ class _ChangePasswordViewBodyState extends State<ChangePasswordViewBody> {
             child: Column(
               children: [
                 SizedBox(height: Dimensions.height45),
-                CustomText(text: "change_password"),
+                CustomText(text: context.translate.changePassword),
                 SizedBox(height: Dimensions.height45 * 2),
-                CustomTextField(
+                CustomTextFormField(
                   controller: _changePassword,
+                  label: context.translate.labelPass,
                   isPassword: true,
-                  hint: S.of(context).hintPass,
+                  hint: context.translate.hintPass,
                   onPressedShowPassword: () => showPassword(context),
                   showPassword: isShow(context),
                   onChanged: (val) => _validation(context),
                 ),
                 SizedBox(height: Dimensions.height15),
-                CustomTextField(
+                CustomTextFormField(
                   controller: _confirmPassword,
+                  label: context.translate.labelConfPass,
                   isPassword: true,
-                  hint: "confirm_password",
+                  hint: context.translate.hintPass,
                   onPressedShowPassword: () => showPassword(context),
                   showPassword: isShow(context),
                   onChanged: (val) => _validation(context),
                 ),
                 SizedBox(height: Dimensions.height30),
                 CustomButton(
-                  text: "verify",
+                  text: context.translate.verify,
                   isEnabled: context.watch<ChangePasswordCubit>().buttonEnabled,
                   onClick: () =>
                       context.read<ChangePasswordCubit>().changePassword(
-                            ChangePasswordModel(
-                              email: widget.user["email"],
-                              password: _confirmPassword.text,
-                              verifyCode: widget.verifyCode,
-                            ),
-                          ),
+                        ChangePasswordModel(
+                          email: widget.user["email"],
+                          password: _confirmPassword.text,
+                          verifyCode: widget.verifyCode,
+                        ),
+                      ),
                 ),
               ],
             ),

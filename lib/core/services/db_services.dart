@@ -1,4 +1,5 @@
 import 'package:firebase_database/firebase_database.dart';
+import 'package:foodix/features/home/data/models/restaurant_model.dart';
 
 import '../shared/models/category_model.dart';
 import '../shared/models/food_model.dart';
@@ -17,7 +18,7 @@ abstract class DBServices {
 
   Stream<dynamic> getCategories();
 
-  Future<void> createRestaurant(String restaurantName);
+  Future<void> createRestaurant(RestaurantModel restaurant);
 
   Future<DataSnapshot> getRestaurants();
 }

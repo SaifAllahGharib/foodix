@@ -16,6 +16,7 @@ import 'package:foodix/features/verification/presentation/view/verification_view
 import 'package:foodix/features/your_addresses/view/your_addresses_view.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../features/my_restaurant/presentation/view/my_restaurant_view.dart';
 import '../shared/models/category_model.dart';
 
 abstract class AppRouter {
@@ -86,6 +87,10 @@ abstract class AppRouter {
         builder: (context, state) => const RestaurantView(),
       ),
       GoRoute(path: CartView.id, builder: (context, state) => const CartView()),
+      GoRoute(
+        path: MyRestaurantView.id,
+        builder: (context, state) => const MyRestaurantView(),
+      ),
     ],
   );
 }

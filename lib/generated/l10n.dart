@@ -86,23 +86,58 @@ class S {
   }
 
   /// `Name`
-  String get hintName {
-    return Intl.message('Name', name: 'hintName', desc: '', args: []);
+  String get labelName {
+    return Intl.message('Name', name: 'labelName', desc: '', args: []);
   }
 
   /// `Email`
-  String get hintEmail {
-    return Intl.message('Email', name: 'hintEmail', desc: '', args: []);
+  String get labelEmail {
+    return Intl.message('Email', name: 'labelEmail', desc: '', args: []);
   }
 
   /// `Phone number`
-  String get hintPhone {
-    return Intl.message('Phone number', name: 'hintPhone', desc: '', args: []);
+  String get labelPhone {
+    return Intl.message('Phone number', name: 'labelPhone', desc: '', args: []);
   }
 
   /// `Password`
+  String get labelPass {
+    return Intl.message('Password', name: 'labelPass', desc: '', args: []);
+  }
+
+  /// `Confirm Password`
+  String get labelConfPass {
+    return Intl.message(
+      'Confirm Password',
+      name: 'labelConfPass',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Saif`
+  String get hintName {
+    return Intl.message('Saif', name: 'hintName', desc: '', args: []);
+  }
+
+  /// `example@ex.com`
+  String get hintEmail {
+    return Intl.message(
+      'example@ex.com',
+      name: 'hintEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `01012345678`
+  String get hintPhone {
+    return Intl.message('01012345678', name: 'hintPhone', desc: '', args: []);
+  }
+
+  /// `***********`
   String get hintPass {
-    return Intl.message('Password', name: 'hintPass', desc: '', args: []);
+    return Intl.message('***********', name: 'hintPass', desc: '', args: []);
   }
 
   /// `Already have an account?`
@@ -545,11 +580,6 @@ class S {
     return Intl.message('Edit', name: 'edit', desc: '', args: []);
   }
 
-  /// `Edit name`
-  String get editName {
-    return Intl.message('Edit name', name: 'editName', desc: '', args: []);
-  }
-
   /// `m`
   String get minute {
     return Intl.message('m', name: 'minute', desc: '', args: []);
@@ -583,6 +613,121 @@ class S {
   /// `Categories`
   String get categories {
     return Intl.message('Categories', name: 'categories', desc: '', args: []);
+  }
+
+  /// `My Restaurant`
+  String get myRestaurant {
+    return Intl.message(
+      'My Restaurant',
+      name: 'myRestaurant',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Complete Your Restaurant`
+  String get completeYourRestaurant {
+    return Intl.message(
+      'Complete Your Restaurant',
+      name: 'completeYourRestaurant',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `To proceed, please complete your restaurant details including name, address, and categories.`
+  String get toProceedPlease {
+    return Intl.message(
+      'To proceed, please complete your restaurant details including name, address, and categories.',
+      name: 'toProceedPlease',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Got it`
+  String get gotIt {
+    return Intl.message('Got it', name: 'gotIt', desc: '', args: []);
+  }
+
+  /// `New name`
+  String get newName {
+    return Intl.message('New name', name: 'newName', desc: '', args: []);
+  }
+
+  /// `Save Restaurant`
+  String get saveRestaurant {
+    return Intl.message(
+      'Save Restaurant',
+      name: 'saveRestaurant',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add Restaurant Info`
+  String get addRestaurantInfo {
+    return Intl.message(
+      'Add Restaurant Info',
+      name: 'addRestaurantInfo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Burger King`
+  String get hintNameRestaurant {
+    return Intl.message(
+      'Burger King',
+      name: 'hintNameRestaurant',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `30 min`
+  String get hintDeliveryTime {
+    return Intl.message('30 min', name: 'hintDeliveryTime', desc: '', args: []);
+  }
+
+  /// `15 EGP`
+  String get hintDeliveryCost {
+    return Intl.message('15 EGP', name: 'hintDeliveryCost', desc: '', args: []);
+  }
+
+  /// `Delivery Time`
+  String get labelDeliveryTime {
+    return Intl.message(
+      'Delivery Time',
+      name: 'labelDeliveryTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delivery Cost`
+  String get labelDeliveryCost {
+    return Intl.message(
+      'Delivery Cost',
+      name: 'labelDeliveryCost',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select time`
+  String get selectTime {
+    return Intl.message('Select time', name: 'selectTime', desc: '', args: []);
+  }
+
+  /// `Open Time`
+  String get openTime {
+    return Intl.message('Open Time', name: 'openTime', desc: '', args: []);
+  }
+
+  /// `Close Time`
+  String get closeTime {
+    return Intl.message('Close Time', name: 'closeTime', desc: '', args: []);
   }
 }
 

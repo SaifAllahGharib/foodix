@@ -63,7 +63,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "delivery": MessageLookupByLibrary.simpleMessage("التوصيل"),
     "didNotGetACode": MessageLookupByLibrary.simpleMessage("لم تحصل على رمز؟"),
     "edit": MessageLookupByLibrary.simpleMessage("تعديل"),
-    "editName": MessageLookupByLibrary.simpleMessage("تعديل الاسم"),
     "enterVerificationCode": MessageLookupByLibrary.simpleMessage(
       "أدخل رمز التحقق",
     ),

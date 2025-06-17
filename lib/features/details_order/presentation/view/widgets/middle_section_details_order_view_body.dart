@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodix/core/utils/dimensions.dart';
+import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/utils/styles.dart';
 import 'package:foodix/core/viewmodel/cubits/local_cubit.dart';
 import 'package:foodix/core/widgets/custom_text.dart';
-import 'package:foodix/generated/l10n.dart';
 
 class MiddleSectionDetailsOrderViewBody extends StatelessWidget {
   const MiddleSectionDetailsOrderViewBody({super.key});
@@ -22,7 +22,7 @@ class MiddleSectionDetailsOrderViewBody extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CustomText(
-                  text: S.of(context).address,
+                  text: context.translate.address,
                   textSize: Dimensions.fontSize20 * 1.1,
                   alignment: context.watch<LocalCubit>().isArabic
                       ? Alignment.topRight
@@ -31,32 +31,29 @@ class MiddleSectionDetailsOrderViewBody extends StatelessWidget {
                 SizedBox(height: Dimensions.height10 * 0.5),
                 Text(
                   "Saif gharib",
-                  style: Styles.textStyle15(context).copyWith(
-                    fontWeight: FontWeight.w400,
-                    color: Colors.black,
-                  ),
+                  style: Styles.textStyle15(
+                    context,
+                  ).copyWith(fontWeight: FontWeight.w400, color: Colors.black),
                 ),
                 SizedBox(height: Dimensions.height10 * 0.3),
                 Text(
                   "Helwan elbalad3",
-                  style: Styles.textStyle15(context).copyWith(
-                    fontWeight: FontWeight.w400,
-                    color: Colors.black,
-                  ),
+                  style: Styles.textStyle15(
+                    context,
+                  ).copyWith(fontWeight: FontWeight.w400, color: Colors.black),
                 ),
                 SizedBox(height: Dimensions.height10 * 0.3),
                 Text(
                   "النصر عماره الحج نبوي بجوار بوابه الجيش",
-                  style: Styles.textStyle15(context).copyWith(
-                    fontWeight: FontWeight.w400,
-                    color: Colors.black,
-                  ),
+                  style: Styles.textStyle15(
+                    context,
+                  ).copyWith(fontWeight: FontWeight.w400, color: Colors.black),
                 ),
                 SizedBox(height: Dimensions.height10 * 0.3),
                 Row(
                   children: [
                     Text(
-                      S.of(context).phoneNumber,
+                      context.translate.phoneNumber,
                       style: Styles.textStyle15(context).copyWith(
                         fontWeight: FontWeight.w400,
                         color: Colors.black,

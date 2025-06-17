@@ -26,10 +26,10 @@ class HomeCubit extends Cubit<HomeState> {
     emit(HomeLoadingState());
     final result = await _homeRepository.getUser();
 
-    result.fold(
-      (e) => emit(HomeFailureState(e.errorMsg)),
-      (r) => emit(HomeSuccessState(UserModel.fromJson(r.value as Map))),
-    );
+    result.fold((e) => emit(HomeFailureState(e.errorMsg)), (user) {
+      print(user.value);
+      emit(HomeSuccessState(UserModel.fromJson(user.value as Map)));
+    });
   }
 
   int get selectedIndex => _selectedIndex;

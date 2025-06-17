@@ -6,6 +6,7 @@ import 'package:foodix/core/services/firebase_service.dart';
 import 'package:foodix/core/utils/assets.dart';
 import 'package:foodix/core/utils/colors.dart';
 import 'package:foodix/core/utils/dimensions.dart';
+import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/utils/functions/snack_bar.dart';
 import 'package:foodix/core/utils/styles.dart';
 import 'package:foodix/core/widgets/custom_button.dart';
@@ -13,7 +14,6 @@ import 'package:foodix/features/home/presentation/view/home_view.dart';
 import 'package:foodix/features/verification/presentation/view/widgets/success_verification_widget.dart';
 import 'package:foodix/features/verification/presentation/viewmodel/cubits/verification/verification_cubit.dart';
 import 'package:foodix/features/verification/presentation/viewmodel/cubits/verification/verification_state.dart';
-import 'package:foodix/generated/l10n.dart';
 import 'package:go_router/go_router.dart';
 
 class VerificationViewBody extends StatefulWidget {
@@ -28,6 +28,7 @@ class VerificationViewBody extends StatefulWidget {
 class _VerificationViewBodyState extends State<VerificationViewBody> {
   late final StreamController<bool> _verificationController;
   late final FirebaseService _firebaseService;
+  Timer? _timer;
 
   @override
   void initState() {
@@ -36,6 +37,13 @@ class _VerificationViewBodyState extends State<VerificationViewBody> {
     _sendEmailVerification(context);
     _startVerificationListener(context);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _timer!.cancel();
+    _verificationController.close();
+    super.dispose();
   }
 
   void _pushToHomeView() async {
@@ -47,7 +55,7 @@ class _VerificationViewBodyState extends State<VerificationViewBody> {
     if (state is VerificationIsEmailVerificationSend) {
       snackBar(
         context: context,
-        text: S.of(context).sendToEmailSuccess,
+        text: context.translate.sendToEmailSuccess,
         color: AppColors.primaryColor,
       );
     } else if (state is VerificationSuccess) {
@@ -62,10 +70,10 @@ class _VerificationViewBodyState extends State<VerificationViewBody> {
   }
 
   void _startVerificationListener(BuildContext context) {
-    Timer.periodic(const Duration(seconds: 5), (timer) async {
+    _timer = Timer.periodic(const Duration(seconds: 5), (timer) async {
       final user = _firebaseService.auth.currentUser;
       await user?.reload();
-      if (user != null && user.emailVerified) {
+      if (user != null && user.emailVerified && mounted) {
         _isEmailVerified(context);
         _verificationController.add(true);
         timer.cancel();
@@ -105,7 +113,7 @@ class _VerificationViewBodyState extends State<VerificationViewBody> {
                       runSpacing: Dimensions.height10 * 0.3,
                       children: [
                         Text(
-                          S.of(context).sendLinkVerificationYourEmailTo,
+                          context.translate.sendLinkVerificationYourEmailTo,
                           style: Styles.textStyle16(context),
                         ),
                         Text(
@@ -122,7 +130,7 @@ class _VerificationViewBodyState extends State<VerificationViewBody> {
                     CustomButton(
                       text: context.read<VerificationCubit>().time != 0
                           ? "${context.read<VerificationCubit>().time}s"
-                          : S.of(context).resendEmail,
+                          : context.translate.resendEmail,
                       isEnabled: context.read<VerificationCubit>().canSend,
                       onClick: () => _sendEmailVerification(context),
                     ),

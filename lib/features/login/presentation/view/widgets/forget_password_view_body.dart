@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:foodix/core/utils/colors.dart';
 import 'package:foodix/core/utils/dimensions.dart';
+import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/utils/functions/snack_bar.dart';
 import 'package:foodix/core/widgets/custom_back_button.dart';
 import 'package:foodix/core/widgets/custom_button.dart';
 import 'package:foodix/core/widgets/custom_text.dart';
-import 'package:foodix/core/widgets/custom_text_field.dart';
+import 'package:foodix/core/widgets/custom_text_form_field.dart';
 import 'package:foodix/core/widgets/loading.dart';
 import 'package:foodix/features/login/presentation/viewmodel/cubits/forget_password/forget_password_cubit.dart';
 import 'package:foodix/features/login/presentation/viewmodel/cubits/forget_password/forget_password_state.dart';
 import 'package:foodix/features/verification/presentation/view/verification_view.dart';
-import 'package:foodix/generated/l10n.dart';
+import 'package:go_router/go_router.dart';
 
 class ForgetPasswordViewBody extends StatefulWidget {
   const ForgetPasswordViewBody({super.key});
@@ -41,10 +41,7 @@ class _ForgetPasswordViewBodyState extends State<ForgetPasswordViewBody> {
   void _onSuccess(user) {
     GoRouter.of(context).push(
       VerificationView.id,
-      extra: {
-        "user": user,
-        "purpose": "forget_password",
-      },
+      extra: {"user": user, "purpose": "forget_password"},
     );
   }
 
@@ -62,23 +59,14 @@ class _ForgetPasswordViewBodyState extends State<ForgetPasswordViewBody> {
 
         _onSuccess(user);
       } else if (msg == "Not send code success") {
-        snackBar(
-          context: context,
-          text: "code_not_send_success",
-        );
+        snackBar(context: context, text: "code_not_send_success");
 
         _onSuccess(user);
       } else if (msg == "User not found") {
-        snackBar(
-          context: context,
-          text: "this_user_does_not_exist",
-        );
+        snackBar(context: context, text: "this_user_does_not_exist");
       }
     } else if (state is ForgetPasswordFailure) {
-      snackBar(
-        context: context,
-        text: "Error: ${state.errorMsg}",
-      );
+      snackBar(context: context, text: "Error: ${state.errorMsg}");
     }
   }
 
@@ -99,11 +87,12 @@ class _ForgetPasswordViewBodyState extends State<ForgetPasswordViewBody> {
                 SizedBox(height: Dimensions.height20),
                 const CustomBackButton(),
                 SizedBox(height: Dimensions.height30),
-                CustomText(text: "re_password"),
+                const CustomText(text: "re_password"),
                 SizedBox(height: Dimensions.height45 * 2),
-                CustomTextField(
+                CustomTextFormField(
                   controller: _email,
-                  hint: S.of(context).hintEmail,
+                  label: context.translate.labelEmail,
+                  hint: context.translate.hintEmail,
                   onChanged: (val) => context
                       .read<ForgetPasswordCubit>()
                       .validationFields(email: _email),
@@ -113,9 +102,9 @@ class _ForgetPasswordViewBodyState extends State<ForgetPasswordViewBody> {
                   text: "verify",
                   isEnabled: context.watch<ForgetPasswordCubit>().buttonEnabled,
                   onClick: () {
-                    context
-                        .read<ForgetPasswordCubit>()
-                        .forgetPassword(_email.text);
+                    context.read<ForgetPasswordCubit>().forgetPassword(
+                      _email.text,
+                    );
                   },
                 ),
               ],

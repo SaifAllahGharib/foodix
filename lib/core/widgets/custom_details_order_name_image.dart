@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodix/core/utils/assets.dart';
 import 'package:foodix/core/utils/dimensions.dart';
+import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/viewmodel/cubits/local_cubit.dart';
 import 'package:foodix/core/widgets/custom_image.dart';
 import 'package:foodix/core/widgets/custom_text.dart';
 import 'package:foodix/features/details_order/presentation/view/widgets/custom_details_order_text.dart';
-import 'package:foodix/generated/l10n.dart';
 
 class CustomDetailsOrderNameImage extends StatelessWidget {
   final bool customTextDetails;
@@ -42,13 +42,13 @@ class CustomDetailsOrderNameImage extends StatelessWidget {
                 ? SizedBox(height: Dimensions.height10 * 0.2)
                 : const SizedBox.shrink(),
             customTextDetails
-                ? CustomDetailsOrderText(text: S.of(context).completed)
+                ? CustomDetailsOrderText(text: context.translate.completed)
                 : const SizedBox.shrink(),
             SizedBox(height: Dimensions.height10 * 0.2),
             Row(
               children: [
                 CustomDetailsOrderText(
-                  text: S.of(context).orderNumber,
+                  text: context.translate.orderNumber,
                   color: Colors.grey,
                 ),
                 const CustomDetailsOrderText(

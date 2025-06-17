@@ -31,8 +31,8 @@ class CustomFoodCategoryListView extends StatelessWidget {
               index: listOfFoodCategories.indexOf(food),
               listOfFood: listOfFoodCategories,
               foodImage: food.foodImage!,
-              foodName: food.foodName!,
-              foodDesc: food.foodDesc!,
+              foodName: food.foodName,
+              foodDesc: food.foodDesc,
               foodPrice: 22,
               onClickInItem: () {
                 showBottomSheet(

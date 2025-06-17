@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:foodix/core/services/firebase_service.dart';
 import 'package:foodix/core/utils/colors.dart';
 import 'package:foodix/core/utils/dimensions.dart';
+import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/utils/functions/snack_bar.dart';
 import 'package:foodix/core/widgets/custom_button.dart';
 import 'package:foodix/core/widgets/custom_text.dart';
 import 'package:foodix/core/widgets/custom_text_button.dart';
-import 'package:foodix/core/widgets/custom_text_field.dart';
+import 'package:foodix/core/widgets/custom_text_form_field.dart';
 import 'package:foodix/core/widgets/loading.dart';
 import 'package:foodix/features/choose_type/presentation/view/choose_type_view.dart';
 import 'package:foodix/features/home/presentation/view/home_view.dart';
@@ -17,7 +17,7 @@ import 'package:foodix/features/login/presentation/view/forget_password_view.dar
 import 'package:foodix/features/login/presentation/viewmodel/cubits/login/login_cubit.dart';
 import 'package:foodix/features/login/presentation/viewmodel/cubits/login/login_state.dart';
 import 'package:foodix/features/verification/presentation/view/verification_view.dart';
-import 'package:foodix/generated/l10n.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../../core/errors/failure.dart';
 
@@ -53,23 +53,19 @@ class _LoginViewBodyState extends State<LoginViewBody> {
   }
 
   void _onSuccess(state) {
-    if (state.msg == S.of(context).success) {
+    if (state.msg == context.translate.success) {
       if (_isEmailVerified()) {
         GoRouter.of(context).push(HomeView.id);
       } else {
-        GoRouter.of(context).push(
-          VerificationView.id,
-          extra: _email.text,
-        );
+        GoRouter.of(context).push(VerificationView.id, extra: _email.text);
       }
+      _saveUser();
     }
 
-    snackBar(
-      context: context,
-      text: state.msg,
-      color: AppColors.primaryColor,
-    );
+    snackBar(context: context, text: state.msg, color: AppColors.primaryColor);
   }
+
+  void _saveUser() {}
 
   void _onFailure(state) {
     if (state.failure is FirebaseAuthFailure) {
@@ -96,19 +92,17 @@ class _LoginViewBodyState extends State<LoginViewBody> {
 
   void _validation(BuildContext context) {
     context.read<LoginCubit>().validationFields(
-          email: _email,
-          password: _password,
-        );
+      email: _email,
+      password: _password,
+    );
   }
 
   void _login(BuildContext context) {
     context.read<LoginCubit>().login(
-          LoginModel(
-            email: _email.text.trim(),
-            password: _password.text.trim(),
-          ),
-          context,
-        );
+      LoginModel(email: _email.text.trim(), password: _password.text.trim()),
+      context.translate.success,
+      context.translate.field,
+    );
   }
 
   @override
@@ -126,20 +120,23 @@ class _LoginViewBodyState extends State<LoginViewBody> {
             child: Column(
               children: [
                 SizedBox(height: Dimensions.height30),
-                CustomText(text: S.of(context).welcomeBack),
+                CustomText(text: context.translate.welcomeBack),
                 SizedBox(height: Dimensions.height45 * 2),
-                CustomTextField(
+                CustomTextFormField(
                   controller: _email,
-                  hint: S.of(context).hintEmail,
+                  label: context.translate.labelEmail,
+                  hint: context.translate.hintEmail,
                   onChanged: (val) => _validation(context),
                 ),
                 SizedBox(height: Dimensions.height15),
-                CustomTextField(
+                CustomTextFormField(
                   controller: _password,
+                  label: context.translate.labelPass,
                   isPassword: true,
-                  hint: S.of(context).hintPass,
-                  onPressedShowPassword:
-                      context.read<LoginCubit>().togglePasswordVisibility,
+                  hint: context.translate.hintPass,
+                  onPressedShowPassword: context
+                      .read<LoginCubit>()
+                      .togglePasswordVisibility,
                   showPassword: context.watch<LoginCubit>().showPassword,
                   onChanged: (val) => _validation(context),
                 ),
@@ -147,7 +144,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: CustomTextButton(
-                    text: S.of(context).forgetPass,
+                    text: context.translate.forgetPass,
                     onClick: () {
                       GoRouter.of(context).push(ForgetPasswordView.id);
                     },
@@ -155,17 +152,13 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                 ),
                 SizedBox(height: Dimensions.height30),
                 CustomButton(
-                  text: S.of(context).login,
+                  text: context.translate.login,
                   isEnabled: context.watch<LoginCubit>().buttonEnabled,
-                  onClick: () {
-                    print(_email.text);
-                    print(_password.text);
-                    _login(context);
-                  },
+                  onClick: () => _login(context),
                 ),
                 SizedBox(height: Dimensions.height20),
                 CustomTextButton(
-                  text: S.of(context).notHaveAccount,
+                  text: context.translate.notHaveAccount,
                   color: Colors.black,
                   onClick: () {
                     GoRouter.of(context).push(ChooseTypeView.id);

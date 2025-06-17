@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodix/core/errors/failure.dart';
+import 'package:foodix/core/utils/di.dart';
 import 'package:foodix/core/utils/functions/snack_bar.dart';
 import 'package:foodix/core/utils/my_shared_preferences.dart';
-import 'package:foodix/core/utils/service_locator.dart';
 import 'package:foodix/core/widgets/loading.dart';
 import 'package:foodix/features/home/data/repos/main_buyer/main_buyer_repo_imp.dart';
 import 'package:foodix/features/home/presentation/view/widgets/custom_bottom_navigation_bar.dart';
@@ -25,31 +25,38 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   int _selectedIndex = 0;
-  UserModel user = UserModel();
+  late UserModel _user;
 
   @override
   void initState() {
+    _user = UserModel();
     _getUser(context);
     super.initState();
   }
 
   void _getUser(BuildContext context) {
     final storage = getIt.get<MySharedPreferences>();
-    if (storage.getIdUser() == null &&
-        storage.getNameUser() == null &&
-        storage.getEmailUser() == null &&
-        storage.getRoleUser() == null &&
+    if (storage.getIdUser() == null ||
+        storage.getNameUser() == null ||
+        storage.getEmailUser() == null ||
+        storage.getRoleUser() == null ||
         storage.getPhoneUser() == null) {
+      print(
+        "============================== GET USER =====================================",
+      );
       context.read<HomeCubit>().getUser();
+      print(
+        "=============================================================================",
+      );
     }
   }
 
-  void _handleState(state) {
+  void _handleState(state) async {
     if (state is HomeChangeViewState) {
       _selectedIndex = state.selectedIndex;
     } else if (state is HomeSuccessState) {
-      user = state.user;
-      getIt.get<MySharedPreferences>().storeUser(state.user.toJson());
+      _user = state.user;
+      await getIt.get<MySharedPreferences>().storeUser(_user.toJson());
     } else if (state is FirebaseDBFailure) {
       snackBar(context: context, text: state.errorMsg);
     } else if (state is FirebaseFailure) {
@@ -71,7 +78,7 @@ class _HomeViewState extends State<HomeView> {
           if (state is HomeLoadingState) return const Loading();
 
           return Scaffold(
-            body: HomeViewBody(selectedIndex: _selectedIndex, user: user),
+            body: HomeViewBody(selectedIndex: _selectedIndex, user: _user),
             bottomNavigationBar: CustomBottomNavigationBar(
               onIndexChanged: (index) {
                 context.read<HomeCubit>().changeTab(index);

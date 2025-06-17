@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodix/core/utils/colors.dart';
+import 'package:foodix/core/utils/di.dart';
 import 'package:foodix/core/utils/dimensions.dart';
+import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/utils/functions/snack_bar.dart';
 import 'package:foodix/core/utils/my_shared_preferences.dart';
-import 'package:foodix/core/utils/service_locator.dart';
+import 'package:foodix/core/utils/roles.dart';
 import 'package:foodix/core/widgets/loading.dart';
 import 'package:foodix/features/home/presentation/view/widgets/change_language_widget.dart';
 import 'package:foodix/features/home/presentation/view/widgets/custom_image_profile_view.dart';
@@ -13,8 +15,6 @@ import 'package:foodix/features/home/presentation/view/widgets/name_and_email.da
 import 'package:foodix/features/home/presentation/viewmodel/cubits/home/home_cubit.dart';
 import 'package:foodix/features/home/presentation/viewmodel/cubits/profile/profile_cubit.dart';
 import 'package:foodix/features/home/presentation/viewmodel/cubits/profile/profile_state.dart';
-import 'package:foodix/features/your_addresses/view/your_addresses_view.dart';
-import 'package:foodix/generated/l10n.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/shared/models/user_model.dart';
@@ -31,6 +31,13 @@ class ProfileView extends StatefulWidget {
 class _ProfileViewState extends State<ProfileView> {
   final _storage = getIt.get<MySharedPreferences>();
   String? _imagePath;
+  late final UserRole? _userRole;
+
+  @override
+  void initState() {
+    _userRole = getIt<MySharedPreferences>().getRoleUser();
+    super.initState();
+  }
 
   void _showBottomSheet(BuildContext context) {
     showModalBottomSheet(
@@ -64,7 +71,7 @@ class _ProfileViewState extends State<ProfileView> {
     getIt.get<MySharedPreferences>().clearAllData();
     snackBar(
       context: context,
-      text: S.of(context).success,
+      text: context.translate.success,
       color: AppColors.primaryColor,
     );
     GoRouter.of(context).go("/");
@@ -73,7 +80,7 @@ class _ProfileViewState extends State<ProfileView> {
   void _updateNameSuccess(state) {
     snackBar(
       context: context,
-      text: S.of(context).success,
+      text: context.translate.success,
       color: AppColors.primaryColor,
     );
     getIt.get<MySharedPreferences>().storeString("name", state.newName);
@@ -88,6 +95,19 @@ class _ProfileViewState extends State<ProfileView> {
       _updateNameSuccess(state);
     } else if (state is ProfileFailureState) {
       snackBar(context: context, text: state.errorMsg);
+    }
+  }
+
+  void _handleRoleNavigation(BuildContext context) {
+    switch (_userRole) {
+      case Seller():
+        _userRole.navigate(context);
+        break;
+      case Buyer():
+        _userRole.navigate(context);
+      case null:
+        snackBar(context: context, text: "User Role is NULL");
+        break;
     }
   }
 
@@ -123,17 +143,19 @@ class _ProfileViewState extends State<ProfileView> {
             ),
             SizedBox(height: Dimensions.height45),
             CustomItemProfileView(
-              title: S.of(context).addresses,
-              onClick: () => GoRouter.of(context).push(YourAddressesView.id),
+              title: _userRole == getIt<Seller>()
+                  ? context.translate.myRestaurant
+                  : context.translate.addresses,
+              onClick: () => _handleRoleNavigation(context),
             ),
             SizedBox(height: Dimensions.height30),
             CustomItemProfileView(
-              title: S.of(context).language,
+              title: context.translate.language,
               onClick: () => _showBottomSheet(context),
             ),
             SizedBox(height: Dimensions.height30),
             CustomItemProfileView(
-              title: S.of(context).logout,
+              title: context.translate.logout,
               dividerIsShowing: false,
               onClick: () => _signOut(context),
             ),

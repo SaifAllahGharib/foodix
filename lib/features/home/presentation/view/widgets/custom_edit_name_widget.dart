@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:foodix/core/utils/dimensions.dart';
+import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/widgets/custom_button.dart';
-import 'package:foodix/core/widgets/custom_text_field.dart';
+import 'package:foodix/core/widgets/custom_text_form_field.dart';
 import 'package:foodix/features/home/presentation/viewmodel/cubits/profile/profile_cubit.dart';
-import 'package:foodix/generated/l10n.dart';
+import 'package:go_router/go_router.dart';
 
 class CustomEditNameWidget extends StatefulWidget {
   const CustomEditNameWidget({super.key});
@@ -56,14 +56,15 @@ class _CustomEditNameWidgetState extends State<CustomEditNameWidget> {
             ),
           ),
           SizedBox(height: Dimensions.height30),
-          CustomTextField(
-            hint: S.of(context).editName,
-            onChanged: (val) => _validation(context),
+          CustomTextFormField(
             controller: _editName,
+            label: context.translate.newName,
+            hint: context.translate.hintName,
+            onChanged: (val) => _validation(context),
           ),
           SizedBox(height: Dimensions.height20),
           CustomButton(
-            text: S.of(context).edit,
+            text: context.translate.edit,
             isEnabled: context.watch<ProfileCubit>().isEnabled,
             onClick: () => _updateName(context),
           ),

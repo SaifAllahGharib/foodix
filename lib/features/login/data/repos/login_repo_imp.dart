@@ -1,11 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:foodix/core/errors/failure.dart';
 import 'package:foodix/core/services/auth_services.dart';
 import 'package:foodix/features/login/data/models/login_model.dart';
 import 'package:foodix/features/login/data/repos/login_repo.dart';
-import 'package:foodix/generated/l10n.dart';
 
 class LoginRepositoryImp implements LoginRepository {
   final AuthServices _authServices;
@@ -14,14 +12,17 @@ class LoginRepositoryImp implements LoginRepository {
 
   @override
   Future<Either<Failure, String>> login(
-      LoginModel user, BuildContext context) async {
+    LoginModel user,
+    String successMsg,
+    String fieldMsg,
+  ) async {
     try {
       final response = await _authServices.login(user);
 
       if (response.user != null) {
-        return right(S.of(context).success);
+        return right(successMsg);
       } else {
-        return right("field");
+        return right(fieldMsg);
       }
     } on FirebaseAuthException catch (e) {
       return left(FirebaseAuthFailure(e.code));

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodix/core/utils/dimensions.dart';
 import 'package:foodix/core/utils/functions/snack_bar.dart';
 import 'package:foodix/core/widgets/loading.dart';
-import 'package:foodix/features/home/data/models/restorant_model.dart';
+import 'package:foodix/features/home/data/models/restaurant_model.dart';
 import 'package:foodix/features/home/presentation/view/widgets/custom_app_bar_main_buyer_view.dart';
 import 'package:foodix/features/home/presentation/view/widgets/custom_sliver_list_view_main_buyer_view.dart';
 import 'package:foodix/features/home/presentation/viewmodel/cubits/main_buyer/main_buyer/main_buyer_cubit.dart';
@@ -36,7 +36,7 @@ class _MainBuyerViewState extends State<MainBuyerView> {
         }
       },
       builder: (context, state) {
-        if (state is MainBuyerLoading) return Loading();
+        if (state is MainBuyerLoading) return const Loading();
 
         return CustomScrollView(
           slivers: [

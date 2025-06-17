@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodix/core/utils/dimensions.dart';
+import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/widgets/custom_button.dart';
-import 'package:foodix/core/widgets/custom_text_field.dart';
+import 'package:foodix/core/widgets/custom_text_form_field.dart';
 import 'package:foodix/features/home/presentation/viewmodel/cubits/main_seller/main_seller_cubit.dart';
-import 'package:foodix/generated/l10n.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../core/shared/models/category_model.dart';
@@ -43,14 +43,15 @@ class CustomWidgetFloatButtonAddCategory extends StatelessWidget {
       padding: EdgeInsets.all(Dimensions.height20),
       child: Column(
         children: [
-          CustomTextField(
+          CustomTextFormField(
             controller: categoryController,
-            hint: S.of(context).category,
+            label: context.translate.category,
+            hint: context.translate.category,
             onChanged: (val) => _validation(context),
           ),
           SizedBox(height: Dimensions.height20),
           CustomButton(
-            text: S.of(context).add,
+            text: context.translate.add,
             isEnabled: context.watch<MainSellerCubit>().isEnabled,
             onClick: () => _addCategory(context),
           ),

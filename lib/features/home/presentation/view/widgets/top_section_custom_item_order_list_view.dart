@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:foodix/core/utils/colors.dart';
 import 'package:foodix/core/utils/dimensions.dart';
+import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/utils/styles.dart';
-import 'package:foodix/generated/l10n.dart';
 
 class TopSectionCustomItemOrderListView extends StatelessWidget {
   const TopSectionCustomItemOrderListView({super.key});
@@ -19,10 +19,9 @@ class TopSectionCustomItemOrderListView extends StatelessWidget {
             children: [
               Text(
                 "Today",
-                style: Styles.textStyle15(context).copyWith(
-                  fontWeight: FontWeight.w500,
-                  color: Colors.grey,
-                ),
+                style: Styles.textStyle15(
+                  context,
+                ).copyWith(fontWeight: FontWeight.w500, color: Colors.grey),
               ),
               SizedBox(width: Dimensions.width10),
               Icon(
@@ -33,10 +32,9 @@ class TopSectionCustomItemOrderListView extends StatelessWidget {
               SizedBox(width: Dimensions.width10),
               Text(
                 "12:30 PM",
-                style: Styles.textStyle15(context).copyWith(
-                  fontWeight: FontWeight.w500,
-                  color: Colors.grey,
-                ),
+                style: Styles.textStyle15(
+                  context,
+                ).copyWith(fontWeight: FontWeight.w500, color: Colors.grey),
               ),
             ],
           ),
@@ -50,11 +48,10 @@ class TopSectionCustomItemOrderListView extends StatelessWidget {
               borderRadius: BorderRadius.circular(Dimensions.radius10),
             ),
             child: Text(
-              S.of(context).completed,
-              style: Styles.textStyle15(context).copyWith(
-                fontWeight: FontWeight.w500,
-                color: Colors.black54,
-              ),
+              context.translate.completed,
+              style: Styles.textStyle15(
+                context,
+              ).copyWith(fontWeight: FontWeight.w500, color: Colors.black54),
             ),
           ),
         ],

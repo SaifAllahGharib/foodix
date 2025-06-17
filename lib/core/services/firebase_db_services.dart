@@ -2,6 +2,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:foodix/core/services/db_services.dart';
 import 'package:foodix/core/services/firebase_service.dart';
 
+import '../../features/home/data/models/restaurant_model.dart';
 import '../shared/models/category_model.dart';
 import '../shared/models/food_model.dart';
 import '../shared/models/user_model.dart';
@@ -73,13 +74,12 @@ class FirebaseDBServices extends DBServices {
   }
 
   @override
-  Future<void> createRestaurant(String restaurantName) async {
+  Future<void> createRestaurant(RestaurantModel restaurant) async {
     await _firebaseService.db
         .ref()
         .child("restaurants")
         .child(_firebaseService.auth.currentUser!.uid)
-        .child(restaurantName)
-        .set({});
+        .set(restaurant.toJson());
   }
 
   @override

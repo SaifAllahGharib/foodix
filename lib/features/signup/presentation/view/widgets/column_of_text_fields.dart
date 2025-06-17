@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodix/core/utils/dimensions.dart';
-import 'package:foodix/core/widgets/custom_text_field.dart';
+import 'package:foodix/core/utils/extensions.dart';
+import 'package:foodix/core/widgets/custom_text_form_field.dart';
 import 'package:foodix/features/signup/presentation/viewmodel/cubits/signup/signup_cubit.dart';
-import 'package:foodix/generated/l10n.dart';
 
 class ColumnOfTextFields extends StatefulWidget {
   final BuildContext context;
@@ -32,30 +32,35 @@ class _ColumnOfTextFieldsState extends State<ColumnOfTextFields> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CustomTextField(
+        CustomTextFormField(
           controller: widget.name,
-          hint: S.of(context).hintName,
+          label: context.translate.labelName,
+          hint: context.translate.hintName,
           onChanged: widget.validator,
         ),
         SizedBox(height: Dimensions.height15),
-        CustomTextField(
+        CustomTextFormField(
           controller: widget.email,
-          hint: S.of(context).hintEmail,
+          label: context.translate.labelEmail,
+          hint: context.translate.hintEmail,
           onChanged: widget.validator,
         ),
         SizedBox(height: Dimensions.height15),
-        CustomTextField(
+        CustomTextFormField(
           controller: widget.phone,
-          hint: S.of(context).hintPhone,
+          label: context.translate.labelPhone,
+          hint: context.translate.hintPhone,
           onChanged: widget.validator,
         ),
         SizedBox(height: Dimensions.height15),
-        CustomTextField(
+        CustomTextFormField(
           controller: widget.password,
+          label: context.translate.labelPass,
           isPassword: true,
-          hint: S.of(context).hintPass,
-          onPressedShowPassword:
-              widget.context.read<SignupCubit>().togglePasswordVisibility,
+          hint: context.translate.hintPass,
+          onPressedShowPassword: widget.context
+              .read<SignupCubit>()
+              .togglePasswordVisibility,
           showPassword: widget.context.watch<SignupCubit>().showPassword,
           onChanged: widget.validator,
         ),

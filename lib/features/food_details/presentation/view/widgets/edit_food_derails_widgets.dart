@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:foodix/core/utils/dimensions.dart';
+import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/widgets/custom_button.dart';
 import 'package:foodix/core/widgets/custom_divider.dart';
-import 'package:foodix/core/widgets/custom_text_field.dart';
-import 'package:foodix/generated/l10n.dart';
+import 'package:foodix/core/widgets/custom_text_form_field.dart';
 
 class EditFoodDerailsWidgets extends StatefulWidget {
   const EditFoodDerailsWidgets({super.key});
@@ -49,28 +49,28 @@ class _EditFoodDerailsWidgetsState extends State<EditFoodDerailsWidgets> {
           children: [
             const CustomDivider(),
             SizedBox(height: Dimensions.height45),
-            CustomTextField(
+            CustomTextFormField(
               controller: _nameFood,
-              hint: S.of(context).foodName,
+              label: context.translate.foodName,
+              hint: context.translate.foodName,
               onChanged: (val) {},
             ),
             SizedBox(height: Dimensions.height10),
-            CustomTextField(
+            CustomTextFormField(
               controller: _descFood,
-              hint: S.of(context).foodDesc,
+              label: context.translate.foodDesc,
+              hint: context.translate.foodDesc,
               onChanged: (val) {},
             ),
             SizedBox(height: Dimensions.height10),
-            CustomTextField(
+            CustomTextFormField(
               controller: _costFood,
-              hint: S.of(context).foodCost,
+              label: context.translate.foodCost,
+              hint: context.translate.foodCost,
               onChanged: (val) {},
             ),
             SizedBox(height: Dimensions.height30),
-            CustomButton(
-              text: S.of(context).edit,
-              onClick: () {},
-            ),
+            CustomButton(text: context.translate.edit, onClick: () {}),
           ],
         ),
       ),

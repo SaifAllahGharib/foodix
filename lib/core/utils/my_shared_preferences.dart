@@ -1,7 +1,9 @@
-import 'package:logger/logger.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:foodix/core/utils/di.dart';
+import 'package:foodix/core/utils/roles.dart';
 import 'package:foodix/features/home/presentation/view/home_view.dart';
 import 'package:foodix/features/login/presentation/view/login_view.dart';
+import 'package:logger/logger.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MySharedPreferences {
   MySharedPreferences._internal();
@@ -18,9 +20,13 @@ class MySharedPreferences {
   }
 
   Future<void> storeUser(Map<String, dynamic> user) async {
+    final futures = <Future>[];
+
     for (var entry in user.entries) {
-      await storeString(entry.key, entry.value.toString());
+      futures.add(storeString(entry.key, entry.value.toString()));
     }
+
+    await Future.wait(futures);
   }
 
   String? getIdUser() => getString('uid');
@@ -31,11 +37,20 @@ class MySharedPreferences {
 
   String? getPhoneUser() => getString('phone');
 
-  String? getRoleUser() => getString('role');
+  UserRole? getRoleUser() {
+    if (getString('role') == getIt<Seller>().toString()) {
+      return getIt<Seller>();
+    } else if (getString('role') == getIt<Buyer>().toString()) {
+      return getIt<Buyer>();
+    }
+    return null;
+  }
 
   Future<bool> storeString(String key, String value) async {
     return await _safeWrite(
-        () => _prefs.setString(key, value), 'Error storing string');
+      () => _prefs.setString(key, value),
+      'Error storing string',
+    );
   }
 
   String? getString(String key) => _prefs.getString(key);
@@ -52,7 +67,9 @@ class MySharedPreferences {
   }
 
   Future<bool> _safeWrite(
-      Future<bool> Function() operation, String errorMessage) async {
+    Future<bool> Function() operation,
+    String errorMessage,
+  ) async {
     try {
       return await operation();
     } catch (e, stacktrace) {

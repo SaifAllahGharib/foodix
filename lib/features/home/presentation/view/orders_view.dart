@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodix/core/utils/dimensions.dart';
+import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/utils/styles.dart';
 import 'package:foodix/features/home/presentation/view/widgets/custom_item_order_list_view.dart';
 import 'package:foodix/features/home/presentation/view/widgets/dates_orders_list_view.dart';
 import 'package:foodix/features/home/presentation/viewmodel/cubits/orders/orders_cubit.dart';
 import 'package:foodix/features/home/presentation/viewmodel/cubits/orders/orders_state.dart';
-import 'package:foodix/generated/l10n.dart';
 
 class OrdersView extends StatefulWidget {
   const OrdersView({super.key});
@@ -48,7 +48,7 @@ class _OrdersViewState extends State<OrdersView> {
             children: [
               SizedBox(height: Dimensions.height10),
               Text(
-                S.of(context).yourOrders,
+                context.translate.yourOrders,
                 style: Styles.textStyle18(context),
               ),
               SizedBox(height: Dimensions.height20),

@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodix/core/utils/colors.dart';
 import 'package:foodix/core/utils/dimensions.dart';
+import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/utils/functions/snack_bar.dart';
 import 'package:foodix/core/widgets/custom_back_button.dart';
 import 'package:foodix/core/widgets/custom_button.dart';
 import 'package:foodix/core/widgets/custom_text.dart';
-import 'package:foodix/core/widgets/custom_text_field.dart';
+import 'package:foodix/core/widgets/custom_text_form_field.dart';
 import 'package:foodix/core/widgets/loading.dart';
 import 'package:foodix/features/add_food/presentation/view/widgets/custom_button_image_picker.dart';
 import 'package:foodix/features/add_food/presentation/viewmodel/cubits/add_food/add_food_cubit.dart';
 import 'package:foodix/features/add_food/presentation/viewmodel/cubits/add_food/add_food_state.dart';
-import 'package:foodix/generated/l10n.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../core/shared/models/food_model.dart';
@@ -84,7 +84,7 @@ class _AddFoodViewBodyState extends State<AddFoodViewBody> {
     } else if (state is AddFoodSuccess) {
       snackBar(
         context: context,
-        text: S.of(context).success,
+        text: context.translate.success,
         color: AppColors.primaryColor,
       );
 
@@ -109,7 +109,7 @@ class _AddFoodViewBodyState extends State<AddFoodViewBody> {
                 SizedBox(height: Dimensions.height20),
                 const CustomBackButton(),
                 SizedBox(height: Dimensions.height45),
-                CustomText(text: S.of(context).addFood),
+                CustomText(text: context.translate.addFood),
                 SizedBox(height: Dimensions.height45),
                 CustomButtonImagePicker(
                   pickImageFromCamera: () => _pickImageFromCamera(context),
@@ -117,27 +117,30 @@ class _AddFoodViewBodyState extends State<AddFoodViewBody> {
                   selectedImage: _imagePath,
                 ),
                 SizedBox(height: Dimensions.height20),
-                CustomTextField(
+                CustomTextFormField(
                   controller: _foodName,
-                  hint: S.of(context).foodName,
+                  label: context.translate.foodName,
+                  hint: context.translate.foodName,
                   onChanged: (val) => validate(context),
                 ),
                 SizedBox(height: Dimensions.height10),
-                CustomTextField(
+                CustomTextFormField(
                   controller: _foodDesc,
-                  hint: S.of(context).foodDesc,
+                  label: context.translate.foodDesc,
+                  hint: context.translate.foodDesc,
                   onChanged: (val) => validate(context),
                 ),
                 SizedBox(height: Dimensions.height10),
-                CustomTextField(
+                CustomTextFormField(
                   controller: _foodPrice,
-                  hint: S.of(context).foodCost,
+                  label: context.translate.foodCost,
+                  hint: context.translate.foodCost,
                   textInputType: TextInputType.number,
                   onChanged: (val) => validate(context),
                 ),
                 SizedBox(height: Dimensions.height30),
                 CustomButton(
-                  text: S.of(context).add,
+                  text: context.translate.add,
                   isEnabled: context.watch<AddFoodCubit>().isValid,
                   onClick: () => _addFood(context),
                 ),

@@ -2,19 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodix/core/utils/colors.dart';
 import 'package:foodix/core/utils/dimensions.dart';
+import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/utils/functions/snack_bar.dart';
 import 'package:foodix/core/utils/styles.dart';
 import 'package:foodix/core/widgets/empty_widget.dart';
 import 'package:foodix/core/widgets/loading.dart';
 import 'package:foodix/features/home/presentation/view/widgets/category_seller_list_view.dart';
+import 'package:foodix/features/home/presentation/view/widgets/complete_reataurant_dialog_widget.dart';
 import 'package:foodix/features/home/presentation/view/widgets/custom_float_button.dart';
 import 'package:foodix/features/home/presentation/view/widgets/custom_search_text_field.dart';
 import 'package:foodix/features/home/presentation/view/widgets/custom_widget_float_button_add_category.dart';
 import 'package:foodix/features/home/presentation/viewmodel/cubits/main_seller/main_seller_cubit.dart';
 import 'package:foodix/features/home/presentation/viewmodel/cubits/main_seller/main_seller_state.dart';
-import 'package:foodix/generated/l10n.dart';
 
 import '../../../../core/shared/models/category_model.dart';
+import '../../../../core/utils/di.dart';
+import '../../../../core/utils/my_shared_preferences.dart';
 
 class MainSellerView extends StatefulWidget {
   const MainSellerView({super.key});
@@ -62,7 +65,7 @@ class _MainSellerViewState extends State<MainSellerView> {
     context.read<MainSellerCubit>().getCategories();
   }
 
-  void _getCategoriesSuccess(state) {
+  void _getCategoriesSuccess(MainSellerGetCategory state) {
     final snapshot = state.snapshot;
     listOfFoodCategories.clear();
 
@@ -74,17 +77,17 @@ class _MainSellerViewState extends State<MainSellerView> {
     }
   }
 
-  void _handleState(state) {
+  void _handleState(MainSellerState state) {
     if (state is MainSellerAddCategory) {
       snackBar(
         context: context,
-        text: S.of(context).success,
+        text: context.translate.success,
         color: AppColors.primaryColor,
       );
     } else if (state is MainSellerAddFood) {
       snackBar(
         context: context,
-        text: S.of(context).success,
+        text: context.translate.success,
         color: AppColors.primaryColor,
       );
     } else if (state is MainSellerGetCategory) {
@@ -92,6 +95,42 @@ class _MainSellerViewState extends State<MainSellerView> {
     } else if (state is MainSellerFailure) {
       snackBar(context: context, text: state.errorMsg);
     }
+  }
+
+  void _handleAddCategory() {
+    final String? restaurantName = getIt<MySharedPreferences>().getString(
+      "restaurantName",
+    );
+    final String? deliveryTime = getIt<MySharedPreferences>().getString(
+      "deliveryTime",
+    );
+    final String? deliveryCost = getIt<MySharedPreferences>().getString(
+      "deliveryCost",
+    );
+    final String? openTime = getIt<MySharedPreferences>().getString("openTime");
+    final String? closeTime = getIt<MySharedPreferences>().getString(
+      "closeTime",
+    );
+
+    if ((restaurantName == null || restaurantName.isEmpty) ||
+        (deliveryTime == null || deliveryTime.isEmpty) ||
+        (deliveryCost == null || deliveryCost.isEmpty) ||
+        (openTime == null || openTime.isEmpty) ||
+        (closeTime == null || closeTime.isEmpty)) {
+      _showCompleteRestaurantDialog(context);
+    } else {
+      _addCategoryBottomSheet(context);
+    }
+  }
+
+  void _showCompleteRestaurantDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return const CompleteRestaurantDialogWidget();
+      },
+    );
   }
 
   @override
@@ -118,7 +157,7 @@ class _MainSellerViewState extends State<MainSellerView> {
                     onChange: (value) {},
                   ),
                   if (listOfFoodCategories.isEmpty)
-                    const EmptyWidget()
+                    const Expanded(child: EmptyWidget())
                   else
                     Expanded(
                       child: Column(
@@ -126,7 +165,7 @@ class _MainSellerViewState extends State<MainSellerView> {
                         children: [
                           SizedBox(height: Dimensions.height20),
                           Text(
-                            S.of(context).categories,
+                            context.translate.categories,
                             style: Styles.textStyle30(context),
                           ),
                           SizedBox(height: Dimensions.height20),
@@ -139,9 +178,7 @@ class _MainSellerViewState extends State<MainSellerView> {
                     ),
                 ],
               ),
-              CustomFloatButton(
-                onClick: () => _addCategoryBottomSheet(context),
-              ),
+              CustomFloatButton(onClick: _handleAddCategory),
             ],
           ),
         );

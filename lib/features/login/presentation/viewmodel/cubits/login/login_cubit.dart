@@ -12,13 +12,17 @@ class LoginCubit extends Cubit<LoginState> {
 
   LoginCubit(this._loginRepository) : super(LoginInit());
 
-  Future<void> login(LoginModel user, BuildContext context) async {
+  Future<void> login(
+    LoginModel user,
+    String successMsg,
+    String fieldMsg,
+  ) async {
     emit(LoginLoading());
-    var response = await _loginRepository.login(user, context);
+    var response = await _loginRepository.login(user, successMsg, fieldMsg);
 
     response.fold(
       (e) => emit(LoginFailure(e)),
-      (user) => emit(LoginSuccess(user)),
+      (msg) => emit(LoginSuccess(msg)),
     );
   }
 
@@ -31,7 +35,8 @@ class LoginCubit extends Cubit<LoginState> {
     required TextEditingController email,
     required TextEditingController password,
   }) {
-    _buttonEnabled = email.text.isNotEmpty &&
+    _buttonEnabled =
+        email.text.isNotEmpty &&
         password.text.isNotEmpty &&
         isValidEmail(email.text);
     emit(LoginButtonIsEnabled(_buttonEnabled));

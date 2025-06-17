@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodix/core/utils/colors.dart';
 import 'package:foodix/core/utils/dimensions.dart';
-import 'package:foodix/generated/l10n.dart';
+import 'package:foodix/core/utils/extensions.dart';
 
 class CustomSearchTextField extends StatelessWidget {
   final TextEditingController controller;
@@ -22,10 +22,8 @@ class CustomSearchTextField extends StatelessWidget {
       decoration: InputDecoration(
         filled: true,
         fillColor: Colors.white,
-        hintText: S.of(context).search,
-        hintStyle: const TextStyle(
-          color: Colors.black45,
-        ),
+        hintText: context.translate.search,
+        hintStyle: const TextStyle(color: Colors.black45),
         contentPadding: EdgeInsets.symmetric(horizontal: Dimensions.height20),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(Dimensions.radius20 * 4),

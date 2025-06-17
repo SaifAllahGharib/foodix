@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:foodix/core/utils/assets.dart';
+import 'package:foodix/core/utils/di.dart';
 import 'package:foodix/core/utils/dimensions.dart';
+import 'package:foodix/core/utils/extensions.dart';
+import 'package:foodix/core/utils/roles.dart';
 import 'package:foodix/core/widgets/custom_back_button.dart';
 import 'package:foodix/core/widgets/custom_button.dart';
 import 'package:foodix/core/widgets/custom_image.dart';
 import 'package:foodix/core/widgets/custom_text.dart';
 import 'package:foodix/features/signup/presentation/view/signup_view.dart';
-import 'package:foodix/generated/l10n.dart';
+import 'package:go_router/go_router.dart';
 
 class ChooseTypeViewBody extends StatelessWidget {
   const ChooseTypeViewBody({super.key});
@@ -21,30 +23,23 @@ class ChooseTypeViewBody extends StatelessWidget {
           SizedBox(height: Dimensions.height20),
           const CustomBackButton(),
           SizedBox(height: Dimensions.height30),
-          CustomImage(
-            image: Assets.chooseRole,
-            width: Dimensions.width380,
-          ),
+          CustomImage(image: Assets.chooseRole, width: Dimensions.width380),
           const Spacer(),
           CustomText(
-            text: S.of(context).chooseType,
+            text: context.translate.chooseType,
             textSize: Dimensions.fontSize30 * 0.8,
           ),
           SizedBox(height: Dimensions.height30),
           CustomButton(
-            text: S.of(context).vendor,
+            text: context.translate.vendor,
             isEnabled: true,
-            onClick: () {
-              _goToSignup(context, "seller");
-            },
+            onClick: () => _goToSignup(context, getIt<Seller>().toString()),
           ),
           SizedBox(height: Dimensions.height20),
           CustomButton(
-            text: S.of(context).buyer,
+            text: context.translate.buyer,
             isEnabled: true,
-            onClick: () {
-              _goToSignup(context, "buyer");
-            },
+            onClick: () => _goToSignup(context, getIt<Buyer>().toString()),
           ),
           const Spacer(),
         ],

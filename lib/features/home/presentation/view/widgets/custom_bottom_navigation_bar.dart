@@ -37,18 +37,19 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: List.generate(
-          3,
-          (index) {
-            return GestureDetector(
-              onTap: () => widget.onIndexChanged(index),
-              child: _buildIconWithLine(
-                index: index,
-                isSelected: index == context.watch<HomeCubit>().selectedIndex,
-              ),
-            );
-          },
-        ),
+        children: List.generate(3, (index) {
+          return InkWell(
+            overlayColor: const WidgetStatePropertyAll(Colors.transparent),
+            highlightColor: Colors.transparent,
+            splashColor: Colors.transparent,
+            focusColor: Colors.transparent,
+            onTap: () => widget.onIndexChanged(index),
+            child: _buildIconWithLine(
+              index: index,
+              isSelected: index == context.watch<HomeCubit>().selectedIndex,
+            ),
+          );
+        }),
       ),
     );
   }

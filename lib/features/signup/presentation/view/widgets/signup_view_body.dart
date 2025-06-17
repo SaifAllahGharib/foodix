@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:foodix/core/errors/failure.dart';
 import 'package:foodix/core/utils/dimensions.dart';
+import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/utils/functions/snack_bar.dart';
 import 'package:foodix/core/widgets/custom_back_button.dart';
 import 'package:foodix/core/widgets/custom_button.dart';
@@ -15,7 +15,7 @@ import 'package:foodix/features/signup/presentation/view/widgets/column_of_text_
 import 'package:foodix/features/signup/presentation/viewmodel/cubits/signup/signup_cubit.dart';
 import 'package:foodix/features/signup/presentation/viewmodel/cubits/signup/signup_state.dart';
 import 'package:foodix/features/verification/presentation/view/verification_view.dart';
-import 'package:foodix/generated/l10n.dart';
+import 'package:go_router/go_router.dart';
 
 class SignupViewBody extends StatefulWidget {
   final String role;
@@ -52,14 +52,11 @@ class _SignupViewBodyState extends State<SignupViewBody> {
   }
 
   void _pushToVerificationView() {
-    GoRouter.of(context).push(
-      VerificationView.id,
-      extra: _email.text,
-    );
+    GoRouter.of(context).push(VerificationView.id, extra: _email.text);
   }
 
   void _onSuccess(state) {
-    if (state.msg == S.of(context).success) {
+    if (state.msg == context.translate.success) {
       _pushToVerificationView();
     }
 
@@ -90,25 +87,26 @@ class _SignupViewBodyState extends State<SignupViewBody> {
 
   void _signup(BuildContext context) async {
     context.read<SignupCubit>().signup(
-          SignupModel(
-            name: _name.text,
-            email: _email.text,
-            phone: _phone.text,
-            password: _password.text,
-            role: widget.role,
-          ),
-          context,
-        );
+      SignupModel(
+        name: _name.text,
+        email: _email.text,
+        phone: _phone.text,
+        password: _password.text,
+        role: widget.role,
+      ),
+      context.translate.success,
+      context.translate.field,
+    );
   }
 
   void _validation(BuildContext context) {
     context.read<SignupCubit>().validationFields(
-          name: _name,
-          email: _email,
-          phone: _phone,
-          password: _password,
-          userType: widget.role,
-        );
+      name: _name,
+      email: _email,
+      phone: _phone,
+      password: _password,
+      userType: widget.role,
+    );
   }
 
   @override
@@ -128,7 +126,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                 SizedBox(height: Dimensions.height20),
                 const CustomBackButton(),
                 SizedBox(height: Dimensions.height30),
-                CustomText(text: S.of(context).createAccount),
+                CustomText(text: context.translate.createAccount),
                 SizedBox(height: Dimensions.height45 * 1.3),
                 ColumnOfTextFields(
                   context: context,
@@ -140,13 +138,13 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                 ),
                 SizedBox(height: Dimensions.height45),
                 CustomButton(
-                  text: S.of(context).signup,
+                  text: context.translate.signup,
                   isEnabled: context.watch<SignupCubit>().buttonEnabled,
                   onClick: () => _signup(context),
                 ),
                 SizedBox(height: Dimensions.height45),
                 CustomTextButton(
-                  text: S.of(context).alreadyHaveAccount,
+                  text: context.translate.alreadyHaveAccount,
                   onClick: () {
                     GoRouter.of(context).push(LoginView.id);
                   },

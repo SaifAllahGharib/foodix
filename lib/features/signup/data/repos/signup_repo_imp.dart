@@ -1,12 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:foodix/core/errors/failure.dart';
 import 'package:foodix/core/services/auth_services.dart';
 import 'package:foodix/core/services/db_services.dart';
 import 'package:foodix/features/signup/data/models/signup_model.dart';
 import 'package:foodix/features/signup/data/repos/signup_repo.dart';
-import 'package:foodix/generated/l10n.dart';
 
 import '../../../../core/shared/models/user_model.dart';
 
@@ -19,7 +17,8 @@ class SignupRepositoryImp extends SignupRepository {
   @override
   Future<Either<Failure, String>> signup(
     SignupModel user,
-    BuildContext context,
+    String successMsg,
+    String fieldMsg,
   ) async {
     try {
       final response = await _authService.signUp(user);
@@ -34,22 +33,26 @@ class SignupRepositoryImp extends SignupRepository {
           role: user.role,
         );
 
-        try {
-          await Future.wait([
-            _dbServices.setUser(userModel),
-            _dbServices.createRestaurant(userModel.name!),
-          ]);
-          return right(S.of(context).success);
-        } catch (e) {
-          return left(FirebaseDBFailure(e.toString()));
-        }
+        return _saveUserToDB(userModel, successMsg);
       } else {
-        return right(S.of(context).field);
+        return right(fieldMsg);
       }
     } on FirebaseAuthException catch (e) {
       return left(FirebaseAuthFailure(e.code));
     } catch (e) {
       return left(FirebaseFailure(e.toString()));
+    }
+  }
+
+  Future<Either<Failure, String>> _saveUserToDB(
+    UserModel user,
+    String successMsg,
+  ) async {
+    try {
+      await _dbServices.setUser(user);
+      return right(successMsg);
+    } catch (e) {
+      return left(FirebaseDBFailure(e.toString()));
     }
   }
 }

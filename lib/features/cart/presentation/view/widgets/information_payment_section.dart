@@ -18,17 +18,17 @@ class InformationPaymentSection extends StatelessWidget {
             "Information Payment",
             style: Styles.textStyle18(context),
           ),
-          CustomItemDetailsOrder(
+          const CustomItemDetailsOrder(
             startText: "total_basket",
             endText: "250",
           ),
           SizedBox(height: Dimensions.height10 * 0.5),
-          CustomItemDetailsOrder(
+          const CustomItemDetailsOrder(
             startText: "delivery",
             endText: "20",
           ),
           SizedBox(height: Dimensions.height10 * 0.5),
-          CustomItemDetailsOrder(
+          const CustomItemDetailsOrder(
             startText: "total",
             endText: "270",
           ),

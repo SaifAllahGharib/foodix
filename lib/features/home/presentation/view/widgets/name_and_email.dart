@@ -22,7 +22,7 @@ class NameAndEmail extends StatelessWidget {
       context: context,
       barrierColor: const Color(0x77909090),
       backgroundColor: Colors.white,
-      sheetAnimationStyle: AnimationStyle(
+      sheetAnimationStyle: const AnimationStyle(
         curve: Curves.fastOutSlowIn,
         reverseCurve: Curves.easeInBack,
       ),

@@ -5,6 +5,7 @@ import 'package:foodix/core/services/firebase_db_services.dart';
 import 'package:foodix/core/services/firebase_service.dart';
 import 'package:foodix/core/utils/image_picker_helper.dart';
 import 'package:foodix/core/utils/my_shared_preferences.dart';
+import 'package:foodix/core/utils/roles.dart';
 import 'package:foodix/features/add_food/data/repos/add_food_repo_imp.dart';
 import 'package:foodix/features/home/data/repos/home/home_repo_imp.dart';
 import 'package:foodix/features/home/data/repos/main_seller/main_seller_repo_imp.dart';
@@ -20,6 +21,8 @@ import '../../features/home/data/repos/main_buyer/main_buyer_repo_imp.dart';
 final GetIt getIt = GetIt.instance;
 
 void setupServiceLocator() {
+  getIt.registerSingleton<MySharedPreferences>(MySharedPreferences());
+
   getIt.registerSingleton<FirebaseService>(FirebaseService());
 
   final firebaseService = getIt<FirebaseService>();
@@ -61,9 +64,11 @@ void setupServiceLocator() {
     ImagePickerHelper(picker: getIt<ImagePicker>()),
   );
 
-  getIt.registerSingleton<MySharedPreferences>(MySharedPreferences());
-
   getIt.registerSingleton<MainBuyerRepoImp>(
     MainBuyerRepoImp(getIt<DBServices>()),
   );
+
+  getIt.registerLazySingleton<Seller>(() => Seller());
+
+  getIt.registerLazySingleton<Buyer>(() => Buyer());
 }

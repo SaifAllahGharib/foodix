@@ -13,9 +13,13 @@ class SignupCubit extends Cubit<SignupState> {
 
   SignupCubit(this._signupRepository) : super(SignupInit());
 
-  Future<void> signup(SignupModel user, BuildContext context) async {
+  Future<void> signup(
+    SignupModel user,
+    String successMsg,
+    String fieldMsg,
+  ) async {
     emit(SignupLoading());
-    final result = await _signupRepository.signup(user, context);
+    final result = await _signupRepository.signup(user, successMsg, fieldMsg);
 
     result.fold(
       (failure) => emit(SignupFailure(failure)),
@@ -35,7 +39,8 @@ class SignupCubit extends Cubit<SignupState> {
     required TextEditingController password,
     required String userType,
   }) {
-    _buttonEnabled = name.text.isNotEmpty &&
+    _buttonEnabled =
+        name.text.isNotEmpty &&
         email.text.isNotEmpty &&
         phone.text.isNotEmpty &&
         password.text.isNotEmpty &&
