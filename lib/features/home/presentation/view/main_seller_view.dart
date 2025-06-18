@@ -14,6 +14,7 @@ import 'package:foodix/features/home/presentation/view/widgets/custom_search_tex
 import 'package:foodix/features/home/presentation/view/widgets/custom_widget_float_button_add_category.dart';
 import 'package:foodix/features/home/presentation/viewmodel/cubits/main_seller/main_seller_cubit.dart';
 import 'package:foodix/features/home/presentation/viewmodel/cubits/main_seller/main_seller_state.dart';
+import 'package:foodix/features/my_restaurant/data/models/restaurant_model.dart';
 
 import '../../../../core/shared/models/category_model.dart';
 import '../../../../core/utils/di.dart';
@@ -30,14 +31,16 @@ class _MainSellerViewState extends State<MainSellerView> {
   late final TextEditingController _searchCategoryController;
   late final TextEditingController _searchFoodController;
   late final TextEditingController _categoryController;
+  late final RestaurantModel _restaurant;
   final List<CategoryModel> listOfFoodCategories = [];
 
   @override
   void initState() {
-    _getCategories(context);
     _searchCategoryController = TextEditingController();
     _searchFoodController = TextEditingController();
     _categoryController = TextEditingController();
+    _getMyRestaurant();
+    _getCategories(context);
 
     super.initState();
   }
@@ -48,6 +51,10 @@ class _MainSellerViewState extends State<MainSellerView> {
     _searchFoodController.dispose();
     _categoryController.dispose();
     super.dispose();
+  }
+
+  void _getMyRestaurant() async {
+    await context.read<MainSellerCubit>().getMyRestaurant();
   }
 
   void _addCategoryBottomSheet(BuildContext context) {
@@ -61,8 +68,8 @@ class _MainSellerViewState extends State<MainSellerView> {
     );
   }
 
-  void _getCategories(BuildContext context) {
-    context.read<MainSellerCubit>().getCategories();
+  void _getCategories(BuildContext context) async {
+    await context.read<MainSellerCubit>().getCategories();
   }
 
   void _getCategoriesSuccess(MainSellerGetCategory state) {
@@ -92,35 +99,51 @@ class _MainSellerViewState extends State<MainSellerView> {
       );
     } else if (state is MainSellerGetCategory) {
       _getCategoriesSuccess(state);
+    } else if (state is MainSellerGetMyRestaurant) {
+      _restaurant = state.restaurant;
     } else if (state is MainSellerFailure) {
       snackBar(context: context, text: state.errorMsg);
     }
   }
 
-  void _handleAddCategory() {
-    final String? restaurantName = getIt<MySharedPreferences>().getString(
+  void _handleAddCategory() async {
+    final mySharedPreferences = getIt<MySharedPreferences>();
+    final String? restaurantName = mySharedPreferences.getString(
       "restaurantName",
     );
-    final String? deliveryTime = getIt<MySharedPreferences>().getString(
-      "deliveryTime",
-    );
-    final String? deliveryCost = getIt<MySharedPreferences>().getString(
-      "deliveryCost",
-    );
-    final String? openTime = getIt<MySharedPreferences>().getString("openTime");
-    final String? closeTime = getIt<MySharedPreferences>().getString(
-      "closeTime",
-    );
+    final String? deliveryTime = mySharedPreferences.getString("deliveryTime");
+    final String? deliveryCost = mySharedPreferences.getString("deliveryCost");
+    final String? openTime = mySharedPreferences.getString("openTime");
+    final String? closeTime = mySharedPreferences.getString("closeTime");
 
-    if ((restaurantName == null || restaurantName.isEmpty) ||
+    bool isNotInLocalDB =
+        (restaurantName == null || restaurantName.isEmpty) ||
         (deliveryTime == null || deliveryTime.isEmpty) ||
         (deliveryCost == null || deliveryCost.isEmpty) ||
         (openTime == null || openTime.isEmpty) ||
-        (closeTime == null || closeTime.isEmpty)) {
+        (closeTime == null || closeTime.isEmpty);
+
+    if (!_restaurant.isValid) {
       _showCompleteRestaurantDialog(context);
-    } else {
+    } else if (isNotInLocalDB) {
+      bool restaurantStoredSuccess = await _storeRestaurantInLocalDB(
+        _restaurant,
+      );
+      if (restaurantStoredSuccess) {
+        _addCategoryBottomSheet(context);
+      } else {
+        snackBar(context: context, text: "Failed to store restaurant");
+      }
+      snackBar(context: context, text: "Not In Local DB");
+    } else if (_restaurant.isValid && !isNotInLocalDB) {
       _addCategoryBottomSheet(context);
     }
+  }
+
+  Future<bool> _storeRestaurantInLocalDB(RestaurantModel restaurant) async {
+    return await context.read<MainSellerCubit>().storeRestaurantInLocalDB(
+      restaurant,
+    );
   }
 
   void _showCompleteRestaurantDialog(BuildContext context) {

@@ -2,7 +2,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:foodix/core/services/db_services.dart';
 import 'package:foodix/core/services/firebase_service.dart';
 
-import '../../features/home/data/models/restaurant_model.dart';
+import '../../features/my_restaurant/data/models/restaurant_model.dart';
 import '../shared/models/category_model.dart';
 import '../shared/models/food_model.dart';
 import '../shared/models/user_model.dart';
@@ -78,12 +78,21 @@ class FirebaseDBServices extends DBServices {
     await _firebaseService.db
         .ref()
         .child("restaurants")
-        .child(_firebaseService.auth.currentUser!.uid)
+        .child(restaurant.id!)
         .set(restaurant.toJson());
   }
 
   @override
   Future<DataSnapshot> getRestaurants() async {
     return await _firebaseService.db.ref().child("restaurants").get();
+  }
+
+  @override
+  Future<DataSnapshot?> getMyRestaurants() {
+    return _firebaseService.db
+        .ref()
+        .child("restaurants")
+        .child(_firebaseService.auth.currentUser!.uid)
+        .get();
   }
 }

@@ -11,6 +11,7 @@ import 'package:foodix/features/home/data/repos/home/home_repo_imp.dart';
 import 'package:foodix/features/home/data/repos/main_seller/main_seller_repo_imp.dart';
 import 'package:foodix/features/home/data/repos/profile/profile_repo_imp.dart';
 import 'package:foodix/features/login/data/repos/login_repo_imp.dart';
+import 'package:foodix/features/my_restaurant/data/repos/my_restaurant_repo_imp.dart';
 import 'package:foodix/features/signup/data/repos/signup_repo_imp.dart';
 import 'package:foodix/features/verification/data/repos/verificatoin_repo_imp.dart';
 import 'package:get_it/get_it.dart';
@@ -71,4 +72,8 @@ void setupServiceLocator() {
   getIt.registerLazySingleton<Seller>(() => Seller());
 
   getIt.registerLazySingleton<Buyer>(() => Buyer());
+
+  getIt.registerSingleton<MyRestaurantRepositoryImp>(
+    MyRestaurantRepositoryImp(getIt<DBServices>()),
+  );
 }

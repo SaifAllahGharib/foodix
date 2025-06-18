@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:foodix/core/utils/extensions.dart';
 
+import '../utils/colors.dart';
 import '../utils/dimensions.dart';
 import '../utils/styles.dart';
 
-class TimePickerWidget extends StatefulWidget {
+class TimePickerWidget extends StatelessWidget {
   final String label;
   final VoidCallback onTap;
-  final TimeOfDay? time;
+  final String? time;
 
   const TimePickerWidget({
     super.key,
@@ -17,17 +18,6 @@ class TimePickerWidget extends StatefulWidget {
   });
 
   @override
-  State<TimePickerWidget> createState() => _TimePickerWidgetState();
-}
-
-class _TimePickerWidgetState extends State<TimePickerWidget> {
-  String formatTime(BuildContext context, TimeOfDay? time) {
-    if (time == null) return context.translate.selectTime;
-    final localizations = MaterialLocalizations.of(context);
-    return localizations.formatTimeOfDay(time, alwaysUse24HourFormat: false);
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(bottom: Dimensions.height15),
@@ -35,14 +25,14 @@ class _TimePickerWidgetState extends State<TimePickerWidget> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            widget.label,
+            label,
             style: Styles.textStyle15(
               context,
             ).copyWith(fontWeight: FontWeight.w600),
           ),
           SizedBox(height: Dimensions.height10),
           GestureDetector(
-            onTap: widget.onTap,
+            onTap: onTap,
             child: Container(
               width: double.infinity,
               padding: EdgeInsets.symmetric(
@@ -50,12 +40,12 @@ class _TimePickerWidgetState extends State<TimePickerWidget> {
                 horizontal: Dimensions.height15,
               ),
               decoration: BoxDecoration(
-                color: Colors.grey.shade100,
+                color: AppColors.gray.withOpacity(0.2),
                 borderRadius: BorderRadius.circular(Dimensions.radius10),
               ),
               child: Text(
-                formatTime(context, widget.time),
-                style: widget.time != null
+                time!,
+                style: time != context.translate.selectTime
                     ? Styles.textStyle15(
                         context,
                       ).copyWith(fontWeight: FontWeight.w500)

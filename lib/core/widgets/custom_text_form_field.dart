@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodix/core/utils/colors.dart';
 import 'package:foodix/core/utils/dimensions.dart';
 import 'package:foodix/core/utils/styles.dart';
 
@@ -11,6 +12,7 @@ class CustomTextFormField extends StatelessWidget {
   final bool isPassword;
   final bool? showPassword;
   final TextInputType textInputType;
+  final bool enabled;
 
   const CustomTextFormField({
     super.key,
@@ -22,23 +24,25 @@ class CustomTextFormField extends StatelessWidget {
     this.isPassword = false,
     this.showPassword,
     this.textInputType = TextInputType.text,
+    this.enabled = true,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(bottom: Dimensions.height15),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            label,
-            style: Styles.textStyle15(
-              context,
-            ).copyWith(fontWeight: FontWeight.w600),
-          ),
-          SizedBox(height: Dimensions.height10),
-          TextFormField(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: Styles.textStyle15(
+            context,
+          ).copyWith(fontWeight: FontWeight.w600),
+        ),
+        SizedBox(height: Dimensions.height10),
+        SizedBox(
+          height: Dimensions.height45 * 1.05,
+          child: TextFormField(
+            enabled: enabled,
             controller: controller,
             onChanged: onChanged,
             obscureText: isPassword && !(showPassword ?? false),
@@ -50,7 +54,7 @@ class CustomTextFormField extends StatelessWidget {
               hintText: hint,
               hintStyle: Styles.textStyle12(context),
               filled: true,
-              fillColor: Colors.grey.shade100,
+              fillColor: AppColors.gray.withOpacity(0.2),
               contentPadding: EdgeInsets.symmetric(
                 vertical: Dimensions.height12,
                 horizontal: Dimensions.height15,
@@ -71,8 +75,8 @@ class CustomTextFormField extends StatelessWidget {
                   : null,
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

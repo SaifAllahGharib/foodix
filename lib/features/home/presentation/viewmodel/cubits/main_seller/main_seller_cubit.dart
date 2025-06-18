@@ -4,15 +4,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodix/features/home/data/repos/main_seller/main_seller_repo.dart';
 import 'package:foodix/features/home/presentation/viewmodel/cubits/main_seller/main_seller_state.dart';
+import 'package:foodix/features/my_restaurant/data/models/restaurant_model.dart';
 
 import '../../../../../../core/shared/models/category_model.dart';
+import '../../../../../../core/utils/my_shared_preferences.dart';
 
 class MainSellerCubit extends Cubit<MainSellerState> {
   final MainSellerRepository _mainSellerRepository;
+  final MySharedPreferences _mySharedPreferences;
   bool _isEnabled = false;
   StreamSubscription? _categorySubscription;
 
-  MainSellerCubit(this._mainSellerRepository) : super(MainSellerInit());
+  MainSellerCubit(this._mainSellerRepository, this._mySharedPreferences)
+    : super(MainSellerInit());
 
   @override
   Future<void> close() {
@@ -43,6 +47,40 @@ class MainSellerCubit extends Cubit<MainSellerState> {
         (snapshot) => emit(MainSellerGetCategory(snapshot)),
       );
     });
+  }
+
+  Future<void> getMyRestaurant() async {
+    final result = await _mainSellerRepository.getMyRestaurant();
+
+    result.fold(
+      (l) => emit(MainSellerFailure(l.errorMsg)),
+      (restaurant) => emit(
+        MainSellerGetMyRestaurant(
+          RestaurantModel.fromJson(restaurant?.value as Map? ?? {}),
+        ),
+      ),
+    );
+  }
+
+  Future<bool> storeRestaurantInLocalDB(RestaurantModel restaurant) async {
+    try {
+      await Future.wait([
+        _mySharedPreferences.storeString("restaurantName", restaurant.name!),
+        _mySharedPreferences.storeString(
+          "deliveryTime",
+          restaurant.deliveryTime.toString(),
+        ),
+        _mySharedPreferences.storeString(
+          "deliveryCost",
+          restaurant.deliveryCost.toString(),
+        ),
+        _mySharedPreferences.storeString("openTime", restaurant.openTime!),
+        _mySharedPreferences.storeString("closeTime", restaurant.closeTime!),
+      ]);
+      return true;
+    } catch (_) {
+      return false;
+    }
   }
 
   void enableButton(TextEditingController controller) {

@@ -9,6 +9,7 @@ import 'package:foodix/core/utils/di.dart';
 import 'package:foodix/core/utils/functions/init_app.dart';
 import 'package:foodix/core/utils/functions/set_portrait_orientation.dart';
 import 'package:foodix/core/utils/image_picker_helper.dart';
+import 'package:foodix/core/utils/my_shared_preferences.dart';
 import 'package:foodix/core/viewmodel/cubits/local_cubit.dart';
 import 'package:foodix/core/widgets/loading.dart';
 import 'package:foodix/features/home/data/repos/home/home_repo_imp.dart';
@@ -59,8 +60,10 @@ class MyApp extends StatelessWidget {
               ),
             ),
             BlocProvider<MainSellerCubit>(
-              create: (context) =>
-                  MainSellerCubit(getIt.get<MainSellerRepositoryImp>()),
+              create: (context) => MainSellerCubit(
+                getIt.get<MainSellerRepositoryImp>(),
+                getIt.get<MySharedPreferences>(),
+              ),
             ),
           ],
           child: BlocBuilder<LocalCubit, Locale>(

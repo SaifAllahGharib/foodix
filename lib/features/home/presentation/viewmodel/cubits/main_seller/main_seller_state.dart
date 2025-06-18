@@ -1,4 +1,5 @@
 import 'package:firebase_database/firebase_database.dart';
+import 'package:foodix/features/my_restaurant/data/models/restaurant_model.dart';
 
 abstract class MainSellerState {}
 
@@ -19,6 +20,12 @@ class MainSellerGetCategory extends MainSellerState {
 class MainSellerAddFood extends MainSellerState {}
 
 class MainSellerEnableButton extends MainSellerState {}
+
+class MainSellerGetMyRestaurant extends MainSellerState {
+  final RestaurantModel restaurant;
+
+  MainSellerGetMyRestaurant(this.restaurant);
+}
 
 class MainSellerFailure extends MainSellerState {
   final String errorMsg;

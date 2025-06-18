@@ -8,7 +8,7 @@ import 'package:foodix/core/widgets/custom_dot_widget.dart';
 import 'package:foodix/core/widgets/custom_rating_widget.dart';
 import 'package:foodix/features/home/presentation/view/widgets/custom_image_item_sliver_list_view_buyer_view.dart';
 
-import '../../../data/models/restaurant_model.dart';
+import '../../../../my_restaurant/data/models/restaurant_model.dart';
 
 class CustomItemSliverListViewBuyerView extends StatelessWidget {
   final void Function() onClick;

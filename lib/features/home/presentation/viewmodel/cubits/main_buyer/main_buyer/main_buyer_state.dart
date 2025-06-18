@@ -1,4 +1,4 @@
-import '../../../../../data/models/restaurant_model.dart';
+import '../../../../../../my_restaurant/data/models/restaurant_model.dart';
 
 sealed class MainBuyerState {}
 

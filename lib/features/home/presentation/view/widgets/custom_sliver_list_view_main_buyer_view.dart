@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:foodix/features/home/data/models/restaurant_model.dart';
 import 'package:foodix/features/home/presentation/view/widgets/custom_item_sliver_list_view_buyer_view.dart';
+import 'package:foodix/features/my_restaurant/data/models/restaurant_model.dart';
 import 'package:foodix/features/restaurant/presentation/view/restaurant_view.dart';
 import 'package:go_router/go_router.dart';
 

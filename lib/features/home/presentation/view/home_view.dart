@@ -41,13 +41,7 @@ class _HomeViewState extends State<HomeView> {
         storage.getEmailUser() == null ||
         storage.getRoleUser() == null ||
         storage.getPhoneUser() == null) {
-      print(
-        "============================== GET USER =====================================",
-      );
       context.read<HomeCubit>().getUser();
-      print(
-        "=============================================================================",
-      );
     }
   }
 

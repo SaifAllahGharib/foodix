@@ -1,28 +1,43 @@
 import '../../../../core/shared/models/category_model.dart';
 
 class RestaurantModel {
-  final String id;
-  final String name;
-  final String imageUrl;
-  final double rating;
-  final String deliveryTime;
-  final String deliveryCost;
-  final String openTime;
-  final String closeTime;
-
-  final List<CategoryModel> categories;
+  final String? id;
+  final String? name;
+  final String? imageUrl;
+  final double? rating;
+  final int? deliveryTime;
+  final double? deliveryCost;
+  final String? openTime;
+  final String? closeTime;
+  final List<CategoryModel>? categories;
 
   RestaurantModel({
     required this.id,
     required this.name,
-    required this.imageUrl,
-    required this.rating,
+    this.imageUrl,
+    this.rating,
     required this.deliveryTime,
     required this.deliveryCost,
     required this.openTime,
     required this.closeTime,
-    required this.categories,
+    this.categories,
   });
+
+  factory RestaurantModel.fromJson(Map<dynamic, dynamic> json) {
+    return RestaurantModel(
+      id: json['id'] as String?,
+      name: json['name'] as String?,
+      imageUrl: json['imageUrl'] as String?,
+      rating: (json['rating'] as num?)?.toDouble(),
+      deliveryTime: json['deliveryTime'] as int?,
+      deliveryCost: (json['deliveryCost'] as num?)?.toDouble(),
+      openTime: json['openTime'] as String?,
+      closeTime: json['closeTime'] as String?,
+      categories: (json['categories'] as Map<dynamic, dynamic>?)?.values
+          .map((e) => CategoryModel.fromJson(e))
+          .toList(),
+    );
+  }
 
   static List<RestaurantModel> fromJsonMap(Map<dynamic, dynamic> json) {
     return json.entries.map((entry) {
@@ -53,6 +68,15 @@ class RestaurantModel {
     }).toList();
   }
 
+  bool get isValid {
+    return id != null &&
+        name != null &&
+        deliveryTime != null &&
+        deliveryCost != null &&
+        openTime != null &&
+        closeTime != null;
+  }
+
   Map<String, dynamic> toJson() {
     return {
       'id': id,
@@ -64,7 +88,7 @@ class RestaurantModel {
       'openTime': openTime,
       'closeTime': closeTime,
       'categories': {
-        for (var category in categories)
+        for (var category in categories ?? [])
           category.categoryName!: category.toJson(),
       },
     };
