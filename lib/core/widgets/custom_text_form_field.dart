@@ -13,6 +13,7 @@ class CustomTextFormField extends StatelessWidget {
   final bool? showPassword;
   final TextInputType textInputType;
   final bool enabled;
+  final TextStyle? hintStyle;
 
   const CustomTextFormField({
     super.key,
@@ -25,6 +26,7 @@ class CustomTextFormField extends StatelessWidget {
     this.showPassword,
     this.textInputType = TextInputType.text,
     this.enabled = true,
+    this.hintStyle,
   });
 
   @override
@@ -52,7 +54,7 @@ class CustomTextFormField extends StatelessWidget {
             ).copyWith(fontWeight: FontWeight.w500),
             decoration: InputDecoration(
               hintText: hint,
-              hintStyle: Styles.textStyle12(context),
+              hintStyle: hintStyle ?? Styles.textStyle12(context),
               filled: true,
               fillColor: AppColors.gray.withOpacity(0.2),
               contentPadding: EdgeInsets.symmetric(

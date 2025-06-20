@@ -83,7 +83,7 @@
   "gotIt": "Got it",
   "newName": "New name",
   "saveRestaurant": "Save Restaurant",
-  "addRestaurantInfo": "Add Restaurant Info",
+  "restaurantInfo": "Restaurant Info",
   "hintNameRestaurant": "Burger King",
   "hintDeliveryTime": "30 min",
   "hintDeliveryCost": "15 EGP",

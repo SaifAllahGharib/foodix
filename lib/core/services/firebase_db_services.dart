@@ -34,7 +34,8 @@ class FirebaseDBServices extends DBServices {
   Future<void> updateName(String name) async {
     await _firebaseService.db
         .ref()
-        .child("users/$_firebaseService.auth.currentUser!.uid")
+        .child("users")
+        .child(_firebaseService.auth.currentUser!.uid)
         .update({"name": name});
   }
 
@@ -88,11 +89,56 @@ class FirebaseDBServices extends DBServices {
   }
 
   @override
-  Future<DataSnapshot?> getMyRestaurants() {
-    return _firebaseService.db
+  Future<DataSnapshot?> getMyRestaurants() async {
+    return await _firebaseService.db
         .ref()
         .child("restaurants")
         .child(_firebaseService.auth.currentUser!.uid)
         .get();
+  }
+
+  @override
+  Future<void> updateRestaurantCloseTime(String closeTime) async {
+    await _firebaseService.db
+        .ref()
+        .child("restaurants")
+        .child(_firebaseService.auth.currentUser!.uid)
+        .update({"closeTime": closeTime});
+  }
+
+  @override
+  Future<void> updateRestaurantCostDelivery(int cost) async {
+    await _firebaseService.db
+        .ref()
+        .child("restaurants")
+        .child(_firebaseService.auth.currentUser!.uid)
+        .update({"deliveryCost": cost});
+  }
+
+  @override
+  Future<void> updateRestaurantName(String name) async {
+    await _firebaseService.db
+        .ref()
+        .child("restaurants")
+        .child(_firebaseService.auth.currentUser!.uid)
+        .update({"name": name});
+  }
+
+  @override
+  Future<void> updateRestaurantOpenTime(String openTime) async {
+    await _firebaseService.db
+        .ref()
+        .child("restaurants")
+        .child(_firebaseService.auth.currentUser!.uid)
+        .update({"openTime": openTime});
+  }
+
+  @override
+  Future<void> updateRestaurantTimeDelivery(int time) async {
+    await _firebaseService.db
+        .ref()
+        .child("restaurants")
+        .child(_firebaseService.auth.currentUser!.uid)
+        .update({"deliveryTime": time});
   }
 }

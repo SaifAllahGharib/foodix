@@ -27,9 +27,6 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "add": MessageLookupByLibrary.simpleMessage("Add"),
     "addFood": MessageLookupByLibrary.simpleMessage("Add food"),
-    "addRestaurantInfo": MessageLookupByLibrary.simpleMessage(
-      "Add Restaurant Info",
-    ),
     "addToCart": MessageLookupByLibrary.simpleMessage("Add to cart"),
     "address": MessageLookupByLibrary.simpleMessage("Address"),
     "addresses": MessageLookupByLibrary.simpleMessage("Your addresses"),
@@ -124,6 +121,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "pm": MessageLookupByLibrary.simpleMessage("PM"),
     "rePassword": MessageLookupByLibrary.simpleMessage("Re password"),
     "resendEmail": MessageLookupByLibrary.simpleMessage("Resend"),
+    "restaurantInfo": MessageLookupByLibrary.simpleMessage("Restaurant Info"),
     "saveRestaurant": MessageLookupByLibrary.simpleMessage("Save Restaurant"),
     "search": MessageLookupByLibrary.simpleMessage("Search"),
     "selectTime": MessageLookupByLibrary.simpleMessage("Select time"),

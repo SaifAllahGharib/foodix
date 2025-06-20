@@ -52,6 +52,7 @@ class MainSellerCubit extends Cubit<MainSellerState> {
   Future<void> getMyRestaurant() async {
     final result = await _mainSellerRepository.getMyRestaurant();
 
+    if (isClosed) return;
     result.fold(
       (l) => emit(MainSellerFailure(l.errorMsg)),
       (restaurant) => emit(

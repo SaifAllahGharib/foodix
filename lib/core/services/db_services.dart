@@ -23,4 +23,14 @@ abstract class DBServices {
   Future<DataSnapshot> getRestaurants();
 
   Future<DataSnapshot?> getMyRestaurants();
+
+  Future<void> updateRestaurantName(String name);
+
+  Future<void> updateRestaurantTimeDelivery(int time);
+
+  Future<void> updateRestaurantCostDelivery(int cost);
+
+  Future<void> updateRestaurantOpenTime(String openTime);
+
+  Future<void> updateRestaurantCloseTime(String closeTime);
 }

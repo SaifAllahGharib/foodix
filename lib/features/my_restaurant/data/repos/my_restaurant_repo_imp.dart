@@ -10,12 +10,12 @@ class MyRestaurantRepositoryImp implements MyRestaurantRepository {
 
   MyRestaurantRepositoryImp(this._dbServices);
 
-  @override
-  Future<Either<Failure, void>> createRestaurant(
-    RestaurantModel restaurant,
+  Future<Either<Failure, void>> _handleError(
+    Future<void> Function() operation,
   ) async {
     try {
-      return right(await _dbServices.createRestaurant(restaurant));
+      await operation();
+      return right(unit);
     } catch (e) {
       if (e is FirebaseDBFailure) {
         return left(FirebaseDBFailure(e.errorMsg));
@@ -23,5 +23,37 @@ class MyRestaurantRepositoryImp implements MyRestaurantRepository {
         return left(FirebaseFailure(e.toString()));
       }
     }
+  }
+
+  @override
+  Future<Either<Failure, void>> createRestaurant(
+    RestaurantModel restaurant,
+  ) async {
+    return _handleError(() => _dbServices.createRestaurant(restaurant));
+  }
+
+  @override
+  Future<Either<Failure, void>> updateRestaurantCloseTime(String closeTime) {
+    return _handleError(() => _dbServices.updateRestaurantCloseTime(closeTime));
+  }
+
+  @override
+  Future<Either<Failure, void>> updateRestaurantCostDelivery(int cost) {
+    return _handleError(() => _dbServices.updateRestaurantCostDelivery(cost));
+  }
+
+  @override
+  Future<Either<Failure, void>> updateRestaurantName(String name) {
+    return _handleError(() => _dbServices.updateRestaurantName(name));
+  }
+
+  @override
+  Future<Either<Failure, void>> updateRestaurantOpenTime(String openTime) {
+    return _handleError(() => _dbServices.updateRestaurantOpenTime(openTime));
+  }
+
+  @override
+  Future<Either<Failure, void>> updateRestaurantTimeDelivery(int time) {
+    return _handleError(() => _dbServices.updateRestaurantTimeDelivery(time));
   }
 }

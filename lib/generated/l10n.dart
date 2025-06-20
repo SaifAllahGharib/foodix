@@ -665,11 +665,11 @@ class S {
     );
   }
 
-  /// `Add Restaurant Info`
-  String get addRestaurantInfo {
+  /// `Restaurant Info`
+  String get restaurantInfo {
     return Intl.message(
-      'Add Restaurant Info',
-      name: 'addRestaurantInfo',
+      'Restaurant Info',
+      name: 'restaurantInfo',
       desc: '',
       args: [],
     );

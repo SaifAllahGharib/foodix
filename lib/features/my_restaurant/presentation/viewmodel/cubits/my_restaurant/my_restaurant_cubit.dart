@@ -21,6 +21,64 @@ class MyRestaurantCubit extends Cubit<MyRestaurantState> {
     );
   }
 
+  Future<void> updateRestaurantName(String name) async {
+    emit(MyRestaurantLoading());
+    final result = await _myRestaurantRepository.updateRestaurantName(name);
+
+    result.fold(
+      (failure) => emit(MyRestaurantFailure(failure.errorMsg)),
+      (_) => emit(MyRestaurantNameUpdated()),
+    );
+  }
+
+  Future<void> updateRestaurantTimeDelivery(int time) async {
+    emit(MyRestaurantLoading());
+    final result = await _myRestaurantRepository.updateRestaurantTimeDelivery(
+      time,
+    );
+
+    result.fold(
+      (failure) => emit(MyRestaurantFailure(failure.errorMsg)),
+      (_) => emit(MyRestaurantTimeDeliveryUpdated()),
+    );
+  }
+
+  Future<void> updateRestaurantCostDelivery(int cost) async {
+    emit(MyRestaurantLoading());
+    final result = await _myRestaurantRepository.updateRestaurantCostDelivery(
+      cost,
+    );
+
+    result.fold(
+      (failure) => emit(MyRestaurantFailure(failure.errorMsg)),
+      (_) => emit(MyRestaurantCostDeliveryUpdated()),
+    );
+  }
+
+  Future<void> updateRestaurantOpenTime(String openTime) async {
+    emit(MyRestaurantLoading());
+    final result = await _myRestaurantRepository.updateRestaurantOpenTime(
+      openTime,
+    );
+
+    result.fold(
+      (failure) => emit(MyRestaurantFailure(failure.errorMsg)),
+      (_) => emit(MyRestaurantOpenTimeUpdated()),
+    );
+  }
+
+  Future<void> updateRestaurantCloseTime(String closeTime) async {
+    emit(MyRestaurantLoading());
+    final result = await _myRestaurantRepository.updateRestaurantCloseTime(
+      closeTime,
+    );
+
+    result.fold(
+      (failure) => emit(MyRestaurantFailure(failure.errorMsg)),
+      (_) => emit(MyRestaurantCloseTimeUpdated()),
+    );
+  }
+
   void validateFields({
     required List<TextEditingController> controllers,
     required TimeOfDay? openTime,
@@ -53,6 +111,17 @@ class MyRestaurantCubit extends Cubit<MyRestaurantState> {
 
     _isValid = allFieldsFilled && hasValidTimes && isValidTimeRange;
 
+    emit(MyRestaurantValidationFields());
+  }
+
+  void validateUpdateField(TextEditingController controller) {
+    _isValid = controller.text.isNotEmpty;
+
+    emit(MyRestaurantValidationFields());
+  }
+
+  void resetValidation() {
+    _isValid = false;
     emit(MyRestaurantValidationFields());
   }
 

@@ -8,6 +8,16 @@ class MyRestaurantCreated extends MyRestaurantState {}
 
 class MyRestaurantValidationFields extends MyRestaurantState {}
 
+class MyRestaurantNameUpdated extends MyRestaurantState {}
+
+class MyRestaurantTimeDeliveryUpdated extends MyRestaurantState {}
+
+class MyRestaurantCostDeliveryUpdated extends MyRestaurantState {}
+
+class MyRestaurantOpenTimeUpdated extends MyRestaurantState {}
+
+class MyRestaurantCloseTimeUpdated extends MyRestaurantState {}
+
 class MyRestaurantFailure extends MyRestaurantState {
   final String errorMsg;
 

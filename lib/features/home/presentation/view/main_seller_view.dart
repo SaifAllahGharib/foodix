@@ -84,7 +84,7 @@ class _MainSellerViewState extends State<MainSellerView> {
     }
   }
 
-  void _handleState(MainSellerState state) {
+  void _handleState(MainSellerState state) async {
     if (state is MainSellerAddCategory) {
       snackBar(
         context: context,
@@ -101,6 +101,7 @@ class _MainSellerViewState extends State<MainSellerView> {
       _getCategoriesSuccess(state);
     } else if (state is MainSellerGetMyRestaurant) {
       _restaurant = state.restaurant;
+      await _storeRestaurantInLocalDB(_restaurant);
     } else if (state is MainSellerFailure) {
       snackBar(context: context, text: state.errorMsg);
     }

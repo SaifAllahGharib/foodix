@@ -26,7 +26,7 @@ class CustomButton extends StatelessWidget {
       child: GestureDetector(
         onTap: isEnabled
             ? () {
-                HapticFeedback.lightImpact();
+                HapticFeedback.vibrate();
                 onClick();
               }
             : null,

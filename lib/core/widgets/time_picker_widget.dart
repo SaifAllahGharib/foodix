@@ -35,6 +35,7 @@ class TimePickerWidget extends StatelessWidget {
             onTap: onTap,
             child: Container(
               width: double.infinity,
+              height: Dimensions.height45 * 1.05,
               padding: EdgeInsets.symmetric(
                 vertical: Dimensions.height12,
                 horizontal: Dimensions.height15,
