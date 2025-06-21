@@ -6,8 +6,6 @@ class ChooseLanguageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: ChooseLanguageViewBody(),
-    );
+    return const SafeArea(child: Scaffold(body: ChooseLanguageViewBody()));
   }
 }

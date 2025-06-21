@@ -11,7 +11,6 @@ import 'package:foodix/core/utils/functions/set_portrait_orientation.dart';
 import 'package:foodix/core/utils/image_picker_helper.dart';
 import 'package:foodix/core/utils/my_shared_preferences.dart';
 import 'package:foodix/core/viewmodel/cubits/local_cubit.dart';
-import 'package:foodix/core/widgets/loading.dart';
 import 'package:foodix/features/home/data/repos/home/home_repo_imp.dart';
 import 'package:foodix/features/home/data/repos/main_seller/main_seller_repo_imp.dart';
 import 'package:foodix/features/home/data/repos/profile/profile_repo_imp.dart';
@@ -23,6 +22,7 @@ import 'package:foodix/generated/l10n.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   setPortraitOrientation();
+  await initializeApp();
 
   runApp(
     DevicePreview(enabled: !kReleaseMode, builder: (context) => const MyApp()),
@@ -36,54 +36,43 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: initializeApp(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const MaterialApp(
-            home: Scaffold(backgroundColor: Colors.white, body: Loading()),
-          );
-        }
-
-        return MultiBlocProvider(
-          providers: [
-            BlocProvider<LocalCubit>(
-              create: (context) => LocalCubit()..loadSavedLanguage(),
-            ),
-            BlocProvider<HomeCubit>(
-              create: (context) => HomeCubit(getIt.get<HomeRepositoryImp>()),
-            ),
-            BlocProvider<ProfileCubit>(
-              create: (context) => ProfileCubit(
-                getIt.get<ImagePickerHelper>(),
-                getIt.get<ProfileRepositoryImp>(),
-              ),
-            ),
-            BlocProvider<MainSellerCubit>(
-              create: (context) => MainSellerCubit(
-                getIt.get<MainSellerRepositoryImp>(),
-                getIt.get<MySharedPreferences>(),
-              ),
-            ),
-          ],
-          child: BlocBuilder<LocalCubit, Locale>(
-            builder: (context, locale) {
-              return MaterialApp.router(
-                locale: locale,
-                routerConfig: AppRouter.router,
-                localizationsDelegates: const [
-                  S.delegate,
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                  GlobalCupertinoLocalizations.delegate,
-                ],
-                supportedLocales: S.delegate.supportedLocales,
-                theme: _buildAppTheme(locale),
-              );
-            },
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<LocalCubit>(
+          create: (context) => LocalCubit()..loadSavedLanguage(),
+        ),
+        BlocProvider<HomeCubit>(
+          create: (context) => HomeCubit(getIt.get<HomeRepositoryImp>()),
+        ),
+        BlocProvider<ProfileCubit>(
+          create: (context) => ProfileCubit(
+            getIt.get<ImagePickerHelper>(),
+            getIt.get<ProfileRepositoryImp>(),
           ),
-        );
-      },
+        ),
+        BlocProvider<MainSellerCubit>(
+          create: (context) => MainSellerCubit(
+            getIt.get<MainSellerRepositoryImp>(),
+            getIt.get<MySharedPreferences>(),
+          ),
+        ),
+      ],
+      child: BlocBuilder<LocalCubit, Locale>(
+        builder: (context, locale) {
+          return MaterialApp.router(
+            locale: locale,
+            routerConfig: AppRouter.router,
+            localizationsDelegates: const [
+              S.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: S.delegate.supportedLocales,
+            theme: _buildAppTheme(locale),
+          );
+        },
+      ),
     );
   }
 

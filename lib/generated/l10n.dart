@@ -55,9 +55,34 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `Choose type`
+  /// `Select Language`
+  String get selectLang {
+    return Intl.message(
+      'Select Language',
+      name: 'selectLang',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose Your Preferred Language`
+  String get chooseYourPreferredLanguage {
+    return Intl.message(
+      'Choose Your Preferred Language',
+      name: 'chooseYourPreferredLanguage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Continue`
+  String get continueText {
+    return Intl.message('Continue', name: 'continueText', desc: '', args: []);
+  }
+
+  /// `Choose Type`
   String get chooseType {
-    return Intl.message('Choose type', name: 'chooseType', desc: '', args: []);
+    return Intl.message('Choose Type', name: 'chooseType', desc: '', args: []);
   }
 
   /// `Seller`
@@ -70,19 +95,19 @@ class S {
     return Intl.message('Buyer', name: 'buyer', desc: '', args: []);
   }
 
-  /// `Create account`
+  /// `Create Account`
   String get createAccount {
     return Intl.message(
-      'Create account',
+      'Create Account',
       name: 'createAccount',
       desc: '',
       args: [],
     );
   }
 
-  /// `Sign up`
+  /// `Sign Up`
   String get signup {
-    return Intl.message('Sign up', name: 'signup', desc: '', args: []);
+    return Intl.message('Sign Up', name: 'signup', desc: '', args: []);
   }
 
   /// `Name`
@@ -95,9 +120,9 @@ class S {
     return Intl.message('Email', name: 'labelEmail', desc: '', args: []);
   }
 
-  /// `Phone number`
+  /// `Phone Number`
   String get labelPhone {
-    return Intl.message('Phone number', name: 'labelPhone', desc: '', args: []);
+    return Intl.message('Phone Number', name: 'labelPhone', desc: '', args: []);
   }
 
   /// `Password`
@@ -140,59 +165,59 @@ class S {
     return Intl.message('***********', name: 'hintPass', desc: '', args: []);
   }
 
-  /// `Already have an account?`
+  /// `Already Have an Account?`
   String get alreadyHaveAccount {
     return Intl.message(
-      'Already have an account?',
+      'Already Have an Account?',
       name: 'alreadyHaveAccount',
       desc: '',
       args: [],
     );
   }
 
-  /// `OR`
+  /// `Or`
   String get or {
-    return Intl.message('OR', name: 'or', desc: '', args: []);
+    return Intl.message('Or', name: 'or', desc: '', args: []);
   }
 
-  /// `Forgot your password?`
+  /// `Forgot Your Password?`
   String get forgetPass {
     return Intl.message(
-      'Forgot your password?',
+      'Forgot Your Password?',
       name: 'forgetPass',
       desc: '',
       args: [],
     );
   }
 
-  /// `Login`
+  /// `Log In`
   String get login {
-    return Intl.message('Login', name: 'login', desc: '', args: []);
+    return Intl.message('Log In', name: 'login', desc: '', args: []);
   }
 
-  /// `Welcome back`
+  /// `Welcome Back`
   String get welcomeBack {
     return Intl.message(
-      'Welcome back',
+      'Welcome Back',
       name: 'welcomeBack',
       desc: '',
       args: [],
     );
   }
 
-  /// `Don't have an account?`
+  /// `Don't Have an Account?`
   String get notHaveAccount {
     return Intl.message(
-      'Don\'t have an account?',
+      'Don\'t Have an Account?',
       name: 'notHaveAccount',
       desc: '',
       args: [],
     );
   }
 
-  /// `Select type`
+  /// `Select Type`
   String get type {
-    return Intl.message('Select type', name: 'type', desc: '', args: []);
+    return Intl.message('Select Type', name: 'type', desc: '', args: []);
   }
 
   /// `Resend`
@@ -210,20 +235,20 @@ class S {
     return Intl.message('Field', name: 'field', desc: '', args: []);
   }
 
-  /// `User already exists`
+  /// `User Already Exists`
   String get userAlreadyExists {
     return Intl.message(
-      'User already exists',
+      'User Already Exists',
       name: 'userAlreadyExists',
       desc: '',
       args: [],
     );
   }
 
-  /// `Failed to create account`
+  /// `Failed to Create Account`
   String get failedToCreateAccount {
     return Intl.message(
-      'Failed to create account',
+      'Failed to Create Account',
       name: 'failedToCreateAccount',
       desc: '',
       args: [],
@@ -240,60 +265,60 @@ class S {
     );
   }
 
-  /// `Password incorrect`
+  /// `Incorrect Password`
   String get passwordIncorrect {
     return Intl.message(
-      'Password incorrect',
+      'Incorrect Password',
       name: 'passwordIncorrect',
       desc: '',
       args: [],
     );
   }
 
-  /// `This user does not exist`
+  /// `This User Does Not Exist`
   String get thisUserDoesNotExist {
     return Intl.message(
-      'This user does not exist',
+      'This User Does Not Exist',
       name: 'thisUserDoesNotExist',
       desc: '',
       args: [],
     );
   }
 
-  /// `There was an error processing your request`
+  /// `An Error Occurred While Processing Your Request`
   String get errorRequest {
     return Intl.message(
-      'There was an error processing your request',
+      'An Error Occurred While Processing Your Request',
       name: 'errorRequest',
       desc: '',
       args: [],
     );
   }
 
-  /// `Enter verification code`
+  /// `Enter Verification Code`
   String get enterVerificationCode {
     return Intl.message(
-      'Enter verification code',
+      'Enter Verification Code',
       name: 'enterVerificationCode',
       desc: '',
       args: [],
     );
   }
 
-  /// `We have send code to`
+  /// `We Sent the Code to`
   String get weHaveSendCodeTo {
     return Intl.message(
-      'We have send code to',
+      'We Sent the Code to',
       name: 'weHaveSendCodeTo',
       desc: '',
       args: [],
     );
   }
 
-  /// `Weak password`
+  /// `Weak Password`
   String get weakPassword {
     return Intl.message(
-      'Weak password',
+      'Weak Password',
       name: 'weakPassword',
       desc: '',
       args: [],
@@ -305,140 +330,145 @@ class S {
     return Intl.message('Verify', name: 'verify', desc: '', args: []);
   }
 
-  /// `Send to email success`
+  /// `Sent to Email Successfully`
   String get sendToEmailSuccess {
     return Intl.message(
-      'Send to email success',
+      'Sent to Email Successfully',
       name: 'sendToEmailSuccess',
       desc: '',
       args: [],
     );
   }
 
-  /// `Send link verification to`
+  /// `Verification Link Sent to`
   String get sendLinkVerificationYourEmailTo {
     return Intl.message(
-      'Send link verification to',
+      'Verification Link Sent to',
       name: 'sendLinkVerificationYourEmailTo',
       desc: '',
       args: [],
     );
   }
 
-  /// `Verify success`
+  /// `Verification Successful`
   String get verifySuccess {
     return Intl.message(
-      'Verify success',
+      'Verification Successful',
       name: 'verifySuccess',
       desc: '',
       args: [],
     );
   }
 
-  /// `Didn't get a code?`
+  /// `Didn't Receive a Code?`
   String get didNotGetACode {
     return Intl.message(
-      'Didn\'t get a code?',
+      'Didn\'t Receive a Code?',
       name: 'didNotGetACode',
       desc: '',
       args: [],
     );
   }
 
-  /// `Click to resend`
+  /// `Click to Resend`
   String get clickToResend {
     return Intl.message(
-      'Click to resend',
+      'Click to Resend',
       name: 'clickToResend',
       desc: '',
       args: [],
     );
   }
 
-  /// `Invalid verification code`
+  /// `Invalid Verification Code`
   String get invalidVerificationCode {
     return Intl.message(
-      'Invalid verification code',
+      'Invalid Verification Code',
       name: 'invalidVerificationCode',
       desc: '',
       args: [],
     );
   }
 
-  /// `Code not send success`
+  /// `Failed to Send Code`
   String get codeNotSendSuccess {
     return Intl.message(
-      'Code not send success',
+      'Failed to Send Code',
       name: 'codeNotSendSuccess',
       desc: '',
       args: [],
     );
   }
 
-  /// `Code send successfully`
+  /// `Code Sent Successfully`
   String get codeSendSuccessfully {
     return Intl.message(
-      'Code send successfully',
+      'Code Sent Successfully',
       name: 'codeSendSuccessfully',
       desc: '',
       args: [],
     );
   }
 
-  /// `Re password`
+  /// `Repeat Password`
   String get rePassword {
-    return Intl.message('Re password', name: 'rePassword', desc: '', args: []);
+    return Intl.message(
+      'Repeat Password',
+      name: 'rePassword',
+      desc: '',
+      args: [],
+    );
   }
 
-  /// `Change password successful`
+  /// `Password Changed Successfully`
   String get changePasswordSuccessful {
     return Intl.message(
-      'Change password successful',
+      'Password Changed Successfully',
       name: 'changePasswordSuccessful',
       desc: '',
       args: [],
     );
   }
 
-  /// `Change password failed`
+  /// `Failed to Change Password`
   String get changePasswordFailed {
     return Intl.message(
-      'Change password failed',
+      'Failed to Change Password',
       name: 'changePasswordFailed',
       desc: '',
       args: [],
     );
   }
 
-  /// `Change password`
+  /// `Change Password`
   String get changePassword {
     return Intl.message(
-      'Change password',
+      'Change Password',
       name: 'changePassword',
       desc: '',
       args: [],
     );
   }
 
-  /// `Confirm password`
+  /// `Confirm Password`
   String get confirmPassword {
     return Intl.message(
-      'Confirm password',
+      'Confirm Password',
       name: 'confirmPassword',
       desc: '',
       args: [],
     );
   }
 
-  /// `Food name`
+  /// `Food Name`
   String get foodName {
-    return Intl.message('Food name', name: 'foodName', desc: '', args: []);
+    return Intl.message('Food Name', name: 'foodName', desc: '', args: []);
   }
 
-  /// `Food description`
+  /// `Food Description`
   String get foodDesc {
     return Intl.message(
-      'Food description',
+      'Food Description',
       name: 'foodDesc',
       desc: '',
       args: [],
@@ -455,9 +485,9 @@ class S {
     return Intl.message('Add', name: 'add', desc: '', args: []);
   }
 
-  /// `Add food`
+  /// `Add Food`
   String get addFood {
-    return Intl.message('Add food', name: 'addFood', desc: '', args: []);
+    return Intl.message('Add Food', name: 'addFood', desc: '', args: []);
   }
 
   /// `Search`
@@ -465,9 +495,9 @@ class S {
     return Intl.message('Search', name: 'search', desc: '', args: []);
   }
 
-  /// `Your orders`
+  /// `Your Orders`
   String get yourOrders {
-    return Intl.message('Your orders', name: 'yourOrders', desc: '', args: []);
+    return Intl.message('Your Orders', name: 'yourOrders', desc: '', args: []);
   }
 
   /// `Completed`
@@ -475,30 +505,30 @@ class S {
     return Intl.message('Completed', name: 'completed', desc: '', args: []);
   }
 
-  /// `Order number: `
+  /// `Order Number:`
   String get orderNumber {
     return Intl.message(
-      'Order number: ',
+      'Order Number:',
       name: 'orderNumber',
       desc: '',
       args: [],
     );
   }
 
-  /// `Order details`
+  /// `Order Details`
   String get orderDetails {
     return Intl.message(
-      'Order details',
+      'Order Details',
       name: 'orderDetails',
       desc: '',
       args: [],
     );
   }
 
-  /// `Phone number:`
+  /// `Phone Number:`
   String get phoneNumber {
     return Intl.message(
-      'Phone number:',
+      'Phone Number:',
       name: 'phoneNumber',
       desc: '',
       args: [],
@@ -520,9 +550,9 @@ class S {
     return Intl.message('Address', name: 'address', desc: '', args: []);
   }
 
-  /// `Your order`
+  /// `Your Order`
   String get yourOrder {
-    return Intl.message('Your order', name: 'yourOrder', desc: '', args: []);
+    return Intl.message('Your Order', name: 'yourOrder', desc: '', args: []);
   }
 
   /// `Total`
@@ -535,9 +565,9 @@ class S {
     return Intl.message('Delivery', name: 'delivery', desc: '', args: []);
   }
 
-  /// `Order total`
+  /// `Order Total`
   String get orderTotal {
-    return Intl.message('Order total', name: 'orderTotal', desc: '', args: []);
+    return Intl.message('Order Total', name: 'orderTotal', desc: '', args: []);
   }
 
   /// `Payment`
@@ -545,20 +575,20 @@ class S {
     return Intl.message('Payment', name: 'payment', desc: '', args: []);
   }
 
-  /// `Account information`
+  /// `Account Information`
   String get accountInformation {
     return Intl.message(
-      'Account information',
+      'Account Information',
       name: 'accountInformation',
       desc: '',
       args: [],
     );
   }
 
-  /// `Your addresses`
+  /// `Your Addresses`
   String get addresses {
     return Intl.message(
-      'Your addresses',
+      'Your Addresses',
       name: 'addresses',
       desc: '',
       args: [],
@@ -570,9 +600,9 @@ class S {
     return Intl.message('Language', name: 'language', desc: '', args: []);
   }
 
-  /// `Logout`
+  /// `Log Out`
   String get logout {
-    return Intl.message('Logout', name: 'logout', desc: '', args: []);
+    return Intl.message('Log Out', name: 'logout', desc: '', args: []);
   }
 
   /// `Edit`
@@ -580,14 +610,14 @@ class S {
     return Intl.message('Edit', name: 'edit', desc: '', args: []);
   }
 
-  /// `m`
+  /// `min`
   String get minute {
-    return Intl.message('m', name: 'minute', desc: '', args: []);
+    return Intl.message('min', name: 'minute', desc: '', args: []);
   }
 
-  /// `h`
+  /// `hr`
   String get hour {
-    return Intl.message('h', name: 'hour', desc: '', args: []);
+    return Intl.message('hr', name: 'hour', desc: '', args: []);
   }
 
   /// `Cart`
@@ -600,9 +630,9 @@ class S {
     return Intl.message('Total Cart', name: 'totalBasket', desc: '', args: []);
   }
 
-  /// `Add to cart`
+  /// `Add to Cart`
   String get addToCart {
-    return Intl.message('Add to cart', name: 'addToCart', desc: '', args: []);
+    return Intl.message('Add to Cart', name: 'addToCart', desc: '', args: []);
   }
 
   /// `Category`
@@ -635,24 +665,24 @@ class S {
     );
   }
 
-  /// `To proceed, please complete your restaurant details including name, address, and categories.`
+  /// `To Proceed, Please Complete Your Restaurant Details Including Name, Address, and Categories.`
   String get toProceedPlease {
     return Intl.message(
-      'To proceed, please complete your restaurant details including name, address, and categories.',
+      'To Proceed, Please Complete Your Restaurant Details Including Name, Address, and Categories.',
       name: 'toProceedPlease',
       desc: '',
       args: [],
     );
   }
 
-  /// `Got it`
+  /// `Got It`
   String get gotIt {
-    return Intl.message('Got it', name: 'gotIt', desc: '', args: []);
+    return Intl.message('Got It', name: 'gotIt', desc: '', args: []);
   }
 
-  /// `New name`
+  /// `New Name`
   String get newName {
-    return Intl.message('New name', name: 'newName', desc: '', args: []);
+    return Intl.message('New Name', name: 'newName', desc: '', args: []);
   }
 
   /// `Save Restaurant`
@@ -715,9 +745,9 @@ class S {
     );
   }
 
-  /// `Select time`
+  /// `Select Time`
   String get selectTime {
-    return Intl.message('Select time', name: 'selectTime', desc: '', args: []);
+    return Intl.message('Select Time', name: 'selectTime', desc: '', args: []);
   }
 
   /// `Open Time`

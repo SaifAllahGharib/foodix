@@ -71,7 +71,7 @@ class _ChangePasswordViewBodyState extends State<ChangePasswordViewBody> {
       if (msg == "Password updated successfully") {
         snackBar(
           context: context,
-          text: "change_password_successful",
+          text: context.translate.changePasswordSuccessful,
           color: AppColors.primaryColor,
         );
 
@@ -79,7 +79,10 @@ class _ChangePasswordViewBodyState extends State<ChangePasswordViewBody> {
 
         GoRouter.of(context).go(HomeView.id);
       } else if (msg == "Failed to update password") {
-        snackBar(context: context, text: "change_password_failed");
+        snackBar(
+          context: context,
+          text: context.translate.changePasswordFailed,
+        );
       }
     } else if (state is ChangePasswordFailure) {
       snackBar(context: context, text: "Error: ${state.errorMsg}");

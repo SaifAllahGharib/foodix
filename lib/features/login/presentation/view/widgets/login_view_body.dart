@@ -71,9 +71,12 @@ class _LoginViewBodyState extends State<LoginViewBody> {
     if (state.failure is FirebaseAuthFailure) {
       final String msg = state.failure.errorMsg;
       if (msg == "user-not-found") {
-        snackBar(context: context, text: "this_user_does_not_exist");
+        snackBar(
+          context: context,
+          text: context.translate.thisUserDoesNotExist,
+        );
       } else if (msg == "wrong-password") {
-        snackBar(context: context, text: "password_incorrect");
+        snackBar(context: context, text: context.translate.passwordIncorrect);
       } else {
         snackBar(context: context, text: msg);
       }

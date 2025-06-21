@@ -30,6 +30,6 @@ class LocalCubit extends Cubit<Locale> {
   void _setDirection(String languageCode) {
     _isArabic = languageCode == "ar";
   }
-  
+
   bool get isArabic => _isArabic;
 }
