@@ -4,17 +4,17 @@ import '../../../../../core/utils/colors.dart';
 import '../../../../../core/utils/dimensions.dart';
 import '../../../../../core/utils/styles.dart';
 
-class LangWidget extends StatelessWidget {
-  final String lang;
-  final String flag;
+class RoleWidget extends StatelessWidget {
+  final String role;
+  final IconData icon;
   final bool selected;
   final VoidCallback onTap;
 
-  const LangWidget({
+  const RoleWidget({
     super.key,
+    required this.role,
+    required this.icon,
     required this.selected,
-    required this.lang,
-    required this.flag,
     required this.onTap,
   });
 
@@ -47,10 +47,14 @@ class LangWidget extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Image.asset(flag, height: 36),
+                  Icon(
+                    icon,
+                    size: Dimensions.iconSize24,
+                    color: selected ? AppColors.primaryColor : Colors.black,
+                  ),
                   SizedBox(width: Dimensions.width30),
                   Text(
-                    lang,
+                    role,
                     style: Styles.textStyle18(context).copyWith(
                       color: selected ? AppColors.primaryColor : Colors.black,
                       fontWeight: selected ? FontWeight.w600 : FontWeight.w400,

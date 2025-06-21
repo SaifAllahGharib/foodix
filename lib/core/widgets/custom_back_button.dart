@@ -8,7 +8,7 @@ import 'package:go_router/go_router.dart';
 class CustomBackButton extends StatelessWidget {
   final Color color;
 
-  const CustomBackButton({super.key, this.color = Colors.black});
+  const CustomBackButton({super.key, this.color = AppColors.primaryColor});
 
   @override
   Widget build(BuildContext context) {

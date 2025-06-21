@@ -10,7 +10,6 @@ import 'package:foodix/core/widgets/custom_text.dart';
 import 'package:foodix/core/widgets/custom_text_button.dart';
 import 'package:foodix/core/widgets/custom_text_form_field.dart';
 import 'package:foodix/core/widgets/loading.dart';
-import 'package:foodix/features/choose_type/presentation/view/choose_type_view.dart';
 import 'package:foodix/features/home/presentation/view/home_view.dart';
 import 'package:foodix/features/login/data/models/login_model.dart';
 import 'package:foodix/features/login/presentation/view/forget_password_view.dart';
@@ -20,6 +19,7 @@ import 'package:foodix/features/verification/presentation/view/verification_view
 import 'package:go_router/go_router.dart';
 
 import '../../../../../core/errors/failure.dart';
+import '../../../../choose_role/presentation/view/choose_role_view.dart';
 
 class LoginViewBody extends StatefulWidget {
   const LoginViewBody({super.key});
@@ -164,7 +164,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                   text: context.translate.notHaveAccount,
                   color: Colors.black,
                   onClick: () {
-                    GoRouter.of(context).push(ChooseTypeView.id);
+                    GoRouter.of(context).push(ChooseRoleView.id);
                   },
                 ),
               ],

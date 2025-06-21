@@ -43,7 +43,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "changePasswordSuccessful": MessageLookupByLibrary.simpleMessage(
       "تم تغيير كلمة المرور بنجاح",
     ),
-    "chooseType": MessageLookupByLibrary.simpleMessage("اختار النوع"),
     "chooseYourPreferredLanguage": MessageLookupByLibrary.simpleMessage(
       "اختار اللغة اللي تريحك",
     ),

@@ -45,7 +45,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "changePasswordSuccessful": MessageLookupByLibrary.simpleMessage(
       "Password Changed Successfully",
     ),
-    "chooseType": MessageLookupByLibrary.simpleMessage("Choose Type"),
     "chooseYourPreferredLanguage": MessageLookupByLibrary.simpleMessage(
       "Choose Your Preferred Language",
     ),
@@ -129,6 +128,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "saveRestaurant": MessageLookupByLibrary.simpleMessage("Save Restaurant"),
     "search": MessageLookupByLibrary.simpleMessage("Search"),
     "selectLang": MessageLookupByLibrary.simpleMessage("Select Language"),
+    "selectRole": MessageLookupByLibrary.simpleMessage("Select Your Role"),
     "selectTime": MessageLookupByLibrary.simpleMessage("Select Time"),
     "sendLinkVerificationYourEmailTo": MessageLookupByLibrary.simpleMessage(
       "Verification Link Sent to",

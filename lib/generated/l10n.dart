@@ -80,9 +80,14 @@ class S {
     return Intl.message('Continue', name: 'continueText', desc: '', args: []);
   }
 
-  /// `Choose Type`
-  String get chooseType {
-    return Intl.message('Choose Type', name: 'chooseType', desc: '', args: []);
+  /// `Select Your Role`
+  String get selectRole {
+    return Intl.message(
+      'Select Your Role',
+      name: 'selectRole',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `Seller`
