@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodix/core/utils/colors.dart';
 import 'package:foodix/core/utils/dimensions.dart';
 import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/utils/functions/snack_bar.dart';
@@ -47,7 +46,7 @@ class _AddFoodViewBodyState extends State<AddFoodViewBody> {
     super.dispose();
   }
 
-  void validate(BuildContext context) {
+  void _validate(BuildContext context) {
     context.read<AddFoodCubit>().validation(
       name: _foodName,
       desc: _foodDesc,
@@ -56,14 +55,14 @@ class _AddFoodViewBodyState extends State<AddFoodViewBody> {
     );
   }
 
-  void _pickImageFromCamera(BuildContext context) {
+  void _pickImageFromCamera(BuildContext context) async {
     GoRouter.of(context).pop();
-    context.read<AddFoodCubit>().pickFromCamera();
+    await context.read<AddFoodCubit>().pickFromCamera();
   }
 
-  void _pickImageFromGallery(BuildContext context) {
+  void _pickImageFromGallery(BuildContext context) async {
     GoRouter.of(context).pop();
-    context.read<AddFoodCubit>().pickFromGallery();
+    await context.read<AddFoodCubit>().pickFromGallery();
   }
 
   void _addFood(BuildContext context) {
@@ -81,15 +80,11 @@ class _AddFoodViewBodyState extends State<AddFoodViewBody> {
   void _handleState(state) {
     if (state is AddFoodPickImage) {
       _imagePath = state.image!;
+      _validate(context);
     } else if (state is AddFoodSuccess) {
-      snackBar(
-        context: context,
-        text: context.translate.success,
-        color: AppColors.primaryColor,
-      );
-
       GoRouter.of(context).pop();
     } else if (state is AddFoodFailure) {
+      GoRouter.of(context).pop();
       snackBar(context: context, text: state.errorMsg);
     }
   }
@@ -121,14 +116,14 @@ class _AddFoodViewBodyState extends State<AddFoodViewBody> {
                   controller: _foodName,
                   label: context.translate.foodName,
                   hint: context.translate.foodName,
-                  onChanged: (val) => validate(context),
+                  onChanged: (val) => _validate(context),
                 ),
                 SizedBox(height: Dimensions.height10),
                 CustomTextFormField(
                   controller: _foodDesc,
                   label: context.translate.foodDesc,
                   hint: context.translate.foodDesc,
-                  onChanged: (val) => validate(context),
+                  onChanged: (val) => _validate(context),
                 ),
                 SizedBox(height: Dimensions.height10),
                 CustomTextFormField(
@@ -136,7 +131,7 @@ class _AddFoodViewBodyState extends State<AddFoodViewBody> {
                   label: context.translate.foodCost,
                   hint: context.translate.foodCost,
                   textInputType: TextInputType.number,
-                  onChanged: (val) => validate(context),
+                  onChanged: (val) => _validate(context),
                 ),
                 SizedBox(height: Dimensions.height30),
                 CustomButton(
