@@ -118,48 +118,50 @@ class _ProfileViewState extends State<ProfileView> {
       builder: (context, state) {
         if (state is ProfileLoadingState) return const Loading();
 
-        return Column(
-          children: [
-            SizedBox(height: Dimensions.height30),
-            CustomImageProfileView(
-              imageURL: _imagePath,
-              pickImageFromCamera: () => _pickImageFromCamera(context),
-              pickImageFromGallery: () => _pickImageFromGallery(context),
-            ),
-            SizedBox(height: Dimensions.height15),
-            NameAndEmail(
-              name: _storage.getNameUser() == null
-                  ? widget.user.name ?? ""
-                  : _storage.getNameUser()!,
-              email: _storage.getEmailUser() == null
-                  ? widget.user.name ?? ""
-                  : _storage.getEmailUser()!,
-            ),
-            SizedBox(height: Dimensions.height20),
-            Divider(
-              color: AppColors.whiteGray,
-              height: 1,
-              thickness: Dimensions.height10,
-            ),
-            SizedBox(height: Dimensions.height45),
-            CustomItemProfileView(
-              title: _userRole == getIt<Seller>()
-                  ? context.translate.myRestaurant
-                  : context.translate.addresses,
-              onClick: () => _handleRoleNavigation(context),
-            ),
-            SizedBox(height: Dimensions.height30),
-            CustomItemProfileView(
-              title: context.translate.language,
-              onClick: () => _showBottomSheet(context),
-            ),
-            SizedBox(height: Dimensions.height30),
-            CustomItemProfileView(
-              title: context.translate.logout,
-              dividerIsShowing: false,
-              onClick: () => _signOut(context),
-            ),
-          ],
+        return SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(height: Dimensions.height30),
+              CustomImageProfileView(
+                imageURL: _imagePath,
+                pickImageFromCamera: () => _pickImageFromCamera(context),
+                pickImageFromGallery: () => _pickImageFromGallery(context),
+              ),
+              SizedBox(height: Dimensions.height15),
+              NameAndEmail(
+                name: _storage.getNameUser() == null
+                    ? widget.user.name ?? ""
+                    : _storage.getNameUser()!,
+                email: _storage.getEmailUser() == null
+                    ? widget.user.name ?? ""
+                    : _storage.getEmailUser()!,
+              ),
+              SizedBox(height: Dimensions.height20),
+              Divider(
+                color: AppColors.whiteGray,
+                height: 1,
+                thickness: Dimensions.height10,
+              ),
+              SizedBox(height: Dimensions.height45),
+              CustomItemProfileView(
+                title: _userRole == getIt<Seller>()
+                    ? context.translate.myRestaurant
+                    : context.translate.addresses,
+                onClick: () => _handleRoleNavigation(context),
+              ),
+              SizedBox(height: Dimensions.height30),
+              CustomItemProfileView(
+                title: context.translate.language,
+                onClick: () => _showBottomSheet(context),
+              ),
+              SizedBox(height: Dimensions.height30),
+              CustomItemProfileView(
+                title: context.translate.logout,
+                dividerIsShowing: false,
+                onClick: () => _signOut(context),
+              ),
+            ],
+          ),
         );
       },
     );

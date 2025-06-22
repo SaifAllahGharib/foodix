@@ -1,0 +1,26 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:foodix/features/foods_category/data/repos/foods_category_repo_imp.dart';
+import 'package:foodix/features/foods_category/presentation/viewmodel/cubit/foods_category/foods_category_cubit.dart';
+
+import '../../../../core/utils/di.dart';
+import 'widgets/foods_category_view_body.dart';
+
+class FoodsCategoryView extends StatelessWidget {
+  static const String id = "/category_foods_view";
+
+  final String categoryName;
+
+  const FoodsCategoryView({super.key, required this.categoryName});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: BlocProvider(
+        create: (context) =>
+            FoodsCategoryCubit(getIt<FoodsCategoryRepositoryImp>()),
+        child: FoodsCategoryViewBody(categoryName: categoryName),
+      ),
+    );
+  }
+}

@@ -141,4 +141,16 @@ class FirebaseDBServices extends DBServices {
         .child(_firebaseService.auth.currentUser!.uid)
         .update({"deliveryTime": time});
   }
+
+  @override
+  Stream<DataSnapshot> getFoodsCategory(String categoryName) {
+    return _firebaseService.db
+        .ref()
+        .child("restaurants")
+        .child(_firebaseService.auth.currentUser!.uid)
+        .child("categories")
+        .child(categoryName)
+        .onValue
+        .map((event) => event.snapshot);
+  }
 }

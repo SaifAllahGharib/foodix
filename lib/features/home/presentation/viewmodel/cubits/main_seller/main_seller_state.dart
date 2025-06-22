@@ -1,5 +1,6 @@
-import 'package:firebase_database/firebase_database.dart';
 import 'package:foodix/features/my_restaurant/data/models/restaurant_model.dart';
+
+import '../../../../../../core/shared/models/category_model.dart';
 
 abstract class MainSellerState {}
 
@@ -7,17 +8,13 @@ class MainSellerInit extends MainSellerState {}
 
 class MainSellerLoading extends MainSellerState {}
 
-class MainSellerSuccess extends MainSellerState {}
-
 class MainSellerAddCategory extends MainSellerState {}
 
 class MainSellerGetCategory extends MainSellerState {
-  final DataSnapshot snapshot;
+  final List<CategoryModel>? categories;
 
-  MainSellerGetCategory(this.snapshot);
+  MainSellerGetCategory(this.categories);
 }
-
-class MainSellerAddFood extends MainSellerState {}
 
 class MainSellerEnableButton extends MainSellerState {}
 

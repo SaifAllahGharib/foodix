@@ -16,7 +16,7 @@ abstract class DBServices {
 
   Future<void> addFood(String categoryName, FoodModel food);
 
-  Stream<dynamic> getCategories();
+  Stream<DataSnapshot> getCategories();
 
   Future<void> createRestaurant(RestaurantModel restaurant);
 
@@ -33,4 +33,6 @@ abstract class DBServices {
   Future<void> updateRestaurantOpenTime(String openTime);
 
   Future<void> updateRestaurantCloseTime(String closeTime);
+
+  Stream<DataSnapshot> getFoodsCategory(String categoryName);
 }

@@ -25,7 +25,7 @@ class MainSellerRepositoryImp extends MainSellerRepository {
   }
 
   @override
-  Stream<Either<Failure, dynamic>> getCategories() {
+  Stream<Either<Failure, DataSnapshot>> getCategories() {
     return _dbServices.getCategories().map((snapshot) {
       try {
         return right(snapshot);

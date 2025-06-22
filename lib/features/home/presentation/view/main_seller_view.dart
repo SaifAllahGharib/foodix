@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodix/core/utils/colors.dart';
 import 'package:foodix/core/utils/dimensions.dart';
 import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/utils/functions/snack_bar.dart';
 import 'package:foodix/core/utils/styles.dart';
+import 'package:foodix/core/widgets/custom_error_widget.dart';
 import 'package:foodix/core/widgets/empty_widget.dart';
 import 'package:foodix/core/widgets/loading.dart';
 import 'package:foodix/features/home/presentation/view/widgets/category_seller_list_view.dart';
@@ -32,7 +32,7 @@ class _MainSellerViewState extends State<MainSellerView> {
   late final TextEditingController _searchFoodController;
   late final TextEditingController _categoryController;
   late final RestaurantModel _restaurant;
-  final List<CategoryModel> listOfFoodCategories = [];
+  final List<CategoryModel> listOfCategories = [];
 
   @override
   void initState() {
@@ -68,36 +68,19 @@ class _MainSellerViewState extends State<MainSellerView> {
     );
   }
 
-  void _getCategories(BuildContext context) async {
-    await context.read<MainSellerCubit>().getCategories();
-  }
-
-  void _getCategoriesSuccess(MainSellerGetCategory state) {
-    final snapshot = state.snapshot;
-    listOfFoodCategories.clear();
-
-    if (snapshot.exists) {
-      Map categories = snapshot.value as Map;
-      categories.forEach((key, value) {
-        listOfFoodCategories.add(CategoryModel.fromJson(value));
-      });
+  void _getCategories(BuildContext context) {
+    if (_myRestaurantIsNotValid) {
+      context.read<MainSellerCubit>().getCategories();
     }
   }
 
+  void _getCategoriesSuccess(MainSellerGetCategory state) {
+    listOfCategories.clear();
+    listOfCategories.addAll(state.categories ?? []);
+  }
+
   void _handleState(MainSellerState state) async {
-    if (state is MainSellerAddCategory) {
-      snackBar(
-        context: context,
-        text: context.translate.success,
-        color: AppColors.primaryColor,
-      );
-    } else if (state is MainSellerAddFood) {
-      snackBar(
-        context: context,
-        text: context.translate.success,
-        color: AppColors.primaryColor,
-      );
-    } else if (state is MainSellerGetCategory) {
+    if (state is MainSellerGetCategory) {
       _getCategoriesSuccess(state);
     } else if (state is MainSellerGetMyRestaurant) {
       _restaurant = state.restaurant;
@@ -107,7 +90,7 @@ class _MainSellerViewState extends State<MainSellerView> {
     }
   }
 
-  void _handleAddCategory() async {
+  bool get _myRestaurantIsNotValid {
     final mySharedPreferences = getIt<MySharedPreferences>();
     final String? restaurantName = mySharedPreferences.getString(
       "restaurantName",
@@ -117,16 +100,17 @@ class _MainSellerViewState extends State<MainSellerView> {
     final String? openTime = mySharedPreferences.getString("openTime");
     final String? closeTime = mySharedPreferences.getString("closeTime");
 
-    bool isNotInLocalDB =
-        (restaurantName == null || restaurantName.isEmpty) ||
+    return (restaurantName == null || restaurantName.isEmpty) ||
         (deliveryTime == null || deliveryTime.isEmpty) ||
         (deliveryCost == null || deliveryCost.isEmpty) ||
         (openTime == null || openTime.isEmpty) ||
         (closeTime == null || closeTime.isEmpty);
+  }
 
+  void _handleAddCategory() async {
     if (!_restaurant.isValid) {
       _showCompleteRestaurantDialog(context);
-    } else if (isNotInLocalDB) {
+    } else if (_myRestaurantIsNotValid) {
       bool restaurantStoredSuccess = await _storeRestaurantInLocalDB(
         _restaurant,
       );
@@ -136,7 +120,7 @@ class _MainSellerViewState extends State<MainSellerView> {
         snackBar(context: context, text: "Failed to store restaurant");
       }
       snackBar(context: context, text: "Not In Local DB");
-    } else if (_restaurant.isValid && !isNotInLocalDB) {
+    } else if (_restaurant.isValid && !_myRestaurantIsNotValid) {
       _addCategoryBottomSheet(context);
     }
   }
@@ -159,32 +143,36 @@ class _MainSellerViewState extends State<MainSellerView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<MainSellerCubit, MainSellerState>(
-      listener: (context, state) => _handleState(state),
-      builder: (context, state) {
-        if (state is MainSellerLoading) return const Loading();
-
-        return Padding(
-          padding: EdgeInsets.only(
-            top: Dimensions.height20 * 2,
-            right: Dimensions.height20,
-            left: Dimensions.height20,
-          ),
-          child: Stack(
+    return Padding(
+      padding: EdgeInsets.only(
+        top: Dimensions.height20 * 2,
+        right: Dimensions.height20,
+        left: Dimensions.height20,
+      ),
+      child: Stack(
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CustomSearchTextField(
-                    isSeller: true,
-                    controller: _searchCategoryController,
-                    onChange: (value) {},
-                  ),
-                  if (listOfFoodCategories.isEmpty)
-                    const Expanded(child: EmptyWidget())
-                  else
-                    Expanded(
-                      child: Column(
+              CustomSearchTextField(
+                isSeller: true,
+                controller: _searchCategoryController,
+                onChange: (value) {},
+              ),
+              Expanded(
+                child: BlocConsumer<MainSellerCubit, MainSellerState>(
+                  listener: (context, state) => _handleState(state),
+                  builder: (context, state) {
+                    if (state is MainSellerLoading) {
+                      return const Loading();
+                    } else if (state is MainSellerFailure) {
+                      return CustomErrorWidget(errorMessage: state.errorMsg);
+                    }
+
+                    if (listOfCategories.isEmpty) {
+                      return const EmptyWidget();
+                    } else {
+                      return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(height: Dimensions.height20),
@@ -194,19 +182,20 @@ class _MainSellerViewState extends State<MainSellerView> {
                           ),
                           SizedBox(height: Dimensions.height20),
                           CategorySellerListView(
-                            list: listOfFoodCategories,
+                            list: listOfCategories,
                             searchFoodController: _searchFoodController,
                           ),
                         ],
-                      ),
-                    ),
-                ],
+                      );
+                    }
+                  },
+                ),
               ),
-              CustomFloatButton(onClick: _handleAddCategory),
             ],
           ),
-        );
-      },
+          CustomFloatButton(onClick: _handleAddCategory),
+        ],
+      ),
     );
   }
 }

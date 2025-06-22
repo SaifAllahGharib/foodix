@@ -34,7 +34,7 @@ class MainSellerCubit extends Cubit<MainSellerState> {
     );
   }
 
-  Future<void> getCategories() async {
+  void getCategories() {
     emit(MainSellerLoading());
     _categorySubscription?.cancel();
 
@@ -42,10 +42,16 @@ class MainSellerCubit extends Cubit<MainSellerState> {
       result,
     ) {
       if (isClosed) return;
-      result.fold(
-        (l) => emit(MainSellerFailure(l.errorMsg)),
-        (snapshot) => emit(MainSellerGetCategory(snapshot)),
-      );
+      result.fold((l) => emit(MainSellerFailure(l.errorMsg)), (snapshot) {
+        if (snapshot.exists) {
+          final Map categories = snapshot.value as Map;
+          final List<CategoryModel> categoryList = categories.entries
+              .map((e) => CategoryModel.fromJson(e.value as Map))
+              .toList();
+
+          emit(MainSellerGetCategory(categoryList));
+        }
+      });
     });
   }
 

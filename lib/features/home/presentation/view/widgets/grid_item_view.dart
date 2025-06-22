@@ -1,24 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:foodix/core/shared/models/food_model.dart';
 import 'package:foodix/core/utils/dimensions.dart';
 import 'package:foodix/core/utils/styles.dart';
 import 'package:foodix/core/viewmodel/cubits/local_cubit.dart';
 import 'package:foodix/core/widgets/custom_row_cost.dart';
 import 'package:foodix/features/home/presentation/view/widgets/custom_image_food.dart';
 
-import '../../../../../core/shared/models/category_model.dart';
-
 class GridItemView extends StatelessWidget {
-  final CategoryModel category;
-  final int index;
+  final FoodModel food;
   final void Function() onClick;
 
-  const GridItemView({
-    super.key,
-    required this.category,
-    required this.index,
-    required this.onClick,
-  });
+  const GridItemView({super.key, required this.food, required this.onClick});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +20,7 @@ class GridItemView extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            CustomImageFood(imageUrl: category.foods![index].foodImage ?? ""),
+            CustomImageFood(imageUrl: food.foodImage ?? ""),
             SizedBox(height: Dimensions.height10),
             Padding(
               padding: EdgeInsets.symmetric(
@@ -40,7 +33,7 @@ class GridItemView extends StatelessWidget {
                         ? Alignment.centerRight
                         : Alignment.centerLeft,
                     child: Text(
-                      category.foods![index].foodName,
+                      food.foodName,
                       style: Styles.textStyle18(context),
                     ),
                   ),
@@ -50,7 +43,7 @@ class GridItemView extends StatelessWidget {
                         ? Alignment.centerRight
                         : Alignment.centerLeft,
                     child: CustomRowCost(
-                      egp: category.foods![index].foodPrice,
+                      egp: food.foodPrice,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
