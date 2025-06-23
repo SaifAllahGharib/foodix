@@ -35,20 +35,11 @@ class CustomBottomBarFoodDetailsSeller extends StatelessWidget {
         color: AppColors.whiteGray,
         borderRadius: BorderRadius.circular(Dimensions.radius20),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          CustomRowCost(
-            egp: food.foodPrice,
-            fontWeight: FontWeight.w500,
-            fontSize: Dimensions.height20 * 0.9,
-          ),
-          IconButton(
-            enableFeedback: false,
-            onPressed: () => _showBottomSheet(context),
-            icon: const Icon(Icons.edit, color: AppColors.primaryColor),
-          ),
-        ],
+      child: CustomRowCost(
+        mainAxisAlignment: MainAxisAlignment.center,
+        egp: food.foodPrice,
+        fontWeight: FontWeight.w500,
+        fontSize: Dimensions.height20 * 0.9,
       ),
     );
   }
