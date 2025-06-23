@@ -764,6 +764,51 @@ class S {
   String get closeTime {
     return Intl.message('Close Time', name: 'closeTime', desc: '', args: []);
   }
+
+  /// `Choose an action`
+  String get chooseAnAction {
+    return Intl.message(
+      'Choose an action',
+      name: 'chooseAnAction',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Do you want to edit or delete this item?`
+  String get doYouWantToEditOrDeleteThisItem {
+    return Intl.message(
+      'Do you want to edit or delete this item?',
+      name: 'doYouWantToEditOrDeleteThisItem',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete`
+  String get delete {
+    return Intl.message('Delete', name: 'delete', desc: '', args: []);
+  }
+
+  /// `Save`
+  String get save {
+    return Intl.message('Save', name: 'save', desc: '', args: []);
+  }
+
+  /// `Cancel`
+  String get cancel {
+    return Intl.message('Cancel', name: 'cancel', desc: '', args: []);
+  }
+
+  /// `Deleted Successfully`
+  String get deleteSuccess {
+    return Intl.message(
+      'Deleted Successfully',
+      name: 'deleteSuccess',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

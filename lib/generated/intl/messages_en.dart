@@ -35,6 +35,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "am": MessageLookupByLibrary.simpleMessage("AM"),
     "buyer": MessageLookupByLibrary.simpleMessage("Buyer"),
+    "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
     "cart": MessageLookupByLibrary.simpleMessage("Cart"),
     "categories": MessageLookupByLibrary.simpleMessage("Categories"),
     "category": MessageLookupByLibrary.simpleMessage("Category"),
@@ -45,6 +46,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "changePasswordSuccessful": MessageLookupByLibrary.simpleMessage(
       "Password Changed Successfully",
     ),
+    "chooseAnAction": MessageLookupByLibrary.simpleMessage("Choose an action"),
     "chooseYourPreferredLanguage": MessageLookupByLibrary.simpleMessage(
       "Choose Your Preferred Language",
     ),
@@ -63,9 +65,16 @@ class MessageLookup extends MessageLookupByLibrary {
     "confirmPassword": MessageLookupByLibrary.simpleMessage("Confirm Password"),
     "continueText": MessageLookupByLibrary.simpleMessage("Continue"),
     "createAccount": MessageLookupByLibrary.simpleMessage("Create Account"),
+    "delete": MessageLookupByLibrary.simpleMessage("Delete"),
+    "deleteSuccess": MessageLookupByLibrary.simpleMessage(
+      "Deleted Successfully",
+    ),
     "delivery": MessageLookupByLibrary.simpleMessage("Delivery"),
     "didNotGetACode": MessageLookupByLibrary.simpleMessage(
       "Didn\'t Receive a Code?",
+    ),
+    "doYouWantToEditOrDeleteThisItem": MessageLookupByLibrary.simpleMessage(
+      "Do you want to edit or delete this item?",
     ),
     "edit": MessageLookupByLibrary.simpleMessage("Edit"),
     "enterVerificationCode": MessageLookupByLibrary.simpleMessage(
@@ -125,6 +134,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "rePassword": MessageLookupByLibrary.simpleMessage("Repeat Password"),
     "resendEmail": MessageLookupByLibrary.simpleMessage("Resend"),
     "restaurantInfo": MessageLookupByLibrary.simpleMessage("Restaurant Info"),
+    "save": MessageLookupByLibrary.simpleMessage("Save"),
     "saveRestaurant": MessageLookupByLibrary.simpleMessage("Save Restaurant"),
     "search": MessageLookupByLibrary.simpleMessage("Search"),
     "selectLang": MessageLookupByLibrary.simpleMessage("Select Language"),

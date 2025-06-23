@@ -10,14 +10,27 @@ import '../../../../../core/shared/viewmodel/cubits/local_cubit.dart';
 
 class GridItemView extends StatelessWidget {
   final FoodModel food;
-  final void Function() onClick;
+  final int index;
+  final VoidCallback onClick;
+  final void Function(int index) onLongPress;
 
-  const GridItemView({super.key, required this.food, required this.onClick});
+  const GridItemView({
+    super.key,
+    required this.food,
+    required this.onClick,
+    required this.onLongPress,
+    required this.index,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: onClick,
+      onLongPress: () => onLongPress(index),
+      overlayColor: const WidgetStatePropertyAll(Colors.transparent),
+      highlightColor: Colors.transparent,
+      splashColor: Colors.transparent,
+      focusColor: Colors.transparent,
       child: SingleChildScrollView(
         child: Column(
           children: [

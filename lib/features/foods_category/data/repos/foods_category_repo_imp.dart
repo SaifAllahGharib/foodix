@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:foodix/core/errors/failure.dart';
+import 'package:foodix/core/shared/models/food_model.dart';
 
 import '../../../../core/services/db_services.dart';
 import 'foods_category_repo.dart';
@@ -21,5 +22,33 @@ class FoodsCategoryRepositoryImp implements FoodsCategoryRepository {
         );
       }
     });
+  }
+
+  @override
+  Future<Either<Failure, void>> deleteFood(
+    String categoryName,
+    String foodName,
+  ) async {
+    try {
+      return right(await _dbServices.deleteFood(categoryName, foodName));
+    } catch (e) {
+      return left(
+        FirebaseDBFailure(e is FirebaseDBFailure ? e.errorMsg : e.toString()),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> updateFood(
+    String categoryName,
+    FoodModel food,
+  ) async {
+    try {
+      return right(await _dbServices.updateFood(categoryName, food));
+    } catch (e) {
+      return left(
+        FirebaseDBFailure(e is FirebaseDBFailure ? e.errorMsg : e.toString()),
+      );
+    }
   }
 }

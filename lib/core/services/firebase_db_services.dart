@@ -153,4 +153,30 @@ class FirebaseDBServices extends DBServices {
         .onValue
         .map((event) => event.snapshot);
   }
+
+  @override
+  Future<void> deleteFood(String categoryName, String foodName) async {
+    await _firebaseService.db
+        .ref()
+        .child("restaurants")
+        .child(_firebaseService.auth.currentUser!.uid)
+        .child("categories")
+        .child(categoryName)
+        .child("foods")
+        .child(foodName)
+        .remove();
+  }
+
+  @override
+  Future<void> updateFood(String categoryName, FoodModel food) async {
+    await _firebaseService.db
+        .ref()
+        .child("restaurants")
+        .child(_firebaseService.auth.currentUser!.uid)
+        .child("categories")
+        .child(categoryName)
+        .child("foods")
+        .child(food.foodName)
+        .update(food.toJson());
+  }
 }

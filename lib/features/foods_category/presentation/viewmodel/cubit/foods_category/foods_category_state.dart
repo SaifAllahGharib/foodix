@@ -12,6 +12,10 @@ class FoodsCategorySuccess extends FoodsCategoryState {
   FoodsCategorySuccess(this.foods);
 }
 
+class FoodsCategoryUpdateFoodSuccess extends FoodsCategoryState {}
+
+class FoodsCategoryDeleteFoodSuccess extends FoodsCategoryState {}
+
 class FoodsCategoryFailure extends FoodsCategoryState {
   final String errorMsg;
 

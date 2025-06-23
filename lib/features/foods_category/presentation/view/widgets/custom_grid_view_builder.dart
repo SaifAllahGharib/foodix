@@ -8,8 +8,13 @@ import 'grid_item_view.dart';
 
 class CustomGridViewBuilder extends StatelessWidget {
   final List<FoodModel> foodsCategory;
+  final void Function(int) onLongPressOnItem;
 
-  const CustomGridViewBuilder({super.key, required this.foodsCategory});
+  const CustomGridViewBuilder({
+    super.key,
+    required this.foodsCategory,
+    required this.onLongPressOnItem,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +30,13 @@ class CustomGridViewBuilder extends StatelessWidget {
       itemBuilder: (context, index) {
         return GridItemView(
           food: foodsCategory[index],
+          index: index,
           onClick: () {
             GoRouter.of(
               context,
             ).push(FoodDetailsView.id, extra: foodsCategory[index]);
           },
+          onLongPress: onLongPressOnItem,
         );
       },
     );

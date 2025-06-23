@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodix/core/shared/models/category_model.dart';
+import 'package:foodix/core/shared/models/food_model.dart';
 import 'package:foodix/features/foods_category/data/repos/foods_category_repo.dart';
 
 import 'foods_category_state.dart';
@@ -40,5 +41,28 @@ class FoodsCategoryCubit extends Cubit<FoodsCategoryState> {
             }
           });
         });
+  }
+
+  Future<void> updateFood(String categoryName, FoodModel food) async {
+    emit(FoodsCategoryLoading());
+
+    final res = await _foodsCategoryRepository.updateFood(categoryName, food);
+
+    res.fold((l) => emit(FoodsCategoryFailure(l.errorMsg)), (_) {
+      emit(FoodsCategoryUpdateFoodSuccess());
+    });
+  }
+
+  Future<void> deleteFood(String categoryName, String foodName) async {
+    emit(FoodsCategoryLoading());
+
+    final res = await _foodsCategoryRepository.deleteFood(
+      categoryName,
+      foodName,
+    );
+
+    res.fold((l) => emit(FoodsCategoryFailure(l.errorMsg)), (_) {
+      emit(FoodsCategoryDeleteFoodSuccess());
+    });
   }
 }

@@ -35,4 +35,8 @@ abstract class DBServices {
   Future<void> updateRestaurantCloseTime(String closeTime);
 
   Stream<DataSnapshot> getFoodsCategory(String categoryName);
+
+  Future<void> deleteFood(String categoryName, String foodName);
+
+  Future<void> updateFood(String categoryName, FoodModel food);
 }

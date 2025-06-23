@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/utils/colors.dart';
-import '../../../../../core/utils/dimensions.dart';
+import '../utils/colors.dart';
+import '../utils/dimensions.dart';
 
-class MyRestaurantLoadingWidget extends StatelessWidget {
-  const MyRestaurantLoadingWidget({super.key});
+class CustomDialogLoadingWidget extends StatelessWidget {
+  const CustomDialogLoadingWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

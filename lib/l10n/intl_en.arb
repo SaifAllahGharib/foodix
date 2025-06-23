@@ -94,5 +94,11 @@
   "labelDeliveryCost": "Delivery Cost",
   "selectTime": "Select Time",
   "openTime": "Open Time",
-  "closeTime": "Close Time"
+  "closeTime": "Close Time",
+  "chooseAnAction": "Choose an action",
+  "doYouWantToEditOrDeleteThisItem": "Do you want to edit or delete this item?",
+  "delete": "Delete",
+  "save": "Save",
+  "cancel": "Cancel",
+  "deleteSuccess": "Deleted Successfully"
 }

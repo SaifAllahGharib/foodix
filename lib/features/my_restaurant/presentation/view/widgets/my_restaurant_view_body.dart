@@ -12,12 +12,12 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../../core/utils/di.dart';
 import '../../../../../core/utils/my_shared_preferences.dart';
+import '../../../../../core/widgets/custom_dialog_loading_widget.dart';
 import '../../../../../core/widgets/custom_edit_field_widget.dart';
 import '../../viewmodel/cubits/my_restaurant/my_restaurant_cubit.dart';
 import '../../viewmodel/cubits/my_restaurant/my_restaurant_state.dart';
 import 'custom_my_restaurant_text_form_field_and_time.dart';
 import 'custom_my_restaurant_time_display.dart';
-import 'my_restaurant_loading_widget.dart';
 
 class MyRestaurantViewBody extends StatefulWidget {
   const MyRestaurantViewBody({super.key});
@@ -142,7 +142,7 @@ class _MyRestaurantViewBodyState extends State<MyRestaurantViewBody> {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (BuildContext context) => const MyRestaurantLoadingWidget(),
+      builder: (BuildContext context) => const CustomDialogLoadingWidget(),
     );
   }
 
