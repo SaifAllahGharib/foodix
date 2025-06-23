@@ -11,7 +11,7 @@ class TopSectionBottomSheetProduct extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const ImageAndBackButton(),
+        ImageAndBackButton(),
         Padding(
           padding: EdgeInsets.symmetric(
             horizontal: Dimensions.height15,
@@ -20,10 +20,7 @@ class TopSectionBottomSheetProduct extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                "foodName",
-                style: Styles.textStyle18(context),
-              ),
+              Text("foodName", style: Styles.textStyle18(context)),
               SizedBox(height: Dimensions.height15),
               Text(
                 "foodDesc",
@@ -31,7 +28,7 @@ class TopSectionBottomSheetProduct extends StatelessWidget {
               ),
             ],
           ),
-        )
+        ),
       ],
     );
   }

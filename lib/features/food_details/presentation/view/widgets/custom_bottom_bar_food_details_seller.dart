@@ -4,8 +4,12 @@ import 'package:foodix/core/utils/dimensions.dart';
 import 'package:foodix/core/widgets/custom_row_cost.dart';
 import 'package:foodix/features/food_details/presentation/view/widgets/edit_food_derails_widgets.dart';
 
+import '../../../../../core/shared/models/food_model.dart';
+
 class CustomBottomBarFoodDetailsSeller extends StatelessWidget {
-  const CustomBottomBarFoodDetailsSeller({super.key});
+  final FoodModel food;
+
+  const CustomBottomBarFoodDetailsSeller({super.key, required this.food});
 
   void _showBottomSheet(BuildContext context) {
     showBottomSheet(
@@ -35,17 +39,14 @@ class CustomBottomBarFoodDetailsSeller extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           CustomRowCost(
-            egp: 250,
+            egp: food.foodPrice,
             fontWeight: FontWeight.w500,
             fontSize: Dimensions.height20 * 0.9,
           ),
           IconButton(
             enableFeedback: false,
             onPressed: () => _showBottomSheet(context),
-            icon: const Icon(
-              Icons.edit,
-              color: AppColors.primaryColor,
-            ),
+            icon: const Icon(Icons.edit, color: AppColors.primaryColor),
           ),
         ],
       ),

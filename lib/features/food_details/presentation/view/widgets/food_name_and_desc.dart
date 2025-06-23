@@ -4,10 +4,13 @@ import 'package:foodix/core/utils/dimensions.dart';
 import 'package:foodix/core/utils/styles.dart';
 import 'package:foodix/core/widgets/custom_text.dart';
 
+import '../../../../../core/shared/models/food_model.dart';
 import '../../../../../core/shared/viewmodel/cubits/local_cubit.dart';
 
 class FoodNameAndDesc extends StatelessWidget {
-  const FoodNameAndDesc({super.key});
+  final FoodModel food;
+
+  const FoodNameAndDesc({super.key, required this.food});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +20,7 @@ class FoodNameAndDesc extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CustomText(
-            text: "Birger King",
+            text: food.foodName,
             alignment: context.watch<LocalCubit>().isArabic
                 ? Alignment.topLeft
                 : Alignment.topLeft,
@@ -25,7 +28,7 @@ class FoodNameAndDesc extends StatelessWidget {
           ),
           SizedBox(height: Dimensions.height10 * 0.5),
           Text(
-            "meet 150g, red sos, halebeno, tomatom",
+            food.foodDesc,
             style: Styles.textStyle15(context).copyWith(color: Colors.grey),
           ),
         ],

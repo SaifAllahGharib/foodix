@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:foodix/core/utils/assets.dart';
 import 'package:foodix/core/utils/dimensions.dart';
 import 'package:foodix/core/widgets/custom_back_button.dart';
-import 'package:foodix/core/widgets/custom_image.dart';
+import 'package:foodix/core/widgets/custom_cashed_network_image.dart';
+
+import '../shared/models/food_model.dart';
+import '../utils/assets.dart';
 
 class ImageAndBackButton extends StatelessWidget {
-  const ImageAndBackButton({super.key});
+  final FoodModel? food;
+
+  const ImageAndBackButton({super.key, this.food});
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        CustomImage(
-          image: Assets.food,
+        CustomCashedNetworkImage(
+          imageURL: food?.foodImage,
+          placeholder: Assets.food,
           width: double.infinity,
           height: Dimensions.height130 * 2.4,
         ),

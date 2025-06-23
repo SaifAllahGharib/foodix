@@ -26,7 +26,9 @@ class CustomGridViewBuilder extends StatelessWidget {
         return GridItemView(
           food: foodsCategory[index],
           onClick: () {
-            GoRouter.of(context).push(FoodDetailsView.id);
+            GoRouter.of(
+              context,
+            ).push(FoodDetailsView.id, extra: foodsCategory[index]);
           },
         );
       },
