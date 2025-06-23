@@ -54,7 +54,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
   void _onSuccess(state) {
     if (state.msg == context.translate.success) {
       if (_isEmailVerified()) {
-        GoRouter.of(context).push(HomeView.id);
+        GoRouter.of(context).go(HomeView.id);
       } else {
         GoRouter.of(context).push(VerificationView.id, extra: _email.text);
       }
