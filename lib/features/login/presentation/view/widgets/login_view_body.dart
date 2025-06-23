@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodix/core/services/firebase_service.dart';
-import 'package:foodix/core/utils/colors.dart';
 import 'package:foodix/core/utils/dimensions.dart';
 import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/utils/functions/snack_bar.dart';
@@ -59,13 +58,8 @@ class _LoginViewBodyState extends State<LoginViewBody> {
       } else {
         GoRouter.of(context).push(VerificationView.id, extra: _email.text);
       }
-      _saveUser();
     }
-
-    snackBar(context: context, text: state.msg, color: AppColors.primaryColor);
   }
-
-  void _saveUser() {}
 
   void _onFailure(state) {
     if (state.failure is FirebaseAuthFailure) {

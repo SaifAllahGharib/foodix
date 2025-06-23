@@ -59,8 +59,6 @@ class _SignupViewBodyState extends State<SignupViewBody> {
     if (state.msg == context.translate.success) {
       _pushToVerificationView();
     }
-
-    snackBar(context: context, text: state.msg, color: Colors.blue);
   }
 
   void _onFailure(state) {
@@ -68,9 +66,9 @@ class _SignupViewBodyState extends State<SignupViewBody> {
       final String msg = state.failure.errorMsg;
 
       if (msg == "weak-password") {
-        snackBar(context: context, text: "weak_password");
+        snackBar(context: context, text: context.translate.weakPassword);
       } else if (msg == "email-already-in-use") {
-        snackBar(context: context, text: "user_already_exists");
+        snackBar(context: context, text: context.translate.userAlreadyExists);
       }
     } else {
       snackBar(context: context, text: state.failure.errorMsg);

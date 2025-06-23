@@ -41,7 +41,7 @@ class _VerificationViewBodyState extends State<VerificationViewBody> {
 
   @override
   void dispose() {
-    _timer!.cancel();
+    _timer?.cancel();
     _verificationController.close();
     super.dispose();
   }
