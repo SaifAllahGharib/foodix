@@ -3,8 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodix/core/utils/dimensions.dart';
 import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/utils/styles.dart';
-import 'package:foodix/core/viewmodel/cubits/local_cubit.dart';
 import 'package:foodix/core/widgets/custom_text.dart';
+
+import '../../../../../core/shared/viewmodel/cubits/local_cubit.dart';
 
 class MiddleSectionDetailsOrderViewBody extends StatelessWidget {
   const MiddleSectionDetailsOrderViewBody({super.key});

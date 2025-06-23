@@ -4,7 +4,6 @@ import 'package:foodix/core/utils/colors.dart';
 import 'package:foodix/core/utils/dimensions.dart';
 import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/utils/styles.dart';
-import 'package:foodix/core/viewmodel/cubits/local_cubit.dart';
 import 'package:foodix/core/widgets/custom_edit_field_widget.dart';
 import 'package:foodix/core/widgets/custom_text.dart';
 import 'package:go_router/go_router.dart';
@@ -74,9 +73,7 @@ class _NameAndEmailState extends State<NameAndEmail> {
               CustomText(
                 text: widget.name,
                 textSize: Dimensions.height20 * 1.2,
-                alignment: context.watch<LocalCubit>().isArabic
-                    ? Alignment.topRight
-                    : Alignment.topLeft,
+                alignment: AlignmentDirectional.topStart,
               ),
               Text(
                 widget.email,

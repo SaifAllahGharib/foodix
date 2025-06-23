@@ -3,10 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodix/core/utils/assets.dart';
 import 'package:foodix/core/utils/dimensions.dart';
 import 'package:foodix/core/utils/extensions.dart';
-import 'package:foodix/core/viewmodel/cubits/local_cubit.dart';
 import 'package:foodix/core/widgets/custom_image.dart';
 import 'package:foodix/core/widgets/custom_text.dart';
 import 'package:foodix/features/details_order/presentation/view/widgets/custom_details_order_text.dart';
+
+import '../shared/viewmodel/cubits/local_cubit.dart';
 
 class CustomDetailsOrderNameImage extends StatelessWidget {
   final bool customTextDetails;

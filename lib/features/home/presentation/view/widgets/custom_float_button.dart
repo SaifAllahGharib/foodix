@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodix/core/utils/colors.dart';
 import 'package:foodix/core/utils/dimensions.dart';
-import 'package:foodix/core/viewmodel/cubits/local_cubit.dart';
+
+import '../../../../../core/shared/viewmodel/cubits/local_cubit.dart';
 
 class CustomFloatButton extends StatelessWidget {
   final void Function() onClick;

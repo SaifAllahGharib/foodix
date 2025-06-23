@@ -3,9 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodix/core/utils/colors.dart';
 import 'package:foodix/core/utils/dimensions.dart';
 import 'package:foodix/core/utils/styles.dart';
-import 'package:foodix/core/viewmodel/cubits/local_cubit.dart';
 import 'package:foodix/core/widgets/custom_food_image.dart';
 import 'package:foodix/core/widgets/custom_row_cost.dart';
+
+import '../../../../../core/shared/viewmodel/cubits/local_cubit.dart';
 
 class CustomItemFoodCategoryListView extends StatelessWidget {
   final int index;
@@ -94,10 +95,7 @@ class CustomItemFoodCategoryListView extends StatelessWidget {
             ),
           ),
           if (index != listOfFood.length - 1)
-            const Divider(
-              height: 1,
-              color: AppColors.gray,
-            ),
+            const Divider(height: 1, color: AppColors.gray),
           if (index != listOfFood.length - 1)
             SizedBox(height: Dimensions.height20),
         ],

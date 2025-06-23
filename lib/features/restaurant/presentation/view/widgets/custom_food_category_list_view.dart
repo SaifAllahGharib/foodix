@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodix/core/utils/dimensions.dart';
-import 'package:foodix/core/viewmodel/cubits/local_cubit.dart';
 import 'package:foodix/features/restaurant/presentation/view/widgets/custom_bottom_sheet_restaurant_product_widget.dart';
 import 'package:foodix/features/restaurant/presentation/view/widgets/custom_item_food_category_list_view.dart';
 
 import '../../../../../core/shared/models/food_model.dart';
+import '../../../../../core/shared/viewmodel/cubits/local_cubit.dart';
 
 class CustomFoodCategoryListView extends StatelessWidget {
   final List<FoodModel> listOfFoodCategories;

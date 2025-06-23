@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodix/core/utils/dimensions.dart';
 import 'package:foodix/core/utils/styles.dart';
-import 'package:foodix/core/viewmodel/cubits/local_cubit.dart';
 import 'package:foodix/core/widgets/custom_text.dart';
+
+import '../../../../../core/shared/viewmodel/cubits/local_cubit.dart';
 
 class FoodNameAndDesc extends StatelessWidget {
   const FoodNameAndDesc({super.key});
@@ -26,7 +27,7 @@ class FoodNameAndDesc extends StatelessWidget {
           Text(
             "meet 150g, red sos, halebeno, tomatom",
             style: Styles.textStyle15(context).copyWith(color: Colors.grey),
-          )
+          ),
         ],
       ),
     );

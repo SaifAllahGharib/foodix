@@ -3,9 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodix/core/shared/models/food_model.dart';
 import 'package:foodix/core/utils/dimensions.dart';
 import 'package:foodix/core/utils/styles.dart';
-import 'package:foodix/core/viewmodel/cubits/local_cubit.dart';
 import 'package:foodix/core/widgets/custom_row_cost.dart';
 import 'package:foodix/features/home/presentation/view/widgets/custom_image_food.dart';
+
+import '../../../../../core/shared/viewmodel/cubits/local_cubit.dart';
 
 class GridItemView extends StatelessWidget {
   final FoodModel food;

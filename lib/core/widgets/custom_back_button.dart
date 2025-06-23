@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodix/core/utils/colors.dart';
 import 'package:foodix/core/utils/dimensions.dart';
-import 'package:foodix/core/viewmodel/cubits/local_cubit.dart';
 import 'package:go_router/go_router.dart';
+
+import '../shared/viewmodel/cubits/local_cubit.dart';
 
 class CustomBackButton extends StatelessWidget {
   final Color color;

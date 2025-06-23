@@ -4,10 +4,10 @@ import 'package:foodix/core/utils/colors.dart';
 import 'package:foodix/core/utils/dimensions.dart';
 import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/utils/styles.dart';
-import 'package:foodix/core/viewmodel/cubits/local_cubit.dart';
 import 'package:foodix/core/widgets/custom_button.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../../core/shared/viewmodel/cubits/local_cubit.dart';
 import '../../../../../core/utils/assets.dart';
 import '../../../../login/presentation/view/login_view.dart';
 import 'lang_widget.dart';

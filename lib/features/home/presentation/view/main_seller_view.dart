@@ -32,15 +32,15 @@ class _MainSellerViewState extends State<MainSellerView> {
   late final TextEditingController _searchFoodController;
   late final TextEditingController _categoryController;
   late final RestaurantModel _restaurant;
-  final List<CategoryModel> listOfCategories = [];
+  final List<CategoryModel> _listOfCategories = [];
 
   @override
   void initState() {
     _searchCategoryController = TextEditingController();
     _searchFoodController = TextEditingController();
     _categoryController = TextEditingController();
+    _getCategories();
     _getMyRestaurant();
-    _getCategories(context);
 
     super.initState();
   }
@@ -54,10 +54,12 @@ class _MainSellerViewState extends State<MainSellerView> {
   }
 
   void _getMyRestaurant() async {
-    await context.read<MainSellerCubit>().getMyRestaurant();
+    if (_myRestaurantIsNotValid) {
+      await context.read<MainSellerCubit>().getMyRestaurant();
+    }
   }
 
-  void _addCategoryBottomSheet(BuildContext context) {
+  void _addCategoryBottomSheet() {
     showModalBottomSheet(
       context: context,
       builder: (context) {
@@ -68,15 +70,13 @@ class _MainSellerViewState extends State<MainSellerView> {
     );
   }
 
-  void _getCategories(BuildContext context) {
-    if (_myRestaurantIsNotValid) {
-      context.read<MainSellerCubit>().getCategories();
-    }
+  void _getCategories() {
+    context.read<MainSellerCubit>().getCategories();
   }
 
   void _getCategoriesSuccess(MainSellerGetCategory state) {
-    listOfCategories.clear();
-    listOfCategories.addAll(state.categories ?? []);
+    _listOfCategories.clear();
+    _listOfCategories.addAll(state.categories ?? []);
   }
 
   void _handleState(MainSellerState state) async {
@@ -115,13 +115,13 @@ class _MainSellerViewState extends State<MainSellerView> {
         _restaurant,
       );
       if (restaurantStoredSuccess) {
-        _addCategoryBottomSheet(context);
+        _addCategoryBottomSheet();
       } else {
         snackBar(context: context, text: "Failed to store restaurant");
       }
       snackBar(context: context, text: "Not In Local DB");
     } else if (_restaurant.isValid && !_myRestaurantIsNotValid) {
-      _addCategoryBottomSheet(context);
+      _addCategoryBottomSheet();
     }
   }
 
@@ -169,7 +169,7 @@ class _MainSellerViewState extends State<MainSellerView> {
                       return CustomErrorWidget(errorMessage: state.errorMsg);
                     }
 
-                    if (listOfCategories.isEmpty) {
+                    if (_listOfCategories.isEmpty) {
                       return const EmptyWidget();
                     } else {
                       return Column(
@@ -182,7 +182,7 @@ class _MainSellerViewState extends State<MainSellerView> {
                           ),
                           SizedBox(height: Dimensions.height20),
                           CategorySellerListView(
-                            list: listOfCategories,
+                            list: _listOfCategories,
                             searchFoodController: _searchFoodController,
                           ),
                         ],

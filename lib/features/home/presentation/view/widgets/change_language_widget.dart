@@ -3,11 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodix/core/utils/dimensions.dart';
 import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/utils/styles.dart';
-import 'package:foodix/core/viewmodel/cubits/local_cubit.dart';
 import 'package:foodix/core/widgets/custom_back_button.dart';
 import 'package:foodix/core/widgets/custom_divider.dart';
 import 'package:foodix/features/home/presentation/view/widgets/custom_button_language.dart';
 import 'package:go_router/go_router.dart';
+
+import '../../../../../core/shared/viewmodel/cubits/local_cubit.dart';
 
 class ChangeLanguageWidget extends StatelessWidget {
   const ChangeLanguageWidget({super.key});

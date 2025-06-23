@@ -10,7 +10,6 @@ import 'package:foodix/core/utils/functions/init_app.dart';
 import 'package:foodix/core/utils/functions/set_portrait_orientation.dart';
 import 'package:foodix/core/utils/image_picker_helper.dart';
 import 'package:foodix/core/utils/my_shared_preferences.dart';
-import 'package:foodix/core/viewmodel/cubits/local_cubit.dart';
 import 'package:foodix/features/home/data/repos/home/home_repo_imp.dart';
 import 'package:foodix/features/home/data/repos/main_seller/main_seller_repo_imp.dart';
 import 'package:foodix/features/home/data/repos/profile/profile_repo_imp.dart';
@@ -18,6 +17,8 @@ import 'package:foodix/features/home/presentation/viewmodel/cubits/home/home_cub
 import 'package:foodix/features/home/presentation/viewmodel/cubits/main_seller/main_seller_cubit.dart';
 import 'package:foodix/features/home/presentation/viewmodel/cubits/profile/profile_cubit.dart';
 import 'package:foodix/generated/l10n.dart';
+
+import 'core/shared/viewmodel/cubits/local_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
