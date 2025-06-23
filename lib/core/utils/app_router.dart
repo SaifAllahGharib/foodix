@@ -32,7 +32,7 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: SignupView.id,
-        builder: (context, state) => SignupView(role: state.extra as String),
+        builder: (context, state) => const SignupView(),
       ),
       GoRoute(
         path: LoginView.id,
@@ -41,8 +41,7 @@ abstract class AppRouter {
       GoRoute(path: HomeView.id, builder: (context, state) => const HomeView()),
       GoRoute(
         path: VerificationView.id,
-        builder: (context, state) =>
-            VerificationView(email: state.extra as String),
+        builder: (context, state) => const VerificationView(),
       ),
       GoRoute(
         path: ForgetPasswordView.id,
@@ -50,24 +49,15 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: ChangePasswordView.id,
-        builder: (context, state) {
-          final extra = state.extra as Map<String, dynamic>;
-
-          return ChangePasswordView(
-            verifyCode: extra["code"] ?? "",
-            user: extra["user"] ?? {},
-          );
-        },
+        builder: (context, state) => const ChangePasswordView(),
       ),
       GoRoute(
         path: FoodsCategoryView.id,
-        builder: (context, state) =>
-            FoodsCategoryView(categoryName: state.extra as String),
+        builder: (context, state) => const FoodsCategoryView(),
       ),
       GoRoute(
         path: AddFoodView.id,
-        builder: (context, state) =>
-            AddFoodView(categoryName: state.extra as String),
+        builder: (context, state) => const AddFoodView(),
       ),
       GoRoute(
         path: DetailsOrderView.id,
