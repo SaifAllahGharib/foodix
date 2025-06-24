@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodix/core/utils/di.dart';
+import 'package:foodix/core/utils/my_shared_preferences.dart';
 import 'package:foodix/features/my_restaurant/presentation/view/widgets/my_restaurant_view_body.dart';
 import 'package:foodix/features/my_restaurant/presentation/viewmodel/cubits/my_restaurant/my_restaurant_cubit.dart';
 
@@ -14,8 +15,10 @@ class MyRestaurantView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          MyRestaurantCubit(getIt<MyRestaurantRepositoryImp>()),
+      create: (context) => MyRestaurantCubit(
+        getIt<MyRestaurantRepositoryImp>(),
+        getIt<MySharedPreferences>(),
+      ),
       child: const Scaffold(body: MyRestaurantViewBody()),
     );
   }

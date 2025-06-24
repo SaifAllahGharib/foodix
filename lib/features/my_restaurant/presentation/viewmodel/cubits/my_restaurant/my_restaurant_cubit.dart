@@ -1,24 +1,53 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:foodix/core/utils/my_shared_preferences.dart';
 import 'package:foodix/features/my_restaurant/data/models/restaurant_model.dart';
 import 'package:foodix/features/my_restaurant/data/repos/my_restaurant_repo.dart';
 
+import '../../../../../../core/utils/enums.dart';
 import 'my_restaurant_state.dart';
 
 class MyRestaurantCubit extends Cubit<MyRestaurantState> {
   final MyRestaurantRepository _myRestaurantRepository;
+  final MySharedPreferences _mySharedPreferences;
   bool _isValid = false;
 
-  MyRestaurantCubit(this._myRestaurantRepository) : super(MyRestaurantInit());
+  MyRestaurantCubit(this._myRestaurantRepository, this._mySharedPreferences)
+    : super(MyRestaurantInit());
 
   Future<void> createRestaurant(RestaurantModel restaurant) async {
     emit(MyRestaurantLoading());
     final result = await _myRestaurantRepository.createRestaurant(restaurant);
 
-    result.fold(
-      (failure) => emit(MyRestaurantFailure(failure.errorMsg)),
-      (_) => emit(MyRestaurantCreated(restaurant)),
-    );
+    result.fold((failure) => emit(MyRestaurantFailure(failure.errorMsg)), (_) {
+      _saveRestaurant(restaurant);
+      emit(MyRestaurantCreated(restaurant));
+    });
+  }
+
+  void _saveRestaurant(RestaurantModel restaurantModel) async {
+    await Future.wait([
+      _mySharedPreferences.storeString(
+        RestaurantInfoParams.restaurantName.toString(),
+        restaurantModel.name!,
+      ),
+      _mySharedPreferences.storeString(
+        RestaurantInfoParams.deliveryTime.toString(),
+        restaurantModel.deliveryTime.toString(),
+      ),
+      _mySharedPreferences.storeString(
+        RestaurantInfoParams.deliveryCost.toString(),
+        restaurantModel.deliveryCost.toString(),
+      ),
+      _mySharedPreferences.storeString(
+        RestaurantInfoParams.openTime.toString(),
+        restaurantModel.openTime!,
+      ),
+      _mySharedPreferences.storeString(
+        RestaurantInfoParams.closeTime.toString(),
+        restaurantModel.closeTime!,
+      ),
+    ]);
   }
 
   Future<void> updateRestaurantName(String name) async {

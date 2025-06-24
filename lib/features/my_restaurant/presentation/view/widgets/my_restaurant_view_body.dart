@@ -154,7 +154,6 @@ class _MyRestaurantViewBodyState extends State<MyRestaurantViewBody> {
     if (state is MyRestaurantLoading) {
       _showLoadingDialog();
     } else if (state is MyRestaurantCreated) {
-      // getIt<MySharedPreferences>().storeString("key", value)
       context.pop();
       context.go(HomeView.id);
     } else if (state is MyRestaurantFailure) {
