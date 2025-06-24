@@ -163,6 +163,10 @@ class _MainSellerViewState extends State<MainSellerView> {
                 child: BlocConsumer<MainSellerCubit, MainSellerState>(
                   listener: (context, state) => _handleState(state),
                   builder: (context, state) {
+                    print("================================================");
+                    print("MainSellerView: $state");
+                    print("================================================");
+
                     if (state is MainSellerLoading) {
                       return const Loading();
                     } else if (state is MainSellerFailure) {

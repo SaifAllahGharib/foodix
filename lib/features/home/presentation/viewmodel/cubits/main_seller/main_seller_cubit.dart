@@ -43,14 +43,14 @@ class MainSellerCubit extends Cubit<MainSellerState> {
     ) {
       if (isClosed) return;
       result.fold((l) => emit(MainSellerFailure(l.errorMsg)), (snapshot) {
+        List<CategoryModel> categoryList = [];
         if (snapshot.exists) {
           final Map categories = snapshot.value as Map;
-          final List<CategoryModel> categoryList = categories.entries
+          categoryList = categories.entries
               .map((e) => CategoryModel.fromJson(e.value as Map))
               .toList();
-
-          emit(MainSellerGetCategory(categoryList));
         }
+        emit(MainSellerGetCategory(categoryList));
       });
     });
   }
