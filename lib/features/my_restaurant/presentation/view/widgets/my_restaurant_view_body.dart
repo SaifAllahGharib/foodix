@@ -299,7 +299,7 @@ class _MyRestaurantViewBodyState extends State<MyRestaurantViewBody> {
                   controller: _nameController,
                   label: context.translate.labelName,
                   resInfo: 0,
-                  hint: context.translate.hintName,
+                  hint: context.translate.hintNameRestaurant,
                   onClickEdit: () => _showBottomSheet(
                     controller: _updateNameController,
                     label: context.translate.newName,
