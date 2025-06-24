@@ -7,6 +7,7 @@ import 'package:foodix/features/home/presentation/viewmodel/cubits/main_seller/m
 import 'package:foodix/features/my_restaurant/data/models/restaurant_model.dart';
 
 import '../../../../../../core/shared/models/category_model.dart';
+import '../../../../../../core/utils/enums.dart';
 import '../../../../../../core/utils/my_shared_preferences.dart';
 
 class MainSellerCubit extends Cubit<MainSellerState> {
@@ -72,17 +73,26 @@ class MainSellerCubit extends Cubit<MainSellerState> {
   Future<bool> storeRestaurantInLocalDB(RestaurantModel restaurant) async {
     try {
       await Future.wait([
-        _mySharedPreferences.storeString("restaurantName", restaurant.name!),
         _mySharedPreferences.storeString(
-          "deliveryTime",
+          RestaurantInfoParams.restaurantName.toString(),
+          restaurant.name!,
+        ),
+        _mySharedPreferences.storeString(
+          RestaurantInfoParams.deliveryTime.toString(),
           restaurant.deliveryTime.toString(),
         ),
         _mySharedPreferences.storeString(
-          "deliveryCost",
+          RestaurantInfoParams.deliveryCost.toString(),
           restaurant.deliveryCost.toString(),
         ),
-        _mySharedPreferences.storeString("openTime", restaurant.openTime!),
-        _mySharedPreferences.storeString("closeTime", restaurant.closeTime!),
+        _mySharedPreferences.storeString(
+          RestaurantInfoParams.openTime.toString(),
+          restaurant.openTime!,
+        ),
+        _mySharedPreferences.storeString(
+          RestaurantInfoParams.closeTime.toString(),
+          restaurant.closeTime!,
+        ),
       ]);
       return true;
     } catch (_) {

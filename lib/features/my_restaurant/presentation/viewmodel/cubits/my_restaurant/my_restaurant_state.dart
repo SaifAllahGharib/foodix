@@ -1,10 +1,16 @@
+import '../../../../data/models/restaurant_model.dart';
+
 sealed class MyRestaurantState {}
 
 class MyRestaurantInit extends MyRestaurantState {}
 
 class MyRestaurantLoading extends MyRestaurantState {}
 
-class MyRestaurantCreated extends MyRestaurantState {}
+class MyRestaurantCreated extends MyRestaurantState {
+  final RestaurantModel restaurant;
+
+  MyRestaurantCreated(this.restaurant);
+}
 
 class MyRestaurantValidationFields extends MyRestaurantState {}
 

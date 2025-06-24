@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodix/core/utils/colors.dart';
 import 'package:foodix/core/utils/dimensions.dart';
+import 'package:foodix/core/utils/enums.dart';
 import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/utils/functions/snack_bar.dart';
 import 'package:foodix/core/utils/styles.dart';
 import 'package:foodix/core/widgets/custom_back_button.dart';
 import 'package:foodix/core/widgets/custom_button.dart';
+import 'package:foodix/features/home/presentation/view/home_view.dart';
 import 'package:foodix/features/my_restaurant/data/models/restaurant_model.dart';
 import 'package:go_router/go_router.dart';
 
@@ -148,12 +150,13 @@ class _MyRestaurantViewBodyState extends State<MyRestaurantViewBody> {
     );
   }
 
-  void _handleState(MyRestaurantState state) {
+  void _handleState(MyRestaurantState state) async {
     if (state is MyRestaurantLoading) {
       _showLoadingDialog();
     } else if (state is MyRestaurantCreated) {
+      // getIt<MySharedPreferences>().storeString("key", value)
       context.pop();
-      context.pop();
+      context.go(HomeView.id);
     } else if (state is MyRestaurantFailure) {
       snackBar(context: context, text: state.errorMsg);
     }
@@ -161,11 +164,17 @@ class _MyRestaurantViewBodyState extends State<MyRestaurantViewBody> {
 
   List<String?> _getMyRestaurantInfo(MySharedPreferences mySharedPreferences) {
     return [
-      mySharedPreferences.getString("restaurantName"),
-      mySharedPreferences.getString("deliveryTime"),
-      mySharedPreferences.getString("deliveryCost"),
-      mySharedPreferences.getString("openTime"),
-      mySharedPreferences.getString("closeTime"),
+      mySharedPreferences.getString(
+        RestaurantInfoParams.restaurantName.toString(),
+      ),
+      mySharedPreferences.getString(
+        RestaurantInfoParams.deliveryTime.toString(),
+      ),
+      mySharedPreferences.getString(
+        RestaurantInfoParams.deliveryCost.toString(),
+      ),
+      mySharedPreferences.getString(RestaurantInfoParams.openTime.toString()),
+      mySharedPreferences.getString(RestaurantInfoParams.closeTime.toString()),
     ];
   }
 
@@ -224,15 +233,30 @@ class _MyRestaurantViewBodyState extends State<MyRestaurantViewBody> {
     if (state is MyRestaurantLoading) {
       _showLoadingDialog();
     } else if (state is MyRestaurantNameUpdated) {
-      _whenUpdateSuccess("restaurantName", _updateNameController.text);
+      _whenUpdateSuccess(
+        RestaurantInfoParams.restaurantName.toString(),
+        _updateNameController.text,
+      );
     } else if (state is MyRestaurantTimeDeliveryUpdated) {
-      _whenUpdateSuccess("deliveryTime", _updateDeliveryTimeController.text);
+      _whenUpdateSuccess(
+        RestaurantInfoParams.deliveryTime.toString(),
+        _updateDeliveryTimeController.text,
+      );
     } else if (state is MyRestaurantCostDeliveryUpdated) {
-      _whenUpdateSuccess("deliveryCost", _updateDeliveryCostController.text);
+      _whenUpdateSuccess(
+        RestaurantInfoParams.deliveryCost.toString(),
+        _updateDeliveryCostController.text,
+      );
     } else if (state is MyRestaurantOpenTimeUpdated) {
-      _whenUpdateSuccess("openTime", _formatTime(context, _openTime));
+      _whenUpdateSuccess(
+        RestaurantInfoParams.openTime.toString(),
+        _formatTime(context, _openTime),
+      );
     } else if (state is MyRestaurantCloseTimeUpdated) {
-      _whenUpdateSuccess("closeTime", _formatTime(context, _closeTime));
+      _whenUpdateSuccess(
+        RestaurantInfoParams.closeTime.toString(),
+        _formatTime(context, _closeTime),
+      );
     } else if (state is MyRestaurantFailure) {
       context.pop();
       snackBar(context: context, text: state.errorMsg);

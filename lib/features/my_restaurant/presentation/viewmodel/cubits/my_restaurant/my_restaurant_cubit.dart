@@ -17,7 +17,7 @@ class MyRestaurantCubit extends Cubit<MyRestaurantState> {
 
     result.fold(
       (failure) => emit(MyRestaurantFailure(failure.errorMsg)),
-      (_) => emit(MyRestaurantCreated()),
+      (_) => emit(MyRestaurantCreated(restaurant)),
     );
   }
 

@@ -18,6 +18,7 @@ import 'package:foodix/features/my_restaurant/data/models/restaurant_model.dart'
 
 import '../../../../core/shared/models/category_model.dart';
 import '../../../../core/utils/di.dart';
+import '../../../../core/utils/enums.dart';
 import '../../../../core/utils/my_shared_preferences.dart';
 
 class MainSellerView extends StatefulWidget {
@@ -93,12 +94,20 @@ class _MainSellerViewState extends State<MainSellerView> {
   bool get _myRestaurantIsNotValid {
     final mySharedPreferences = getIt<MySharedPreferences>();
     final String? restaurantName = mySharedPreferences.getString(
-      "restaurantName",
+      RestaurantInfoParams.restaurantName.toString(),
     );
-    final String? deliveryTime = mySharedPreferences.getString("deliveryTime");
-    final String? deliveryCost = mySharedPreferences.getString("deliveryCost");
-    final String? openTime = mySharedPreferences.getString("openTime");
-    final String? closeTime = mySharedPreferences.getString("closeTime");
+    final String? deliveryTime = mySharedPreferences.getString(
+      RestaurantInfoParams.deliveryTime.toString(),
+    );
+    final String? deliveryCost = mySharedPreferences.getString(
+      RestaurantInfoParams.deliveryCost.toString(),
+    );
+    final String? openTime = mySharedPreferences.getString(
+      RestaurantInfoParams.openTime.toString(),
+    );
+    final String? closeTime = mySharedPreferences.getString(
+      RestaurantInfoParams.closeTime.toString(),
+    );
 
     return (restaurantName == null || restaurantName.isEmpty) ||
         (deliveryTime == null || deliveryTime.isEmpty) ||
