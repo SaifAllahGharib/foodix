@@ -5,12 +5,9 @@ import 'package:foodix/core/shared/models/food_model.dart';
 import '../../../../core/errors/failure.dart';
 
 abstract class FoodsCategoryRepository {
-  Stream<Either<Failure, DataSnapshot>> getFoodsCategory(String categoryName);
+  Stream<Either<Failure, DataSnapshot>> getFoodsCategory(String categoryId);
 
-  Future<Either<Failure, void>> updateFood(String categoryName, FoodModel food);
+  Future<Either<Failure, void>> updateFood(String categoryId, FoodModel food);
 
-  Future<Either<Failure, void>> deleteFood(
-    String categoryName,
-    String foodName,
-  );
+  Future<Either<Failure, void>> deleteFood(String categoryId, String foodId);
 }

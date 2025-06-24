@@ -21,7 +21,7 @@ class AddFoodView extends StatelessWidget {
       ),
       child: Scaffold(
         body: AddFoodViewBody(
-          categoryName: context.goRouterState.extra as String,
+          categoryId: context.goRouterState.extra as String,
         ),
       ),
     );

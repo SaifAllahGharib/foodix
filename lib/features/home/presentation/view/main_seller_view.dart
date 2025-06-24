@@ -117,9 +117,11 @@ class _MainSellerViewState extends State<MainSellerView> {
   }
 
   void _handleAddCategory() async {
-    if (!_restaurant.isValid) {
-      _showCompleteRestaurantDialog(context);
-    } else if (_myRestaurantIsNotValid) {
+    // if (_myRestaurantIsNotValid) {
+    //   _showCompleteRestaurantDialog(context);
+    // }
+
+    if (_myRestaurantIsNotValid) {
       bool restaurantStoredSuccess = await _storeRestaurantInLocalDB(
         _restaurant,
       );
@@ -129,7 +131,7 @@ class _MainSellerViewState extends State<MainSellerView> {
         snackBar(context: context, text: "Failed to store restaurant");
       }
       snackBar(context: context, text: "Not In Local DB");
-    } else if (_restaurant.isValid && !_myRestaurantIsNotValid) {
+    } else if (!_myRestaurantIsNotValid) {
       _addCategoryBottomSheet();
     }
   }

@@ -41,26 +41,42 @@ class FirebaseDBServices extends DBServices {
 
   @override
   Future<void> addCategory(CategoryModel category) async {
-    await _firebaseService.db
+    final ref = _firebaseService.db
         .ref()
         .child("restaurants")
         .child(_firebaseService.auth.currentUser!.uid)
         .child("categories")
-        .child(category.categoryName!)
-        .set(category.toJson());
+        .push();
+
+    await ref.set(
+      CategoryModel(
+        id: ref.key,
+        categoryName: category.categoryName,
+        foods: category.foods,
+      ).toJson(),
+    );
   }
 
   @override
-  Future<void> addFood(String categoryName, FoodModel food) async {
-    await _firebaseService.db
+  Future<void> addFood(String categoryId, FoodModel food) async {
+    final ref = _firebaseService.db
         .ref()
         .child("restaurants")
         .child(_firebaseService.auth.currentUser!.uid)
         .child("categories")
-        .child(categoryName)
+        .child(categoryId)
         .child("foods")
-        .child(food.foodName)
-        .set(food.toJson());
+        .push();
+
+    await ref.set(
+      FoodModel(
+        id: ref.key,
+        foodImage: food.foodImage,
+        foodName: food.foodName,
+        foodDesc: food.foodDesc,
+        foodPrice: food.foodPrice,
+      ).toJson(),
+    );
   }
 
   @override
@@ -143,38 +159,38 @@ class FirebaseDBServices extends DBServices {
   }
 
   @override
-  Stream<DataSnapshot> getFoodsCategory(String categoryName) {
+  Stream<DataSnapshot> getFoodsCategory(String categoryId) {
     return _firebaseService.db
         .ref()
         .child("restaurants")
         .child(_firebaseService.auth.currentUser!.uid)
         .child("categories")
-        .child(categoryName)
+        .child(categoryId)
         .onValue
         .map((event) => event.snapshot);
   }
 
   @override
-  Future<void> deleteFood(String categoryName, String foodName) async {
+  Future<void> deleteFood(String categoryId, String foodId) async {
     await _firebaseService.db
         .ref()
         .child("restaurants")
         .child(_firebaseService.auth.currentUser!.uid)
         .child("categories")
-        .child(categoryName)
+        .child(categoryId)
         .child("foods")
-        .child(foodName)
+        .child(foodId)
         .remove();
   }
 
   @override
-  Future<void> updateFood(String categoryName, FoodModel food) async {
+  Future<void> updateFood(String categoryId, FoodModel food) async {
     await _firebaseService.db
         .ref()
         .child("restaurants")
         .child(_firebaseService.auth.currentUser!.uid)
         .child("categories")
-        .child(categoryName)
+        .child(categoryId)
         .child("foods")
         .child(food.foodName)
         .update(food.toJson());

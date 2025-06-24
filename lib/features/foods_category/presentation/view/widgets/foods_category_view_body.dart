@@ -20,9 +20,9 @@ import 'custom_grid_view_builder.dart';
 import 'custom_options_food_dialog.dart';
 
 class FoodsCategoryViewBody extends StatefulWidget {
-  final String categoryName;
+  final String categoryId;
 
-  const FoodsCategoryViewBody({super.key, required this.categoryName});
+  const FoodsCategoryViewBody({super.key, required this.categoryId});
 
   @override
   State<FoodsCategoryViewBody> createState() => _FoodsCategoryViewBodyState();
@@ -35,7 +35,7 @@ class _FoodsCategoryViewBodyState extends State<FoodsCategoryViewBody> {
   @override
   void initState() {
     _searchFoodController = TextEditingController();
-    context.read<FoodsCategoryCubit>().getFoodsCategory(widget.categoryName);
+    context.read<FoodsCategoryCubit>().getFoodsCategory(widget.categoryId);
     super.initState();
   }
 
@@ -51,8 +51,8 @@ class _FoodsCategoryViewBodyState extends State<FoodsCategoryViewBody> {
       builder: (_) => BlocProvider.value(
         value: context.read<FoodsCategoryCubit>(),
         child: CustomOptionsFoodDialog(
-          foodName: food.foodName,
-          categoryName: widget.categoryName,
+          foodId: food.id!,
+          categoryId: widget.categoryId,
           onClickEdit: () {
             _showEditDialog(food);
           },
@@ -67,7 +67,7 @@ class _FoodsCategoryViewBodyState extends State<FoodsCategoryViewBody> {
       builder: (_) => BlocProvider.value(
         value: context.read<FoodsCategoryCubit>(),
         child: CustomEditFoodDialog(
-          categoryName: widget.categoryName,
+          categoryName: widget.categoryId,
           food: food,
         ),
       ),
@@ -91,7 +91,7 @@ class _FoodsCategoryViewBodyState extends State<FoodsCategoryViewBody> {
             onChange: (value) {},
           ),
           SizedBox(height: Dimensions.height20),
-          Text(widget.categoryName, style: Styles.textStyle20(context)),
+          Text(widget.categoryId, style: Styles.textStyle20(context)),
           SizedBox(height: Dimensions.height20),
           Expanded(
             child: BlocConsumer<FoodsCategoryCubit, FoodsCategoryState>(
@@ -129,7 +129,7 @@ class _FoodsCategoryViewBodyState extends State<FoodsCategoryViewBody> {
           ),
           CustomFloatButton(
             onClick: () =>
-                context.push(AddFoodView.id, extra: widget.categoryName),
+                context.push(AddFoodView.id, extra: widget.categoryId),
           ),
         ],
       ),

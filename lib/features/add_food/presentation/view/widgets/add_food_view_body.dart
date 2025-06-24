@@ -16,9 +16,9 @@ import 'package:go_router/go_router.dart';
 import '../../../../../core/shared/models/food_model.dart';
 
 class AddFoodViewBody extends StatefulWidget {
-  final String categoryName;
+  final String categoryId;
 
-  const AddFoodViewBody({super.key, required this.categoryName});
+  const AddFoodViewBody({super.key, required this.categoryId});
 
   @override
   State<AddFoodViewBody> createState() => _AddFoodViewBodyState();
@@ -67,7 +67,7 @@ class _AddFoodViewBodyState extends State<AddFoodViewBody> {
 
   void _addFood(BuildContext context) {
     context.read<AddFoodCubit>().addFood(
-      widget.categoryName,
+      widget.categoryId,
       FoodModel(
         foodImage: "",
         foodName: _foodName.text,

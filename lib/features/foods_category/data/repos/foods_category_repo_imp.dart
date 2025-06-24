@@ -12,8 +12,8 @@ class FoodsCategoryRepositoryImp implements FoodsCategoryRepository {
   FoodsCategoryRepositoryImp(this._dbServices);
 
   @override
-  Stream<Either<Failure, DataSnapshot>> getFoodsCategory(String categoryName) {
-    return _dbServices.getFoodsCategory(categoryName).map((snapshot) {
+  Stream<Either<Failure, DataSnapshot>> getFoodsCategory(String categoryId) {
+    return _dbServices.getFoodsCategory(categoryId).map((snapshot) {
       try {
         return right(snapshot);
       } catch (e) {
@@ -26,11 +26,11 @@ class FoodsCategoryRepositoryImp implements FoodsCategoryRepository {
 
   @override
   Future<Either<Failure, void>> deleteFood(
-    String categoryName,
-    String foodName,
+    String categoryId,
+    String foodId,
   ) async {
     try {
-      return right(await _dbServices.deleteFood(categoryName, foodName));
+      return right(await _dbServices.deleteFood(categoryId, foodId));
     } catch (e) {
       return left(
         FirebaseDBFailure(e is FirebaseDBFailure ? e.errorMsg : e.toString()),
@@ -40,11 +40,11 @@ class FoodsCategoryRepositoryImp implements FoodsCategoryRepository {
 
   @override
   Future<Either<Failure, void>> updateFood(
-    String categoryName,
+    String categoryId,
     FoodModel food,
   ) async {
     try {
-      return right(await _dbServices.updateFood(categoryName, food));
+      return right(await _dbServices.updateFood(categoryId, food));
     } catch (e) {
       return left(
         FirebaseDBFailure(e is FirebaseDBFailure ? e.errorMsg : e.toString()),

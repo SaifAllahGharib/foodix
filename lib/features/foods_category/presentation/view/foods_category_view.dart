@@ -19,7 +19,7 @@ class FoodsCategoryView extends StatelessWidget {
         create: (context) =>
             FoodsCategoryCubit(getIt<FoodsCategoryRepositoryImp>()),
         child: FoodsCategoryViewBody(
-          categoryName: context.goRouterState.extra as String,
+          categoryId: context.goRouterState.extra as String,
         ),
       ),
     );

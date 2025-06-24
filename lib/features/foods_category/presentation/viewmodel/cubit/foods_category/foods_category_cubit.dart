@@ -20,13 +20,13 @@ class FoodsCategoryCubit extends Cubit<FoodsCategoryState> {
     return super.close();
   }
 
-  void getFoodsCategory(String categoryName) {
+  void getFoodsCategory(String categoryId) {
     emit(FoodsCategoryLoading());
 
     _categorySubscription?.cancel();
 
     _categorySubscription = _foodsCategoryRepository
-        .getFoodsCategory(categoryName)
+        .getFoodsCategory(categoryId)
         .listen((result) {
           if (isClosed) return;
           result.fold((l) => emit(FoodsCategoryFailure(l.errorMsg)), (
@@ -43,23 +43,20 @@ class FoodsCategoryCubit extends Cubit<FoodsCategoryState> {
         });
   }
 
-  Future<void> updateFood(String categoryName, FoodModel food) async {
+  Future<void> updateFood(String categoryId, FoodModel food) async {
     emit(FoodsCategoryLoading());
 
-    final res = await _foodsCategoryRepository.updateFood(categoryName, food);
+    final res = await _foodsCategoryRepository.updateFood(categoryId, food);
 
     res.fold((l) => emit(FoodsCategoryFailure(l.errorMsg)), (_) {
       emit(FoodsCategoryUpdateFoodSuccess());
     });
   }
 
-  Future<void> deleteFood(String categoryName, String foodName) async {
+  Future<void> deleteFood(String categoryId, String foodId) async {
     emit(FoodsCategoryLoading());
 
-    final res = await _foodsCategoryRepository.deleteFood(
-      categoryName,
-      foodName,
-    );
+    final res = await _foodsCategoryRepository.deleteFood(categoryId, foodId);
 
     res.fold((l) => emit(FoodsCategoryFailure(l.errorMsg)), (_) {
       emit(FoodsCategoryDeleteFoodSuccess());

@@ -22,8 +22,7 @@ class CustomItemCategorySellerListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: () =>
-          context.push(FoodsCategoryView.id, extra: list[index].categoryName),
+      onTap: () => context.push(FoodsCategoryView.id, extra: list[index].id!),
       contentPadding: EdgeInsets.zero,
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

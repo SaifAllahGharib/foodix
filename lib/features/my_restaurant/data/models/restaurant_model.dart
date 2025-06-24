@@ -68,15 +68,6 @@ class RestaurantModel {
     }).toList();
   }
 
-  bool get isValid {
-    return id != null &&
-        name != null &&
-        deliveryTime != null &&
-        deliveryCost != null &&
-        openTime != null &&
-        closeTime != null;
-  }
-
   Map<String, dynamic> toJson() {
     return {
       'id': id,

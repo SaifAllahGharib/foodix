@@ -12,11 +12,11 @@ class AddFoodRepositoryImp extends AddFoodRepository {
 
   @override
   Future<Either<Failure, void>> addFood(
-    String categoryName,
+    String categoryId,
     FoodModel food,
   ) async {
     try {
-      return right(await _dbServices.addFood(categoryName, food));
+      return right(await _dbServices.addFood(categoryId, food));
     } catch (e) {
       if (e is FirebaseDBFailure) {
         return left(FirebaseDBFailure(e.errorMsg));

@@ -9,18 +9,18 @@ import '../../../../../core/utils/styles.dart';
 
 class CustomOptionsFoodDialog extends StatelessWidget {
   final VoidCallback onClickEdit;
-  final String foodName;
-  final String categoryName;
+  final String foodId;
+  final String categoryId;
 
   const CustomOptionsFoodDialog({
     super.key,
     required this.onClickEdit,
-    required this.foodName,
-    required this.categoryName,
+    required this.foodId,
+    required this.categoryId,
   });
 
-  void _deleteFood(BuildContext context, String categoryName, String foodName) {
-    context.read<FoodsCategoryCubit>().deleteFood(categoryName, foodName);
+  void _deleteFood(BuildContext context, String categoryName, String foodId) {
+    context.read<FoodsCategoryCubit>().deleteFood(categoryName, foodId);
   }
 
   @override
@@ -48,7 +48,7 @@ class CustomOptionsFoodDialog extends StatelessWidget {
         TextButton(
           onPressed: () {
             context.pop();
-            _deleteFood(context, categoryName, foodName);
+            _deleteFood(context, categoryId, foodId);
           },
           child: Text(
             context.translate.delete,

@@ -14,7 +14,7 @@ abstract class DBServices {
 
   Future<void> addCategory(CategoryModel category);
 
-  Future<void> addFood(String categoryName, FoodModel food);
+  Future<void> addFood(String categoryId, FoodModel food);
 
   Stream<DataSnapshot> getCategories();
 
@@ -34,9 +34,9 @@ abstract class DBServices {
 
   Future<void> updateRestaurantCloseTime(String closeTime);
 
-  Stream<DataSnapshot> getFoodsCategory(String categoryName);
+  Stream<DataSnapshot> getFoodsCategory(String categoryId);
 
-  Future<void> deleteFood(String categoryName, String foodName);
+  Future<void> deleteFood(String categoryId, String foodId);
 
-  Future<void> updateFood(String categoryName, FoodModel food);
+  Future<void> updateFood(String categoryId, FoodModel food);
 }
