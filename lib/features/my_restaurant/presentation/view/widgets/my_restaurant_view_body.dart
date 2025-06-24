@@ -112,6 +112,8 @@ class _MyRestaurantViewBodyState extends State<MyRestaurantViewBody> {
         } else {
           _closeTime = picked;
         }
+
+        _validationFields();
       });
     }
   }
@@ -358,28 +360,26 @@ class _MyRestaurantViewBodyState extends State<MyRestaurantViewBody> {
           SizedBox(height: Dimensions.height30),
           !_restaurantInfoIsEmpty(_getMyRestaurantInfo(_mySharedPreferences))
               ? const SizedBox.shrink()
-              : BlocConsumer<MyRestaurantCubit, MyRestaurantState>(
+              : BlocListener<MyRestaurantCubit, MyRestaurantState>(
                   listener: (context, state) => _handleState(state),
-                  builder: (context, state) {
-                    return CustomButton(
-                      text: context.translate.saveRestaurant,
-                      isEnabled: context.watch<MyRestaurantCubit>().isValid,
-                      onClick: () => _createRestaurant(
-                        RestaurantModel(
-                          id: getIt<MySharedPreferences>().getIdUser()!,
-                          name: _nameController.text,
-                          deliveryTime: int.tryParse(
-                            _deliveryTimeController.text.trim(),
-                          ),
-                          deliveryCost: double.tryParse(
-                            _deliveryCostController.text.trim(),
-                          ),
-                          openTime: _formatTime(context, _openTime),
-                          closeTime: _formatTime(context, _closeTime),
+                  child: CustomButton(
+                    text: context.translate.saveRestaurant,
+                    isEnabled: context.watch<MyRestaurantCubit>().isValid,
+                    onClick: () => _createRestaurant(
+                      RestaurantModel(
+                        id: getIt<MySharedPreferences>().getIdUser()!,
+                        name: _nameController.text,
+                        deliveryTime: int.tryParse(
+                          _deliveryTimeController.text.trim(),
                         ),
+                        deliveryCost: double.tryParse(
+                          _deliveryCostController.text.trim(),
+                        ),
+                        openTime: _formatTime(context, _openTime),
+                        closeTime: _formatTime(context, _closeTime),
                       ),
-                    );
-                  },
+                    ),
+                  ),
                 ),
         ],
       ),

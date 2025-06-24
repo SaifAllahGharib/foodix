@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:foodix/core/utils/extensions.dart';
 
 import '../../../../../core/widgets/time_picker_widget.dart';
 import 'custom_dispaly_info_widget.dart';
@@ -30,10 +29,6 @@ class CustomMyRestaurantTimeDisplay extends StatelessWidget {
             onClickEdit: onClickEdit,
             textFieldValue: textValue,
           )
-        : TimePickerWidget(
-            label: context.translate.closeTime,
-            time: time,
-            onTap: onTap,
-          );
+        : TimePickerWidget(label: label, time: time, onTap: onTap);
   }
 }
