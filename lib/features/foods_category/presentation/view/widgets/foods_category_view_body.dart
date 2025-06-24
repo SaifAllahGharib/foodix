@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodix/core/shared/models/food_model.dart';
-import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/widgets/loading.dart';
 import 'package:foodix/features/foods_category/presentation/viewmodel/cubit/foods_category/foods_category_cubit.dart';
 import 'package:foodix/features/foods_category/presentation/viewmodel/cubit/foods_category/foods_category_state.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../../core/utils/colors.dart';
 import '../../../../../core/utils/dimensions.dart';
-import '../../../../../core/utils/functions/snack_bar.dart';
 import '../../../../../core/utils/styles.dart';
 import '../../../../../core/widgets/custom_back_button.dart';
 import '../../../../../core/widgets/custom_dialog_loading_widget.dart';
@@ -67,8 +64,13 @@ class _FoodsCategoryViewBodyState extends State<FoodsCategoryViewBody> {
   void _showEditDialog(FoodModel food) {
     showDialog(
       context: context,
-      builder: (_) =>
-          CustomEditFoodDialog(categoryName: widget.categoryName, food: food),
+      builder: (_) => BlocProvider.value(
+        value: context.read<FoodsCategoryCubit>(),
+        child: CustomEditFoodDialog(
+          categoryName: widget.categoryName,
+          food: food,
+        ),
+      ),
     );
   }
 
@@ -103,13 +105,9 @@ class _FoodsCategoryViewBodyState extends State<FoodsCategoryViewBody> {
                     barrierDismissible: false,
                     builder: (context) => const CustomDialogLoadingWidget(),
                   );
-                } else if (state is FoodsCategoryDeleteFoodSuccess) {
+                } else if (state is FoodsCategoryDeleteFoodSuccess ||
+                    state is FoodsCategoryUpdateFoodSuccess) {
                   context.pop();
-                  snackBar(
-                    context: context,
-                    text: context.translate.deleteSuccess,
-                    color: AppColors.primaryColor,
-                  );
                 }
               },
               builder: (context, state) {

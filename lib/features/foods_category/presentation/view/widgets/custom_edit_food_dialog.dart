@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodix/core/shared/models/food_model.dart';
 import 'package:foodix/core/utils/extensions.dart';
 
@@ -6,6 +7,7 @@ import '../../../../../core/utils/colors.dart';
 import '../../../../../core/utils/dimensions.dart';
 import '../../../../../core/utils/styles.dart';
 import '../../../../../core/widgets/custom_text_form_field.dart';
+import '../../viewmodel/cubit/foods_category/foods_category_cubit.dart';
 
 class CustomEditFoodDialog extends StatefulWidget {
   final FoodModel food;
@@ -44,6 +46,20 @@ class _CustomEditFoodDialogState extends State<CustomEditFoodDialog> {
     super.dispose();
   }
 
+  void _updateFood() async {
+    final updatedFood = FoodModel(
+      foodName: _nameController.text,
+      foodDesc: _descController.text,
+      foodPrice: double.tryParse(_costController.text.trim()) ?? 0.0,
+      foodImage: '',
+    );
+
+    await context.read<FoodsCategoryCubit>().updateFood(
+      widget.categoryName,
+      updatedFood,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -77,6 +93,7 @@ class _CustomEditFoodDialogState extends State<CustomEditFoodDialog> {
         TextButton(
           onPressed: () {
             Navigator.pop(context);
+            _updateFood();
           },
           child: Text(
             context.translate.save,
