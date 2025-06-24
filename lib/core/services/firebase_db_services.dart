@@ -192,7 +192,7 @@ class FirebaseDBServices extends DBServices {
         .child("categories")
         .child(categoryId)
         .child("foods")
-        .child(food.foodName)
+        .child(food.id!)
         .update(food.toJson());
   }
 }

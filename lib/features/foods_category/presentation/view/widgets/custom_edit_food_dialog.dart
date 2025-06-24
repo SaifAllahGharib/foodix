@@ -30,6 +30,7 @@ class _CustomEditFoodDialogState extends State<CustomEditFoodDialog> {
 
   @override
   void initState() {
+    print("FOOD ID: ${widget.food.id}");
     _nameController = TextEditingController(text: widget.food.foodName);
     _descController = TextEditingController(text: widget.food.foodDesc);
     _costController = TextEditingController(
@@ -48,6 +49,7 @@ class _CustomEditFoodDialogState extends State<CustomEditFoodDialog> {
 
   void _updateFood() async {
     final updatedFood = FoodModel(
+      id: widget.food.id,
       foodName: _nameController.text,
       foodDesc: _descController.text,
       foodPrice: double.tryParse(_costController.text.trim()) ?? 0.0,
