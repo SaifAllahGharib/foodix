@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:foodix/core/utils/dimensions.dart';
-import 'package:foodix/core/utils/styles.dart';
-import 'package:foodix/features/restaurant/presentation/view/widgets/custom_food_category_list_view.dart';
+import 'package:foodix/core/utils/AppStyles.dart';
+import 'package:foodix/core/utils/dimensionnt/presentation/view/widgets/custom_food_category_list_view.dart';
 
 import '../../../../../core/shared/models/category_model.dart';
 
@@ -25,12 +24,12 @@ class CustomRestaurantProductList extends StatelessWidget {
           children: [
             Padding(
               padding: EdgeInsets.symmetric(
-                vertical: Dimensions.height15,
-                horizontal: Dimensions.height20,
+                vertical: context.responsive.height15,
+                horizontal: context.responsive.height20,
               ),
               child: Text(
                 listOfFoodCategories[index].categoryName!,
-                style: Styles.textStyle18(context),
+                style: context.textStyle.s18W600,
               ),
             ),
             CustomFoodCategoryListView(

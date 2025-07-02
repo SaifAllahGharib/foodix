@@ -9,11 +9,13 @@ import 'my_restaurant_state.dart';
 
 class MyRestaurantCubit extends Cubit<MyRestaurantState> {
   final MyRestaurantRepository _myRestaurantRepository;
-  final MySharedPreferences _mySharedPreferences;
+  final SharedPreferencesService _SharedPreferencesService;
   bool _isValid = false;
 
-  MyRestaurantCubit(this._myRestaurantRepository, this._mySharedPreferences)
-    : super(MyRestaurantInit());
+  MyRestaurantCubit(
+    this._myRestaurantRepository,
+    this._SharedPreferencesService,
+  ) : super(MyRestaurantInit());
 
   Future<void> createRestaurant(RestaurantModel restaurant) async {
     emit(MyRestaurantLoading());
@@ -27,23 +29,23 @@ class MyRestaurantCubit extends Cubit<MyRestaurantState> {
 
   void _saveRestaurant(RestaurantModel restaurantModel) async {
     await Future.wait([
-      _mySharedPreferences.storeString(
+      _SharedPreferencesService.storeString(
         RestaurantInfoParams.restaurantName.toString(),
         restaurantModel.name!,
       ),
-      _mySharedPreferences.storeString(
+      _SharedPreferencesService.storeString(
         RestaurantInfoParams.deliveryTime.toString(),
         restaurantModel.deliveryTime.toString(),
       ),
-      _mySharedPreferences.storeString(
+      _SharedPreferencesService.storeString(
         RestaurantInfoParams.deliveryCost.toString(),
         restaurantModel.deliveryCost.toString(),
       ),
-      _mySharedPreferences.storeString(
+      _SharedPreferencesService.storeString(
         RestaurantInfoParams.openTime.toString(),
         restaurantModel.openTime!,
       ),
-      _mySharedPreferences.storeString(
+      _SharedPreferencesService.storeString(
         RestaurantInfoParams.closeTime.toString(),
         restaurantModel.closeTime!,
       ),

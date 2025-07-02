@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodix/core/utils/dimensions.dart';
 import 'package:foodix/core/utils/extensions.dart';
-import 'package:foodix/core/utils/functions/snack_bar.dart';
-import 'package:foodix/core/utils/styles.dart';
 import 'package:foodix/core/widgets/custom_error_widget.dart';
 import 'package:foodix/core/widgets/empty_widget.dart';
 import 'package:foodix/core/widgets/loading.dart';
@@ -16,8 +13,8 @@ import 'package:foodix/features/home/presentation/viewmodel/cubits/main_seller/m
 import 'package:foodix/features/home/presentation/viewmodel/cubits/main_seller/main_seller_state.dart';
 import 'package:foodix/features/my_restaurant/data/models/restaurant_model.dart';
 
+import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/shared/models/category_model.dart';
-import '../../../../core/utils/di.dart';
 import '../../../../core/utils/enums.dart';
 import '../../../../core/utils/my_shared_preferences.dart';
 
@@ -92,20 +89,20 @@ class _MainSellerViewState extends State<MainSellerView> {
   }
 
   bool get _myRestaurantIsNotValid {
-    final mySharedPreferences = getIt<MySharedPreferences>();
-    final String? restaurantName = mySharedPreferences.getString(
+    final SharedPreferencesService = getIt<SharedPreferencesService>();
+    final String? restaurantName = SharedPreferencesService.getString(
       RestaurantInfoParams.restaurantName.toString(),
     );
-    final String? deliveryTime = mySharedPreferences.getString(
+    final String? deliveryTime = SharedPreferencesService.getString(
       RestaurantInfoParams.deliveryTime.toString(),
     );
-    final String? deliveryCost = mySharedPreferences.getString(
+    final String? deliveryCost = SharedPreferencesService.getString(
       RestaurantInfoParams.deliveryCost.toString(),
     );
-    final String? openTime = mySharedPreferences.getString(
+    final String? openTime = SharedPreferencesService.getString(
       RestaurantInfoParams.openTime.toString(),
     );
-    final String? closeTime = mySharedPreferences.getString(
+    final String? closeTime = SharedPreferencesService.getString(
       RestaurantInfoParams.closeTime.toString(),
     );
 
@@ -156,9 +153,9 @@ class _MainSellerViewState extends State<MainSellerView> {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-        top: Dimensions.height20 * 2,
-        right: Dimensions.height20,
-        left: Dimensions.height20,
+        top: context.responsive.height20 * 2,
+        right: context.responsive.height20,
+        left: context.responsive.height20,
       ),
       child: Stack(
         children: [
@@ -186,12 +183,12 @@ class _MainSellerViewState extends State<MainSellerView> {
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(height: Dimensions.height20),
+                          context.responsive.height20.verticalSpace,
                           Text(
-                            context.translate.categories,
-                            style: Styles.textStyle30(context),
+                            context.tr.categories,
+                            style: AppStyles.textStyle30(context),
                           ),
-                          SizedBox(height: Dimensions.height20),
+                          context.responsive.height20.verticalSpace,
                           CategorySellerListView(
                             list: _listOfCategories,
                             searchFoodController: _searchFoodController,

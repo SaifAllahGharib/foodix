@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodix/core/utils/extensions.dart';
 
-import '../utils/colors.dart';
-import '../utils/dimensions.dart';
-import '../utils/styles.dart';
+import '../styles/app_colors.dart';
 
 class TimePickerWidget extends StatelessWidget {
   final String label;
@@ -20,37 +18,32 @@ class TimePickerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(bottom: Dimensions.height15),
+      padding: EdgeInsets.only(bottom: context.responsive.height15),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            label,
-            style: Styles.textStyle15(
-              context,
-            ).copyWith(fontWeight: FontWeight.w600),
-          ),
-          SizedBox(height: Dimensions.height10),
+          Text(label, style: context.textStyle.s15W600),
+          context.responsive.height10.verticalSpace,
           GestureDetector(
             onTap: onTap,
             child: Container(
               width: double.infinity,
-              height: Dimensions.height45 * 1.05,
+              height: context.responsive.height47,
               padding: EdgeInsets.symmetric(
-                vertical: Dimensions.height12,
-                horizontal: Dimensions.height15,
+                vertical: context.responsive.padding12,
+                horizontal: context.responsive.padding15,
               ),
               decoration: BoxDecoration(
                 color: AppColors.gray.withOpacity(0.2),
-                borderRadius: BorderRadius.circular(Dimensions.radius10),
+                borderRadius: BorderRadius.circular(
+                  context.responsive.radius10,
+                ),
               ),
               child: Text(
                 time!,
-                style: time != context.translate.selectTime
-                    ? Styles.textStyle15(
-                        context,
-                      ).copyWith(fontWeight: FontWeight.w500)
-                    : Styles.textStyle12(context),
+                style: time != context.tr.selectTime
+                    ? context.textStyle.s15W500
+                    : context.textStyle.s12W400,
               ),
             ),
           ),

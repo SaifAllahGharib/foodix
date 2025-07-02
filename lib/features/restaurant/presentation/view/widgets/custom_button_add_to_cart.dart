@@ -1,28 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:foodix/core/utils/colors.dart';
-import 'package:foodix/core/utils/dimensions.dart';
-import 'package:foodix/core/utils/styles.dart';
+import 'package:foodix/core/styles/app_colors.dart';
 import 'package:foodix/core/widgets/custom_row_cost.dart';
 
-class CustomButtonAddToCart extends StatelessWidget {
+class AppButtonAddToCart extends StatelessWidget {
   final double price;
 
-  const CustomButtonAddToCart({
-    super.key,
-    required this.price,
-  });
+  const AppButtonAddToCart({super.key, required this.price});
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
         padding: EdgeInsets.symmetric(
-          horizontal: Dimensions.height20,
-          vertical: Dimensions.height15,
+          horizontal: context.responsive.height20,
+          vertical: context.responsive.height15,
         ),
         decoration: BoxDecoration(
-          color: AppColors.primaryColor,
-          borderRadius: BorderRadius.circular(Dimensions.radius20 * 5),
+          color: AppColors.primary,
+          borderRadius: BorderRadius.circular(context.responsive.radius20 * 5),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -32,13 +27,12 @@ class CustomButtonAddToCart extends StatelessWidget {
                 "add_to_cart",
                 overflow: TextOverflow.ellipsis,
                 softWrap: true,
-                style: Styles.textStyle15(context).copyWith(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w500,
-                ),
+                style: AppStyles.textStyle15(
+                  context,
+                ).copyWith(color: Colors.white, fontWeight: FontWeight.w500),
               ),
             ),
-            SizedBox(width: Dimensions.width20),
+            context.responsive.width20.horizontalSpace,
             CustomRowCost(
               egp: price,
               color: Colors.white,

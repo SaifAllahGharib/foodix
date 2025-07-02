@@ -1,38 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodix/core/utils/colors.dart';
-import 'package:foodix/core/utils/dimensions.dart';
-import 'package:go_router/go_router.dart';
+import 'package:foodix/core/styles/app_colors.dart';
+import 'package:foodix/core/utils/extensions.dart';
 
-import '../shared/viewmodel/cubits/local_cubit.dart';
+import '../shared/functions/current_locale_is_arabic.dart';
 
 class CustomBackButton extends StatelessWidget {
   final Color color;
 
-  const CustomBackButton({super.key, this.color = AppColors.primaryColor});
+  const CustomBackButton({super.key, this.color = AppColors.primary});
 
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: context.watch<LocalCubit>().isArabic
-          ? Alignment.topRight
-          : Alignment.topLeft,
+      alignment: currentLocaleIsArabic ? Alignment.topRight : Alignment.topLeft,
       child: Container(
-        width: Dimensions.height45 * 0.9,
-        height: Dimensions.height45 * 0.9,
+        width: context.responsive.height40,
+        height: context.responsive.height40,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(5000),
           border: Border.all(color: AppColors.gray, width: 1),
         ),
         child: IconButton(
-          onPressed: context.pop,
+          onPressed: () => context.navigator.pop(),
           enableFeedback: false,
           highlightColor: Colors.transparent,
           splashColor: Colors.transparent,
           icon: Icon(
             Icons.arrow_back,
-            size: Dimensions.iconSize20,
+            size: context.responsive.iconSize20,
             color: color,
           ),
         ),

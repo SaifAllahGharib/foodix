@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-
-import 'package:foodix/core/utils/colors.dart';
-import 'package:foodix/core/utils/dimensions.dart';
-import 'package:foodix/core/utils/styles.dart';
+import 'package:foodix/core/styles/app_colors.dart';
+import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/widgets/custom_back_button.dart';
 
 class CustomAppBarCartView extends StatelessWidget {
@@ -12,35 +10,24 @@ class CustomAppBarCartView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(
-        right: Dimensions.height10,
-        top: Dimensions.height20,
-        left: Dimensions.height10,
-        bottom: Dimensions.height10,
+        right: context.responsive.padding10,
+        top: context.responsive.padding20,
+        left: context.responsive.padding10,
+        bottom: context.responsive.padding10,
       ),
       decoration: const BoxDecoration(
         color: Colors.white,
-        border: Border(
-          bottom: BorderSide(
-            color: AppColors.gray,
-            width: 1,
-          ),
-        ),
+        border: Border(bottom: BorderSide(color: AppColors.gray)),
       ),
       child: Row(
         children: [
           const CustomBackButton(),
-          SizedBox(width: Dimensions.width30 * 1.5),
+          context.responsive.width75.horizontalSpace,
           Column(
             children: [
-              Text(
-                "cart",
-                style: Styles.textStyle18(context),
-              ),
-              SizedBox(height: Dimensions.height10 * 0.5),
-              Text(
-                "Bazoka",
-                style: Styles.textStyle12(context),
-              ),
+              Text("cart", style: context.textStyle.s18W600),
+              context.responsive.height5.verticalSpace,
+              Text("Bazoka", style: context.textStyle.s12W400),
             ],
           ),
         ],

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:foodix/core/utils/dimensions.dart';
+import 'package:foodix/core/utils/extensions.dart';
 
 class CustomDivider extends StatelessWidget {
   const CustomDivider({super.key});
@@ -9,8 +9,8 @@ class CustomDivider extends StatelessWidget {
     return Align(
       alignment: Alignment.topCenter,
       child: Container(
-        width: Dimensions.width30 * 3,
-        height: Dimensions.height10 * 0.8,
+        width: context.responsive.width90,
+        height: context.responsive.height8,
         decoration: BoxDecoration(
           color: Colors.black,
           borderRadius: BorderRadius.circular(5000),

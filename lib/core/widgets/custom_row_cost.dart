@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:foodix/core/utils/dimensions.dart';
 import 'package:foodix/core/utils/extensions.dart';
-import 'package:foodix/core/utils/styles.dart';
 
 class CustomRowCost extends StatelessWidget {
   final num egp;
@@ -26,15 +24,16 @@ class CustomRowCost extends StatelessWidget {
       children: [
         Text(
           "$egp",
-          style: Styles.textStyle15(
-            context,
-          ).copyWith(fontWeight: fontWeight, color: color, fontSize: fontSize),
+          style: context.textStyle.s15W400.copyWith(
+            fontWeight: fontWeight,
+            color: color,
+            fontSize: fontSize,
+          ),
         ),
-        SizedBox(width: Dimensions.width10),
+        SizedBox(width: context.responsive.width10),
         Text(
-          context.translate.foodCost,
-          style: Styles.textStyle15(context).copyWith(
-            fontWeight: FontWeight.w400,
+          context.tr.foodCost,
+          style: context.textStyle.s15W400.copyWith(
             color: color,
             fontSize: fontSize,
           ),

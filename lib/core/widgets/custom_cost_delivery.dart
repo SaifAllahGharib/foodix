@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:foodix/core/utils/dimensions.dart';
-import 'package:foodix/core/widgets/custom_row_cost.dart';
+
+import '../../core/utils/extensions.dart';
+import 'custom_row_cost.dart';
 
 class CustomCostDelivery extends StatelessWidget {
   const CustomCostDelivery({super.key});
@@ -11,14 +12,11 @@ class CustomCostDelivery extends StatelessWidget {
       children: [
         Icon(
           Icons.motorcycle_outlined,
-          size: Dimensions.height15,
+          size: context.responsive.iconSize14,
           color: Colors.black54,
         ),
-        SizedBox(width: Dimensions.height10 * 0.5),
-        const CustomRowCost(
-          egp: 15.99,
-          color: Colors.grey,
-        ),
+        context.responsive.width5.horizontalSpace,
+        const CustomRowCost(egp: 15.99, color: Colors.grey),
       ],
     );
   }

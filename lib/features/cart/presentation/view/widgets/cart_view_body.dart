@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodix/core/utils/dimensions.dart';
+import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/features/cart/presentation/view/widgets/bottom_section_cart_view.dart';
 import 'package:foodix/features/cart/presentation/view/widgets/custom_app_bar_cart_view.dart';
 import 'package:foodix/features/cart/presentation/view/widgets/custom_list_view_cart_view.dart';
@@ -21,7 +21,7 @@ class CartViewBody extends StatelessWidget {
           children: [
             const CustomAppBarCartView(),
             const CustomListViewCartView(),
-            SizedBox(height: Dimensions.height10),
+            context.responsive.height10.verticalSpace,
             const InformationPaymentSection(),
             const BottomSectionCartView(),
           ],

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:foodix/core/utils/dimensions.dart';
-import 'package:foodix/core/utils/styles.dart';
 import 'package:foodix/core/widgets/image_and_back_button.dart';
 
 class TopSectionBottomSheetProduct extends StatelessWidget {
@@ -14,17 +12,19 @@ class TopSectionBottomSheetProduct extends StatelessWidget {
         ImageAndBackButton(),
         Padding(
           padding: EdgeInsets.symmetric(
-            horizontal: Dimensions.height15,
-            vertical: Dimensions.height20,
+            horizontal: context.responsive.height15,
+            vertical: context.responsive.height20,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("foodName", style: Styles.textStyle18(context)),
-              SizedBox(height: Dimensions.height15),
+              Text("foodName", style: context.textStyle.s18W600),
+              SizedBox(height: context.responsive.height15),
               Text(
                 "foodDesc",
-                style: Styles.textStyle15(context).copyWith(color: Colors.grey),
+                style: AppStyles.textStyle15(
+                  context,
+                ).copyWith(color: Colors.grey),
               ),
             ],
           ),

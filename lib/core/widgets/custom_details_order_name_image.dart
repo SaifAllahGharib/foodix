@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodix/core/utils/assets.dart';
-import 'package:foodix/core/utils/dimensions.dart';
+import 'package:foodix/core/utils/app_assets.dart';
 import 'package:foodix/core/utils/extensions.dart';
+import 'package:foodix/core/widgets/custom_details_order_text.dart';
 import 'package:foodix/core/widgets/custom_image.dart';
-import 'package:foodix/core/widgets/custom_text.dart';
-import 'package:foodix/features/details_order/presentation/view/widgets/custom_details_order_text.dart';
 
-import '../shared/viewmodel/cubits/local_cubit.dart';
+import '../shared/functions/current_locale_is_arabic.dart';
 
 class CustomDetailsOrderNameImage extends StatelessWidget {
   final bool customTextDetails;
@@ -22,34 +19,34 @@ class CustomDetailsOrderNameImage extends StatelessWidget {
     return Row(
       children: [
         ClipRRect(
-          borderRadius: BorderRadius.circular(Dimensions.radius20),
+          borderRadius: BorderRadius.circular(context.responsive.radius20),
           child: CustomImage(
-            image: Assets.food,
-            width: Dimensions.height80 * 1.2,
+            image: AppAssets.food,
+            width: context.responsive.height96,
           ),
         ),
-        SizedBox(width: Dimensions.width20),
+        context.responsive.width20.horizontalSpace,
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CustomText(
-              text: "Saif gharib",
-              textSize: Dimensions.fontSize20 * 0.94,
-              alignment: context.watch<LocalCubit>().isArabic
-                  ? Alignment.topRight
-                  : Alignment.topLeft,
+            Text(
+              "Saif gharib",
+              style: context.textStyle.s30W600,
+              textAlign: currentLocaleIsArabic
+                  ? TextAlign.right
+                  : TextAlign.left,
             ),
             customTextDetails
-                ? SizedBox(height: Dimensions.height10 * 0.2)
+                ? context.responsive.height2.verticalSpace
                 : const SizedBox.shrink(),
             customTextDetails
-                ? CustomDetailsOrderText(text: context.translate.completed)
+                ? CustomDetailsOrderText(text: context.tr.completed)
                 : const SizedBox.shrink(),
-            SizedBox(height: Dimensions.height10 * 0.2),
+            context.responsive.height2.verticalSpace,
             Row(
               children: [
                 CustomDetailsOrderText(
-                  text: context.translate.orderNumber,
+                  text: context.tr.orderNumber,
                   color: Colors.grey,
                 ),
                 const CustomDetailsOrderText(

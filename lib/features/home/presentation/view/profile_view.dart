@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodix/core/utils/colors.dart';
-import 'package:foodix/core/utils/di.dart';
-import 'package:foodix/core/utils/dimensions.dart';
+import 'package:foodix/core/di/dependency_injection.dart';
+import 'package:foodix/core/styles/app_colors.dart';
 import 'package:foodix/core/utils/extensions.dart';
-import 'package:foodix/core/utils/functions/snack_bar.dart';
 import 'package:foodix/core/utils/my_shared_preferences.dart';
 import 'package:foodix/core/utils/roles.dart';
 import 'package:foodix/core/widgets/loading.dart';
@@ -15,7 +13,6 @@ import 'package:foodix/features/home/presentation/view/widgets/name_and_email.da
 import 'package:foodix/features/home/presentation/viewmodel/cubits/home/home_cubit.dart';
 import 'package:foodix/features/home/presentation/viewmodel/cubits/profile/profile_cubit.dart';
 import 'package:foodix/features/home/presentation/viewmodel/cubits/profile/profile_state.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../../core/shared/models/user_model.dart';
 
@@ -29,13 +26,13 @@ class ProfileView extends StatefulWidget {
 }
 
 class _ProfileViewState extends State<ProfileView> {
-  final _storage = getIt.get<MySharedPreferences>();
+  final _storage = getIt.get<SharedPreferencesService>();
   String? _imagePath;
   late final UserRole? _userRole;
 
   @override
   void initState() {
-    _userRole = getIt<MySharedPreferences>().getRoleUser();
+    _userRole = getIt<SharedPreferencesService>().getRoleUser();
     super.initState();
   }
 
@@ -68,22 +65,22 @@ class _ProfileViewState extends State<ProfileView> {
   }
 
   void _signOutSuccess() {
-    getIt.get<MySharedPreferences>().clearAllData();
+    getIt.get<SharedPreferencesService>().clearAllData();
     snackBar(
       context: context,
-      text: context.translate.success,
-      color: AppColors.primaryColor,
+      text: context.tr.success,
+      color: AppColors.primary,
     );
-    GoRouter.of(context).go("/");
+    context.navigator.go("/");
   }
 
   void _updateNameSuccess(state) {
     snackBar(
       context: context,
-      text: context.translate.success,
-      color: AppColors.primaryColor,
+      text: context.tr.success,
+      color: AppColors.primary,
     );
-    getIt.get<MySharedPreferences>().storeString("name", state.newName);
+    getIt.get<SharedPreferencesService>().storeString("name", state.newName);
   }
 
   void _handelStates(state) {
@@ -127,7 +124,7 @@ class _ProfileViewState extends State<ProfileView> {
                 pickImageFromCamera: () => _pickImageFromCamera(context),
                 pickImageFromGallery: () => _pickImageFromGallery(context),
               ),
-              SizedBox(height: Dimensions.height15),
+              SizedBox(height: context.responsive.height15),
               NameAndEmail(
                 name: _storage.getNameUser() == null
                     ? widget.user.name ?? ""
@@ -136,27 +133,27 @@ class _ProfileViewState extends State<ProfileView> {
                     ? widget.user.name ?? ""
                     : _storage.getEmailUser()!,
               ),
-              SizedBox(height: Dimensions.height20),
+              context.responsive.height20.verticalSpace,
               Divider(
                 color: AppColors.whiteGray,
                 height: 1,
-                thickness: Dimensions.height10,
+                thickness: context.responsive.height10,
               ),
               SizedBox(height: Dimensions.height45),
               CustomItemProfileView(
                 title: _userRole == getIt<Seller>()
-                    ? context.translate.myRestaurant
-                    : context.translate.addresses,
+                    ? context.tr.myRestaurant
+                    : context.tr.addresses,
                 onClick: () => _handleRoleNavigation(context),
               ),
               SizedBox(height: Dimensions.height30),
               CustomItemProfileView(
-                title: context.translate.language,
+                title: context.tr.language,
                 onClick: () => _showBottomSheet(context),
               ),
               SizedBox(height: Dimensions.height30),
               CustomItemProfileView(
-                title: context.translate.logout,
+                title: context.tr.logout,
                 dividerIsShowing: false,
                 onClick: () => _signOut(context),
               ),

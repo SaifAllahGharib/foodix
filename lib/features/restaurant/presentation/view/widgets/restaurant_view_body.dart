@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodix/core/utils/dimensions.dart';
 import 'package:foodix/features/restaurant/presentation/view/widgets/custom_app_bar_restaurant_view.dart';
 import 'package:foodix/features/restaurant/presentation/view/widgets/custom_category_tab_bar.dart';
 import 'package:foodix/features/restaurant/presentation/view/widgets/custom_restaurant_product_list.dart';
@@ -86,7 +85,7 @@ class _RestaurantViewBodyState extends State<RestaurantViewBody>
       context!,
       duration: const Duration(milliseconds: 250),
       curve: Curves.easeInOut,
-      alignment: Dimensions.height10 * 0.04,
+      alignment: context.responsive.height10 * 0.04,
     );
   }
 

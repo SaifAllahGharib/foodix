@@ -4,10 +4,8 @@ import 'package:foodix/core/shared/models/food_model.dart';
 import 'package:foodix/core/widgets/loading.dart';
 import 'package:foodix/features/foods_category/presentation/viewmodel/cubit/foods_category/foods_category_cubit.dart';
 import 'package:foodix/features/foods_category/presentation/viewmodel/cubit/foods_category/foods_category_state.dart';
-import 'package:go_router/go_router.dart';
+art';
 
-import '../../../../../core/utils/dimensions.dart';
-import '../../../../../core/utils/styles.dart';
 import '../../../../../core/widgets/custom_back_button.dart';
 import '../../../../../core/widgets/custom_dialog_loading_widget.dart';
 import '../../../../../core/widgets/custom_error_widget.dart';
@@ -79,20 +77,20 @@ class _FoodsCategoryViewBodyState extends State<FoodsCategoryViewBody> {
     return Container(
       width: double.infinity,
       color: Colors.white,
-      padding: EdgeInsets.all(Dimensions.height20),
+      padding: EdgeInsets.all(context.responsive.height20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const CustomBackButton(),
-          SizedBox(height: Dimensions.height20),
+          context.responsive.height20.verticalSpace,
           CustomSearchTextField(
             controller: _searchFoodController,
             isSeller: true,
             onChange: (value) {},
           ),
-          SizedBox(height: Dimensions.height20),
-          Text(widget.categoryId, style: Styles.textStyle20(context)),
-          SizedBox(height: Dimensions.height20),
+          context.responsive.height20.verticalSpace,
+          Text(widget.categoryId, style: AppStyles.textStyle20(context)),
+          context.responsive.height20.verticalSpace,
           Expanded(
             child: BlocConsumer<FoodsCategoryCubit, FoodsCategoryState>(
               listener: (context, state) {

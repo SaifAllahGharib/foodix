@@ -1,11 +1,8 @@
-import 'package:dartz/dartz.dart';
-import 'package:foodix/core/errors/failure.dart';
+import 'package:failure_handler/failure_handler.dart';
 
 import '../../../../core/shared/models/food_model.dart';
+import '../../../../core/utils/result.dart';
 
 abstract class AddFoodRepository {
-  Future<Either<Failure, void>> addFood(
-    String categoryName,
-    FoodModel food,
-  );
+  Future<Result<AppFailure, void>> addFood(String categoryName, FoodModel food);
 }

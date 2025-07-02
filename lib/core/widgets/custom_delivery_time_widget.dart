@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:foodix/core/utils/dimensions.dart';
-import 'package:foodix/core/utils/styles.dart';
+import 'package:foodix/core/utils/extensions.dart';
 
 class CustomDeliveryTimeWidget extends StatelessWidget {
   final int time;
 
-  const CustomDeliveryTimeWidget({
-    super.key,
-    required this.time,
-  });
+  const CustomDeliveryTimeWidget({super.key, required this.time});
 
   @override
   Widget build(BuildContext context) {
@@ -16,18 +12,18 @@ class CustomDeliveryTimeWidget extends StatelessWidget {
       children: [
         Icon(
           Icons.access_time_rounded,
-          size: Dimensions.height20,
+          size: context.responsive.iconSize20,
           color: Colors.grey,
         ),
-        SizedBox(width: Dimensions.height10 * 0.5),
+        context.responsive.width5.horizontalSpace,
         Text(
           "$time",
-          style: Styles.textStyle15(context).copyWith(color: Colors.grey),
+          style: context.textStyle.s15W400.copyWith(color: Colors.grey),
         ),
-        SizedBox(width: Dimensions.height10 * 0.3),
+        SizedBox(width: context.responsive.height3),
         Text(
           "minute",
-          style: Styles.textStyle15(context).copyWith(color: Colors.grey),
+          style: context.textStyle.s15W400.copyWith(color: Colors.grey),
         ),
       ],
     );

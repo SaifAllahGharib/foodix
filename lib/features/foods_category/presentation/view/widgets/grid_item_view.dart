@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodix/core/shared/models/food_model.dart';
-import 'package:foodix/core/utils/dimensions.dart';
-import 'package:foodix/core/utils/styles.dart';
-import 'package:foodix/core/widgets/custom_row_cost.dart';
+import 'package:foodix/core/utils/AppStyles.dart';
+import 'package:foodix/core/utils/dimensionom_row_cost.dart';
 import 'package:foodix/features/home/presentation/view/widgets/custom_image_food.dart';
-
-import '../../../../../core/shared/viewmodel/cubits/local_cubit.dart';
 
 class GridItemView extends StatelessWidget {
   final FoodModel food;
@@ -35,25 +32,25 @@ class GridItemView extends StatelessWidget {
         child: Column(
           children: [
             CustomImageFood(imageUrl: food.foodImage ?? ""),
-            SizedBox(height: Dimensions.height10),
+            context.responsive.height10.verticalSpace,
             Padding(
               padding: EdgeInsets.symmetric(
-                horizontal: Dimensions.height10 * 0.5,
+                horizontal: context.responsive.height5,
               ),
               child: Column(
                 children: [
                   Align(
-                    alignment: context.watch<LocalCubit>().isArabic
+                    alignment: currentLocaleIsArabic
                         ? Alignment.centerRight
                         : Alignment.centerLeft,
                     child: Text(
                       food.foodName,
-                      style: Styles.textStyle18(context),
+                      style: context.textStyle.s18W600,
                     ),
                   ),
-                  SizedBox(height: Dimensions.height10 * 0.7),
+                  SizedBox(height: context.responsive.height10 * 0.7),
                   Align(
-                    alignment: context.watch<LocalCubit>().isArabic
+                    alignment: currentLocaleIsArabic
                         ? Alignment.centerRight
                         : Alignment.centerLeft,
                     child: CustomRowCost(

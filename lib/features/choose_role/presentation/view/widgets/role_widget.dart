@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:foodix/core/utils/extensions.dart';
 
-import '../../../../../core/utils/colors.dart';
-import '../../../../../core/utils/dimensions.dart';
-import '../../../../../core/utils/styles.dart';
+import '../../../../../core/styles/app_colors.dart';
 
 class RoleWidget extends StatelessWidget {
   final String role;
@@ -28,16 +27,15 @@ class RoleWidget extends StatelessWidget {
       focusColor: Colors.transparent,
       hoverColor: Colors.transparent,
       child: Container(
-        margin: EdgeInsets.only(bottom: Dimensions.height10),
-        padding: EdgeInsets.all(Dimensions.height10),
+        margin: EdgeInsets.only(bottom: context.responsive.padding10),
+        padding: EdgeInsets.all(context.responsive.padding10),
         decoration: BoxDecoration(
           color: selected
-              ? AppColors.disabledColor.withOpacity(0.06)
+              ? AppColors.secondary.withOpacity(0.06)
               : Colors.white,
-          borderRadius: BorderRadius.circular(Dimensions.radius10),
+          borderRadius: BorderRadius.circular(context.responsive.radius10),
           border: Border.all(
-            color: selected ? AppColors.primaryColor : AppColors.whiteGray,
-            width: 1,
+            color: selected ? AppColors.primary : AppColors.whiteGray,
           ),
         ),
         child: Row(
@@ -49,14 +47,14 @@ class RoleWidget extends StatelessWidget {
                 children: [
                   Icon(
                     icon,
-                    size: Dimensions.iconSize24,
-                    color: selected ? AppColors.primaryColor : Colors.black,
+                    size: context.responsive.iconSize24,
+                    color: selected ? AppColors.primary : Colors.black,
                   ),
-                  SizedBox(width: Dimensions.width30),
+                  context.responsive.width30.horizontalSpace,
                   Text(
                     role,
-                    style: Styles.textStyle18(context).copyWith(
-                      color: selected ? AppColors.primaryColor : Colors.black,
+                    style: context.textStyle.s18W600.copyWith(
+                      color: selected ? AppColors.primary : Colors.black,
                       fontWeight: selected ? FontWeight.w600 : FontWeight.w400,
                     ),
                   ),
@@ -67,8 +65,8 @@ class RoleWidget extends StatelessWidget {
             if (selected)
               Icon(
                 Icons.check,
-                color: AppColors.primaryColor,
-                size: Dimensions.iconSize20,
+                color: AppColors.primary,
+                size: context.responsive.iconSize20,
               ),
           ],
         ),

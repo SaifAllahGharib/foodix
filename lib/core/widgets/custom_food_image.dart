@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:foodix/core/utils/dimensions.dart';
+import 'package:foodix/core/utils/extensions.dart';
 
 class CustomFoodImage extends StatelessWidget {
   final String image;
@@ -19,11 +19,8 @@ class CustomFoodImage extends StatelessWidget {
       width: width,
       height: height,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(Dimensions.radius20),
-        image: DecorationImage(
-          fit: BoxFit.cover,
-          image: AssetImage(image),
-        ),
+        borderRadius: BorderRadius.circular(context.responsive.radius20),
+        image: DecorationImage(fit: BoxFit.cover, image: AssetImage(image)),
       ),
     );
   }

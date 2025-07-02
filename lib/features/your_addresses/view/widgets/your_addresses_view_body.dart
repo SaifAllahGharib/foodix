@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:foodix/core/utils/colors.dart';
-import 'package:foodix/core/utils/dimensions.dart';
+import 'package:foodix/core/styles/app_colors.dart';
 import 'package:foodix/core/utils/extensions.dart';
-import 'package:foodix/core/utils/styles.dart';
 import 'package:foodix/core/widgets/custom_back_button.dart';
 import 'package:foodix/features/your_addresses/view/widgets/list_view_addresses.dart';
 
@@ -12,20 +10,20 @@ class YourAddressesViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(Dimensions.height20),
+      padding: EdgeInsets.all(context.responsive.height20),
       child: Column(
         children: [
-          SizedBox(height: Dimensions.height10),
+          context.responsive.height10.verticalSpace,
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
                 children: [
                   const CustomBackButton(),
-                  SizedBox(width: Dimensions.width30),
+                  context.responsive.width30.horizontalSpace,
                   Text(
-                    context.translate.addresses,
-                    style: Styles.textStyle18(
+                    context.tr.addresses,
+                    style: AppStyles.textStyle18(
                       context,
                     ).copyWith(fontWeight: FontWeight.w500),
                   ),
@@ -33,13 +31,15 @@ class YourAddressesViewBody extends StatelessWidget {
               ),
               MaterialButton(
                 onPressed: () {},
-                color: AppColors.primaryColor,
+                color: AppColors.primary,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(Dimensions.radius20),
+                  borderRadius: BorderRadius.circular(
+                    context.responsive.radius20,
+                  ),
                 ),
                 child: Text(
-                  context.translate.add,
-                  style: Styles.textStyle15(
+                  context.tr.add,
+                  style: AppStyles.textStyle15(
                     context,
                   ).copyWith(color: Colors.white, fontWeight: FontWeight.w400),
                 ),

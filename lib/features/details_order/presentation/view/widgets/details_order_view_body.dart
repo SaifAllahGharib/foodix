@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodix/core/utils/colors.dart';
-import 'package:foodix/core/utils/dimensions.dart';
+import 'package:foodix/core/styles/app_colors.dart';
 import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/widgets/custom_back_button.dart';
-import 'package:foodix/core/widgets/custom_text.dart';
 import 'package:foodix/features/details_order/presentation/view/widgets/bottom_section_details_order_view_body.dart';
 import 'package:foodix/features/details_order/presentation/view/widgets/middle_section_details_order_view_body.dart';
 import 'package:foodix/features/details_order/presentation/view/widgets/top_section_details_order_view_body.dart';
-
-import '../../../../../core/shared/viewmodel/cubits/local_cubit.dart';
 
 class DetailsOrderViewBody extends StatelessWidget {
   const DetailsOrderViewBody({super.key});
@@ -17,29 +13,29 @@ class DetailsOrderViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(Dimensions.height20),
+      padding: EdgeInsets.all(context.responsive.height20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: Dimensions.height20),
+          context.responsive.height20.verticalSpace,
           const CustomBackButton(),
-          SizedBox(height: Dimensions.height15),
+          SizedBox(height: context.responsive.height15),
           const TopSectionDetailsOrderViewBody(),
-          SizedBox(height: Dimensions.height20),
+          context.responsive.height20.verticalSpace,
           const Divider(color: AppColors.gray, height: 1),
-          SizedBox(height: Dimensions.height20),
+          context.responsive.height20.verticalSpace,
           const MiddleSectionDetailsOrderViewBody(),
-          SizedBox(height: Dimensions.height20),
+          context.responsive.height20.verticalSpace,
           const Divider(color: AppColors.gray, height: 1),
-          SizedBox(height: Dimensions.height20),
+          context.responsive.height20.verticalSpace,
           CustomText(
-            text: context.translate.yourOrder,
+            text: context.tr.yourOrder,
             textSize: Dimensions.fontSize20 * 1.1,
-            alignment: context.watch<LocalCubit>().isArabic
+            alignment: currentLocaleIsArabic
                 ? Alignment.topRight
                 : Alignment.topLeft,
           ),
-          SizedBox(height: Dimensions.height10),
+          context.responsive.height10.verticalSpace,
           const BottomSectionDetailsOrderViewBody(),
         ],
       ),

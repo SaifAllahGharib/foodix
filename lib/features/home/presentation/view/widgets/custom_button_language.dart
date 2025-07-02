@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:foodix/core/utils/dimensions.dart';
-import 'package:foodix/core/utils/styles.dart';
 
-class CustomButtonLanguage extends StatelessWidget {
+class AppButtonLanguage extends StatelessWidget {
   final String text;
   final void Function() onClick;
 
-  const CustomButtonLanguage({
+  const AppButtonLanguage({
     super.key,
     required this.text,
     required this.onClick,
@@ -18,8 +16,9 @@ class CustomButtonLanguage extends StatelessWidget {
       onTap: onClick,
       child: Text(
         text,
-        style: Styles.textStyle18(context)
-            .copyWith(fontSize: Dimensions.fontSize18 * 0.9),
+        style: AppStyles.textStyle18(
+          context,
+        ).copyWith(fontSize: Dimensions.fontSize18 * 0.9),
       ),
     );
   }

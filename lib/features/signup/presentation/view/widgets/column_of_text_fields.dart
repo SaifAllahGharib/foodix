@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodix/core/utils/dimensions.dart';
 import 'package:foodix/core/utils/extensions.dart';
-import 'package:foodix/core/widgets/custom_text_form_field.dart';
 import 'package:foodix/features/signup/presentation/viewmodel/cubits/signup/signup_cubit.dart';
 
 class ColumnOfTextFields extends StatefulWidget {
@@ -32,32 +30,32 @@ class _ColumnOfTextFieldsState extends State<ColumnOfTextFields> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CustomTextFormField(
+        AppTextFormField(
           controller: widget.name,
-          label: context.translate.labelName,
-          hint: context.translate.hintName,
+          label: context.tr.labelName,
+          hint: context.tr.hintName,
           onChanged: widget.validator,
         ),
-        SizedBox(height: Dimensions.height15),
-        CustomTextFormField(
+        SizedBox(height: context.responsive.height15),
+        AppTextFormField(
           controller: widget.email,
-          label: context.translate.labelEmail,
-          hint: context.translate.hintEmail,
+          label: context.tr.labelEmail,
+          hint: context.tr.hintEmail,
           onChanged: widget.validator,
         ),
-        SizedBox(height: Dimensions.height15),
-        CustomTextFormField(
+        SizedBox(height: context.responsive.height15),
+        AppTextFormField(
           controller: widget.phone,
-          label: context.translate.labelPhone,
-          hint: context.translate.hintPhone,
+          label: context.tr.labelPhone,
+          hint: context.tr.hintPhone,
           onChanged: widget.validator,
         ),
-        SizedBox(height: Dimensions.height15),
-        CustomTextFormField(
+        SizedBox(height: context.responsive.height15),
+        AppTextFormField(
           controller: widget.password,
-          label: context.translate.labelPass,
+          label: context.tr.labelPass,
           isPassword: true,
-          hint: context.translate.hintPass,
+          hint: context.tr.hintPass,
           onPressedShowPassword: widget.context
               .read<SignupCubit>()
               .togglePasswordVisibility,

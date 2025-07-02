@@ -3,26 +3,16 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:foodix/core/utils/app_router.dart';
-import 'package:foodix/core/utils/colors.dart';
-import 'package:foodix/core/utils/di.dart';
-import 'package:foodix/core/utils/functions/init_app.dart';
-import 'package:foodix/core/utils/functions/set_portrait_orientation.dart';
-import 'package:foodix/core/utils/image_picker_helper.dart';
-import 'package:foodix/core/utils/my_shared_preferences.dart';
-import 'package:foodix/features/home/data/repos/home/home_repo_imp.dart';
-import 'package:foodix/features/home/data/repos/main_seller/main_seller_repo_imp.dart';
-import 'package:foodix/features/home/data/repos/profile/profile_repo_imp.dart';
-import 'package:foodix/features/home/presentation/viewmodel/cubits/home/home_cubit.dart';
-import 'package:foodix/features/home/presentation/viewmodel/cubits/main_seller/main_seller_cubit.dart';
-import 'package:foodix/features/home/presentation/viewmodel/cubits/profile/profile_cubit.dart';
-import 'package:foodix/generated/l10n.dart';
 
-import 'core/shared/viewmodel/cubits/local_cubit.dart';
+import 'core/di/dependency_injection.dart';
+import 'core/routing/app_route_name.dart';
+import 'core/routing/app_router.dart';
+import 'core/shared/functions/init_app.dart';
+import 'core/shared/viewmodel/cubits/locale_cubit.dart';
+import 'core/theme/app_theme.dart';
+import 'generated/l10n.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  setPortraitOrientation();
   await initializeApp();
 
   runApp(
@@ -37,58 +27,25 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<LocalCubit>(
-          create: (context) => LocalCubit()..loadSavedLanguage(),
-        ),
-        BlocProvider<HomeCubit>(
-          create: (context) => HomeCubit(getIt.get<HomeRepositoryImp>()),
-        ),
-        BlocProvider<ProfileCubit>(
-          create: (context) => ProfileCubit(
-            getIt.get<ImagePickerHelper>(),
-            getIt.get<ProfileRepositoryImp>(),
-          ),
-        ),
-        BlocProvider<MainSellerCubit>(
-          create: (context) => MainSellerCubit(
-            getIt.get<MainSellerRepositoryImp>(),
-            getIt.get<MySharedPreferences>(),
-          ),
-        ),
-      ],
-      child: BlocBuilder<LocalCubit, Locale>(
+    return BlocProvider(
+      create: (context) => getIt<LocaleCubit>(),
+      child: BlocSelector<LocaleCubit, Locale, Locale>(
+        selector: (locale) => locale,
         builder: (context, locale) {
-          return MaterialApp.router(
+          return MaterialApp(
             locale: locale,
-            routerConfig: AppRouter.router,
             localizationsDelegates: const [
               S.delegate,
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
             ],
+            theme: AppTheme.light(context),
             supportedLocales: S.delegate.supportedLocales,
-            theme: _buildAppTheme(locale),
+            initialRoute: AppRouteName.chooseLanguage,
+            onGenerateRoute: AppRouter.generateRoute,
           );
         },
-      ),
-    );
-  }
-
-  ThemeData _buildAppTheme(Locale? locale) {
-    final String fontFamily = locale?.languageCode == 'ar'
-        ? 'cairo'
-        : 'poppins';
-
-    return ThemeData(
-      scaffoldBackgroundColor: Colors.white,
-      fontFamily: fontFamily,
-      textSelectionTheme: const TextSelectionThemeData(
-        selectionHandleColor: AppColors.primaryColor,
-        cursorColor: AppColors.primaryColor,
-        selectionColor: AppColors.primaryColor,
       ),
     );
   }

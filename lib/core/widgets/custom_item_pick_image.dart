@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:foodix/core/utils/dimensions.dart';
+import 'package:foodix/core/utils/extensions.dart';
 
 class CustomItemPickImage extends StatelessWidget {
   final void Function() pickImageFromCamera;
@@ -14,7 +14,7 @@ class CustomItemPickImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(Dimensions.height20),
+      padding: EdgeInsets.all(context.responsive.padding20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -22,7 +22,7 @@ class CustomItemPickImage extends StatelessWidget {
             icon: const Icon(Icons.camera_alt_outlined),
             onPressed: pickImageFromCamera,
           ),
-          SizedBox(width: Dimensions.width10),
+          SizedBox(width: context.responsive.width10),
           IconButton(
             icon: const Icon(Icons.image_outlined),
             onPressed: pickImageFromGallery,

@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodix/core/utils/colors.dart';
-import 'package:foodix/core/utils/dimensions.dart';
+import 'package:foodix/core/styles/app_colors.dart';
 import 'package:foodix/core/utils/extensions.dart';
-import 'package:foodix/core/utils/styles.dart';
 import 'package:foodix/core/widgets/custom_edit_field_widget.dart';
-import 'package:foodix/core/widgets/custom_text.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../viewmodel/cubits/profile/profile_cubit.dart';
 
@@ -41,8 +37,8 @@ class _NameAndEmailState extends State<NameAndEmail> {
       builder: (context) {
         return CustomEditFieldWidget(
           controller: _editName,
-          label: context.translate.newName,
-          hint: context.translate.hintName,
+          label: context.tr.newName,
+          hint: context.tr.hintName,
           onClick: () => _updateName(),
           onChanged: (val) => _validation(),
           isEnabled: context.watch<ProfileCubit>().isEnabled,
@@ -63,7 +59,7 @@ class _NameAndEmailState extends State<NameAndEmail> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: Dimensions.height20),
+      padding: EdgeInsets.symmetric(horizontal: context.responsive.height20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -72,12 +68,12 @@ class _NameAndEmailState extends State<NameAndEmail> {
             children: [
               CustomText(
                 text: widget.name,
-                textSize: Dimensions.height20 * 1.2,
+                textSize: context.responsive.height20 * 1.2,
                 alignment: AlignmentDirectional.topStart,
               ),
               Text(
                 widget.email,
-                style: Styles.textStyle15(
+                style: AppStyles.textStyle15(
                   context,
                 ).copyWith(fontWeight: FontWeight.w500),
               ),
@@ -85,7 +81,7 @@ class _NameAndEmailState extends State<NameAndEmail> {
           ),
           IconButton(
             onPressed: () => _showBottomSheet(context),
-            icon: const Icon(Icons.edit, color: AppColors.primaryColor),
+            icon: const Icon(Icons.edit, color: AppColors.primary),
           ),
         ],
       ),

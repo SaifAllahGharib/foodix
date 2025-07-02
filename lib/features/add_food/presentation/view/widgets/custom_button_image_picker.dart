@@ -1,16 +1,16 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:foodix/core/utils/colors.dart';
-import 'package:foodix/core/utils/dimensions.dart';
+import 'package:foodix/core/styles/app_colors.dart';
+import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/widgets/custom_item_pick_image.dart';
 
-class CustomButtonImagePicker extends StatelessWidget {
+class AppButtonImagePicker extends StatelessWidget {
   final void Function() pickImageFromCamera;
   final void Function() pickImageFromGallery;
   final String? selectedImage;
 
-  const CustomButtonImagePicker({
+  const AppButtonImagePicker({
     super.key,
     required this.pickImageFromCamera,
     required this.pickImageFromGallery,
@@ -36,27 +36,29 @@ class CustomButtonImagePicker extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => _showBottomSheet(context),
-      borderRadius: BorderRadius.circular(Dimensions.radius20),
+      borderRadius: BorderRadius.circular(context.responsive.radius20),
       child: selectedImage == null
           ? Container(
               width: double.infinity,
-              height: Dimensions.height130,
+              height: context.responsive.height130,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(Dimensions.radius20),
+                borderRadius: BorderRadius.circular(
+                  context.responsive.radius20,
+                ),
                 border: Border.all(width: 1, color: AppColors.gray),
               ),
               child: Icon(
                 Icons.add,
-                size: Dimensions.height45,
+                size: context.responsive.height45,
                 color: AppColors.gray,
               ),
             )
           : ClipRRect(
-              borderRadius: BorderRadius.circular(Dimensions.radius20),
+              borderRadius: BorderRadius.circular(context.responsive.radius20),
               child: Image.file(
                 File(selectedImage!),
-                width: Dimensions.height130 * 1.7,
-                height: Dimensions.height130 * 1.7,
+                width: context.responsive.height221,
+                height: context.responsive.height221,
                 fit: BoxFit.cover,
               ),
             ),

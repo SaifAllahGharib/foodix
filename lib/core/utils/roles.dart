@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
-import 'package:go_router/go_router.dart';
+import 'package:foodix/core/routing/app_route_name.dart';
+import 'package:foodix/core/utils/extensions.dart';
 
-import '../../features/my_restaurant/presentation/view/my_restaurant_view.dart';
 import '../../features/your_addresses/view/your_addresses_view.dart';
 
 sealed class UserRole {
-  void navigate(BuildContext context);
+  void executeAction(BuildContext context);
 }
 
 class Seller extends UserRole {
@@ -13,8 +13,8 @@ class Seller extends UserRole {
   String toString() => 'Seller';
 
   @override
-  void navigate(BuildContext context) {
-    context.push(MyRestaurantView.id);
+  void executeAction(BuildContext context) {
+    context.navigator.pushNamed(AppRouteName.myRestaurant);
   }
 }
 
@@ -23,7 +23,7 @@ class Buyer extends UserRole {
   String toString() => 'Buyer';
 
   @override
-  void navigate(BuildContext context) {
-    context.push(YourAddressesView.id);
+  void executeAction(BuildContext context) {
+    context.navigator.pushNamed(YourAddressesView.id);
   }
 }

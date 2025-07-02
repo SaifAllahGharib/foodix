@@ -3,10 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodix/core/shared/models/food_model.dart';
 import 'package:foodix/core/utils/extensions.dart';
 
-import '../../../../../core/utils/colors.dart';
-import '../../../../../core/utils/dimensions.dart';
-import '../../../../../core/utils/styles.dart';
-import '../../../../../core/widgets/custom_text_form_field.dart';
+import '../../../../../core/styles/app_colors.dart';
+import '../../../../../core/utils/dimensionppStyles.dart';
+import '../../../../../core/widgets/app_text_form_field.dart';
 import '../../viewmodel/cubit/foods_category/foods_category_cubit.dart';
 
 class CustomEditFoodDialog extends StatefulWidget {
@@ -66,27 +65,27 @@ class _CustomEditFoodDialogState extends State<CustomEditFoodDialog> {
   Widget build(BuildContext context) {
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      title: Text(context.translate.edit, style: Styles.textStyle18(context)),
+      title: Text(context.tr.edit, style: context.textStyle.s18W600),
       content: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            CustomTextFormField(
+            AppTextFormField(
               controller: _nameController,
-              label: context.translate.labelName,
-              hint: context.translate.hintNameRestaurant,
+              label: context.tr.labelName,
+              hint: context.tr.hintNameRestaurant,
             ),
-            SizedBox(height: Dimensions.height10),
-            CustomTextFormField(
+            context.responsive.height10.verticalSpace,
+            AppTextFormField(
               controller: _descController,
-              label: context.translate.foodDesc,
-              hint: context.translate.foodDesc,
+              label: context.tr.foodDesc,
+              hint: context.tr.foodDesc,
             ),
-            SizedBox(height: Dimensions.height10),
-            CustomTextFormField(
+            context.responsive.height10.verticalSpace,
+            AppTextFormField(
               controller: _costController,
-              label: context.translate.foodCost,
-              hint: context.translate.foodCost,
+              label: context.tr.foodCost,
+              hint: context.tr.foodCost,
             ),
           ],
         ),
@@ -98,18 +97,15 @@ class _CustomEditFoodDialogState extends State<CustomEditFoodDialog> {
             _updateFood();
           },
           child: Text(
-            context.translate.save,
-            style: Styles.textStyle12(
+            context.tr.save,
+            style: AppStyles.textStyle12(
               context,
-            ).copyWith(color: AppColors.primaryColor),
+            ).copyWith(color: AppColors.primary),
           ),
         ),
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: Text(
-            context.translate.cancel,
-            style: Styles.textStyle12(context),
-          ),
+          child: Text(context.tr.cancel, style: AppStyles.textStyle12(context)),
         ),
       ],
     );

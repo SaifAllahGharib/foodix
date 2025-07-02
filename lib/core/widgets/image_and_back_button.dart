@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:foodix/core/utils/dimensions.dart';
+import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/widgets/custom_back_button.dart';
 import 'package:foodix/core/widgets/custom_cashed_network_image.dart';
 
 import '../shared/models/food_model.dart';
-import '../utils/assets.dart';
+import '../utils/app_assets.dart';
 
 class ImageAndBackButton extends StatelessWidget {
   final FoodModel? food;
@@ -17,12 +17,12 @@ class ImageAndBackButton extends StatelessWidget {
       children: [
         CustomCashedNetworkImage(
           imageURL: food?.foodImage,
-          placeholder: Assets.food,
+          placeholder: AppAssets.food,
           width: double.infinity,
-          height: Dimensions.height130 * 2.4,
+          height: context.responsive.height312,
         ),
         Padding(
-          padding: EdgeInsets.all(Dimensions.height20),
+          padding: EdgeInsets.all(context.responsive.padding20),
           child: const CustomBackButton(),
         ),
       ],

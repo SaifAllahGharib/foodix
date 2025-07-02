@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:foodix/core/utils/colors.dart';
-import 'package:foodix/core/utils/dimensions.dart';
-import 'package:foodix/core/utils/styles.dart';
+import 'package:foodix/core/styles/app_colors.dart';
 
 class CustomItemProfileView extends StatelessWidget {
   final String title;
@@ -25,13 +23,15 @@ class CustomItemProfileView extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: Dimensions.height20),
+            padding: EdgeInsets.symmetric(
+              horizontal: context.responsive.height20,
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   title,
-                  style: Styles.textStyle18(context).copyWith(
+                  style: context.textStyle.s18W600.copyWith(
                     fontWeight: FontWeight.w500,
                     color: Colors.black87,
                   ),
@@ -44,14 +44,11 @@ class CustomItemProfileView extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: Dimensions.height15),
+          SizedBox(height: context.responsive.height15),
           dividerIsShowing
               ? Padding(
-                  padding: EdgeInsets.only(right: Dimensions.height20),
-                  child: const Divider(
-                    height: 1,
-                    color: AppColors.gray,
-                  ),
+                  padding: EdgeInsets.only(right: context.responsive.height20),
+                  child: const Divider(height: 1, color: AppColors.gray),
                 )
               : const SizedBox.shrink(),
         ],

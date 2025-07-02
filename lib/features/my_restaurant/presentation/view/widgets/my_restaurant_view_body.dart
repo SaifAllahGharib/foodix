@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodix/core/utils/colors.dart';
-import 'package:foodix/core/utils/dimensions.dart';
+import 'package:foodix/core/styles/app_colors.dart';
 import 'package:foodix/core/utils/enums.dart';
 import 'package:foodix/core/utils/extensions.dart';
-import 'package:foodix/core/utils/functions/snack_bar.dart';
-import 'package:foodix/core/utils/styles.dart';
-import 'package:foodix/core/widgets/custom_back_button.dart';
-import 'package:foodix/core/widgets/custom_button.dart';
+import 'package:foodix/core/widgets/app_button.dart';
+import 'package:foodix/core/widgets/custom_backgets/app_button.dart';
 import 'package:foodix/features/home/presentation/view/home_view.dart';
 import 'package:foodix/features/my_restaurant/data/models/restaurant_model.dart';
-import 'package:go_router/go_router.dart';
 
-import '../../../../../core/utils/di.dart';
+import '../../../../../core/di/dependency_injection.dart';
 import '../../../../../core/utils/my_shared_preferences.dart';
 import '../../../../../core/widgets/custom_dialog_loading_widget.dart';
 import '../../../../../core/widgets/custom_edit_field_widget.dart';
@@ -32,7 +28,7 @@ class _MyRestaurantViewBodyState extends State<MyRestaurantViewBody> {
   late final TextEditingController _nameController;
   late final TextEditingController _deliveryTimeController;
   late final TextEditingController _deliveryCostController;
-  late final MySharedPreferences _mySharedPreferences;
+  late final SharedPreferencesService _SharedPreferencesService;
   late final TextEditingController _updateNameController;
   late final TextEditingController _updateDeliveryTimeController;
   late final TextEditingController _updateDeliveryCostController;
@@ -48,7 +44,7 @@ class _MyRestaurantViewBodyState extends State<MyRestaurantViewBody> {
     _updateNameController = TextEditingController();
     _updateDeliveryTimeController = TextEditingController();
     _updateDeliveryCostController = TextEditingController();
-    _mySharedPreferences = getIt<MySharedPreferences>();
+    _SharedPreferencesService = getIt<SharedPreferencesService>();
 
     super.initState();
   }
@@ -69,7 +65,7 @@ class _MyRestaurantViewBodyState extends State<MyRestaurantViewBody> {
 
   @override
   void didChangeDependencies() {
-    _getMyRestaurantInfo(_mySharedPreferences);
+    _getMyRestaurantInfo(_SharedPreferencesService);
     super.didChangeDependencies();
   }
 
@@ -85,21 +81,19 @@ class _MyRestaurantViewBodyState extends State<MyRestaurantViewBody> {
             timePickerTheme: TimePickerThemeData(
               backgroundColor: Colors.white,
               hourMinuteTextColor: Colors.black,
-              dialHandColor: AppColors.primaryColor,
+              dialHandColor: AppColors.primary,
               dialBackgroundColor: Colors.grey.shade200,
-              entryModeIconColor: AppColors.primaryColor,
-              hourMinuteColor: AppColors.primaryColor.withOpacity(0.1),
-              dayPeriodColor: AppColors.primaryColor,
+              entryModeIconColor: AppColors.primary,
+              hourMinuteColor: AppColors.primary.withOpacity(0.1),
+              dayPeriodColor: AppColors.primary,
             ),
             colorScheme: const ColorScheme.light(
-              primary: AppColors.primaryColor,
+              primary: AppColors.primary,
               onPrimary: Colors.white,
               onSurface: Colors.black,
             ),
             textButtonTheme: TextButtonThemeData(
-              style: TextButton.styleFrom(
-                foregroundColor: AppColors.primaryColor,
-              ),
+              style: TextButton.styleFrom(foregroundColor: AppColors.primary),
             ),
           ),
           child: child!,
@@ -133,7 +127,7 @@ class _MyRestaurantViewBodyState extends State<MyRestaurantViewBody> {
   }
 
   String _formatTime(BuildContext context, TimeOfDay? time) {
-    if (time == null) return context.translate.selectTime;
+    if (time == null) return context.tr.selectTime;
     final localizations = MaterialLocalizations.of(context);
     return localizations.formatTimeOfDay(time, alwaysUse24HourFormat: false);
   }
@@ -161,19 +155,25 @@ class _MyRestaurantViewBodyState extends State<MyRestaurantViewBody> {
     }
   }
 
-  List<String?> _getMyRestaurantInfo(MySharedPreferences mySharedPreferences) {
+  List<String?> _getMyRestaurantInfo(
+    SharedPreferencesService SharedPreferencesService,
+  ) {
     return [
-      mySharedPreferences.getString(
+      SharedPreferencesService.getString(
         RestaurantInfoParams.restaurantName.toString(),
       ),
-      mySharedPreferences.getString(
+      SharedPreferencesService.getString(
         RestaurantInfoParams.deliveryTime.toString(),
       ),
-      mySharedPreferences.getString(
+      SharedPreferencesService.getString(
         RestaurantInfoParams.deliveryCost.toString(),
       ),
-      mySharedPreferences.getString(RestaurantInfoParams.openTime.toString()),
-      mySharedPreferences.getString(RestaurantInfoParams.closeTime.toString()),
+      SharedPreferencesService.getString(
+        RestaurantInfoParams.openTime.toString(),
+      ),
+      SharedPreferencesService.getString(
+        RestaurantInfoParams.closeTime.toString(),
+      ),
     ];
   }
 
@@ -223,7 +223,7 @@ class _MyRestaurantViewBodyState extends State<MyRestaurantViewBody> {
 
   void _whenUpdateSuccess(String key, String value) async {
     context.read<MyRestaurantCubit>().resetValidation();
-    await _mySharedPreferences.storeString(key, value);
+    await _SharedPreferencesService.storeString(key, value);
     context.pop();
     setState(() {});
   }
@@ -301,8 +301,8 @@ class _MyRestaurantViewBodyState extends State<MyRestaurantViewBody> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       padding: EdgeInsets.symmetric(
-        horizontal: Dimensions.height20,
-        vertical: Dimensions.height20 * 1.5,
+        horizontal: context.responsive.height20,
+        vertical: context.responsive.height20 * 1.5,
       ),
       child: Column(
         children: [
@@ -312,68 +312,68 @@ class _MyRestaurantViewBodyState extends State<MyRestaurantViewBody> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const CustomBackButton(),
-                SizedBox(height: Dimensions.height20),
+                context.responsive.height20.verticalSpace,
                 Text(
-                  context.translate.restaurantInfo,
-                  style: Styles.textStyle20(
+                  context.tr.restaurantInfo,
+                  style: AppStyles.textStyle20(
                     context,
                   ).copyWith(fontWeight: FontWeight.bold),
                 ),
-                SizedBox(height: Dimensions.height20),
+                context.responsive.height20.verticalSpace,
                 _buildTextFormField(
                   controller: _nameController,
-                  label: context.translate.labelName,
+                  label: context.tr.labelName,
                   resInfo: 0,
-                  hint: context.translate.hintNameRestaurant,
+                  hint: context.tr.hintNameRestaurant,
                   onClickEdit: () => _showBottomSheet(
                     controller: _updateNameController,
-                    label: context.translate.newName,
-                    hint: context.translate.hintNameRestaurant,
+                    label: context.tr.newName,
+                    hint: context.tr.hintNameRestaurant,
                     onClick: () => _updateName(),
                   ),
                 ),
-                SizedBox(height: Dimensions.height10),
+                context.responsive.height10.verticalSpace,
                 _buildTextFormField(
                   controller: _deliveryTimeController,
-                  label: context.translate.labelDeliveryTime,
+                  label: context.tr.labelDeliveryTime,
                   resInfo: 1,
                   textInputType: TextInputType.number,
-                  hint: context.translate.hintDeliveryTime,
+                  hint: context.tr.hintDeliveryTime,
                   onClickEdit: () => _showBottomSheet(
                     controller: _updateDeliveryTimeController,
                     textInputType: TextInputType.number,
-                    label: context.translate.labelDeliveryTime,
-                    hint: context.translate.hintDeliveryTime,
+                    label: context.tr.labelDeliveryTime,
+                    hint: context.tr.hintDeliveryTime,
                     onClick: () => _updateTimeDelivery(),
                   ),
                 ),
-                SizedBox(height: Dimensions.height10),
+                context.responsive.height10.verticalSpace,
                 _buildTextFormField(
                   controller: _deliveryCostController,
-                  label: context.translate.labelDeliveryCost,
+                  label: context.tr.labelDeliveryCost,
                   resInfo: 2,
                   textInputType: TextInputType.number,
-                  hint: context.translate.hintDeliveryCost,
+                  hint: context.tr.hintDeliveryCost,
                   onClickEdit: () => _showBottomSheet(
                     controller: _updateDeliveryCostController,
                     textInputType: TextInputType.number,
-                    label: context.translate.labelDeliveryCost,
-                    hint: context.translate.hintDeliveryCost,
+                    label: context.tr.labelDeliveryCost,
+                    hint: context.tr.hintDeliveryCost,
                     onClick: () => _updateCostDelivery(),
                   ),
                 ),
-                SizedBox(height: Dimensions.height10),
+                context.responsive.height10.verticalSpace,
                 _buildTimePicker(
                   time: _openTime,
-                  label: context.translate.openTime,
+                  label: context.tr.openTime,
                   resInfo: 3,
                   onClickEdit: () => _updateOpenTime(),
                 ),
-                SizedBox(height: Dimensions.height10),
+                context.responsive.height10.verticalSpace,
                 _buildTimePicker(
                   time: _closeTime,
                   isOpenTime: false,
-                  label: context.translate.closeTime,
+                  label: context.tr.closeTime,
                   resInfo: 4,
                   onClickEdit: () => _updateCloseTime(),
                 ),
@@ -381,16 +381,18 @@ class _MyRestaurantViewBodyState extends State<MyRestaurantViewBody> {
             ),
           ),
           SizedBox(height: Dimensions.height30),
-          !_restaurantInfoIsEmpty(_getMyRestaurantInfo(_mySharedPreferences))
+          !_restaurantInfoIsEmpty(
+                _getMyRestaurantInfo(_SharedPreferencesService),
+              )
               ? const SizedBox.shrink()
               : BlocListener<MyRestaurantCubit, MyRestaurantState>(
                   listener: (context, state) => _handleState(state),
-                  child: CustomButton(
-                    text: context.translate.saveRestaurant,
+                  child: AppButton(
+                    text: context.tr.saveRestaurant,
                     isEnabled: context.watch<MyRestaurantCubit>().isValid,
                     onClick: () => _createRestaurant(
                       RestaurantModel(
-                        id: getIt<MySharedPreferences>().getIdUser()!,
+                        id: getIt<SharedPreferencesService>().getIdUser()!,
                         name: _nameController.text,
                         deliveryTime: int.tryParse(
                           _deliveryTimeController.text.trim(),
@@ -419,14 +421,15 @@ class _MyRestaurantViewBodyState extends State<MyRestaurantViewBody> {
   }) {
     return CustomMyRestaurantTextFormField(
       controller: controller,
-      textFieldValue: _getMyRestaurantInfo(_mySharedPreferences)[resInfo] ?? "",
+      textFieldValue:
+          _getMyRestaurantInfo(_SharedPreferencesService)[resInfo] ?? "",
       hint: hint,
       onChanged: (_) => _validationFields(),
       label: label,
       textInputType: textInputType,
       onClickEdit: onClickEdit,
       restaurantInfoIsEmpty: _restaurantInfoIsEmpty(
-        _getMyRestaurantInfo(_mySharedPreferences),
+        _getMyRestaurantInfo(_SharedPreferencesService),
       ),
     );
   }
@@ -441,11 +444,11 @@ class _MyRestaurantViewBodyState extends State<MyRestaurantViewBody> {
     return CustomMyRestaurantTimeDisplay(
       label: label,
       textValue:
-          _getMyRestaurantInfo(_mySharedPreferences)[resInfo] ??
+          _getMyRestaurantInfo(_SharedPreferencesService)[resInfo] ??
           _formatTime(context, time),
       time: _formatTime(context, time),
       restaurantInfoIsEmpty: _restaurantInfoIsEmpty(
-        _getMyRestaurantInfo(_mySharedPreferences),
+        _getMyRestaurantInfo(_SharedPreferencesService),
       ),
       onTap: () async => await _pickTime(context, isOpenTime),
       onClickEdit: onClickEdit,

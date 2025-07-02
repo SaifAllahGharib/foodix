@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodix/core/utils/dimensions.dart';
 import 'package:foodix/core/utils/extensions.dart';
-import 'package:foodix/core/widgets/custom_button.dart';
-import 'package:foodix/core/widgets/custom_text_form_field.dart';
+import 'package:foodix/core/widgets/app_button.dart';
 import 'package:foodix/features/home/presentation/viewmodel/cubits/main_seller/main_seller_cubit.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../../../core/shared/models/category_model.dart';
 
@@ -22,7 +19,7 @@ class CustomWidgetFloatButtonAddCategory extends StatelessWidget {
   }
 
   void _addCategory(BuildContext context) {
-    GoRouter.of(context).pop();
+    context.navigator.pop();
     context.read<MainSellerCubit>().addCategory(
       CategoryModel(categoryName: categoryController.text),
     );
@@ -36,22 +33,22 @@ class CustomWidgetFloatButtonAddCategory extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(Dimensions.radius20),
-          topRight: Radius.circular(Dimensions.radius20),
+          topLeft: Radius.circular(context.responsive.radius20),
+          topRight: Radius.circular(context.responsive.radius20),
         ),
       ),
-      padding: EdgeInsets.all(Dimensions.height20),
+      padding: EdgeInsets.all(context.responsive.height20),
       child: Column(
         children: [
-          CustomTextFormField(
+          AppTextFormField(
             controller: categoryController,
-            label: context.translate.category,
-            hint: context.translate.category,
+            label: context.tr.category,
+            hint: context.tr.category,
             onChanged: (val) => _validation(context),
           ),
-          SizedBox(height: Dimensions.height20),
-          CustomButton(
-            text: context.translate.add,
+          context.responsive.height20.verticalSpace,
+          AppButton(
+            text: context.tr.add,
             isEnabled: context.watch<MainSellerCubit>().isEnabled,
             onClick: () => _addCategory(context),
           ),

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:foodix/core/utils/colors.dart';
-import 'package:foodix/core/utils/dimensions.dart';
-import 'package:foodix/core/utils/styles.dart';
+import 'package:foodix/core/styles/app_colors.dart';
+import 'package:foodix/core/utils/app_styles.dart';
 import 'package:foodix/features/cart/presentation/view/cart_view.dart';
 import 'package:foodix/features/home/presentation/view/widgets/custom_search_text_field.dart';
+import 'package:go_router/go_routereld.dart';
 
 class CustomAppBarMainBuyerView extends StatefulWidget {
   const CustomAppBarMainBuyerView({super.key});
@@ -32,13 +31,13 @@ class _CustomAppBarMainBuyerViewState extends State<CustomAppBarMainBuyerView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColors.primaryColor,
+      color: AppColors.primary,
       height: Dimensions.height130 * 1.65,
       child: Padding(
         padding: EdgeInsets.only(
           top: Dimensions.height45,
-          right: Dimensions.height20,
-          left: Dimensions.height20,
+          right: context.responsive.height20,
+          left: context.responsive.height20,
         ),
         child: Column(
           children: [
@@ -49,12 +48,12 @@ class _CustomAppBarMainBuyerViewState extends State<CustomAppBarMainBuyerView> {
                   children: [
                     Text(
                       "Delivery to Helwan",
-                      style: Styles.textStyle15(context).copyWith(
+                      style: context.textStyle.s15W400.copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    SizedBox(width: Dimensions.height10 * 0.5),
+                    context.responsive.width5.horizontalSpace,
                     const Icon(
                       Icons.keyboard_arrow_down_outlined,
                       color: Colors.white,
@@ -64,12 +63,13 @@ class _CustomAppBarMainBuyerViewState extends State<CustomAppBarMainBuyerView> {
                 Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius:
-                        BorderRadius.circular(Dimensions.height20 * 5),
+                    borderRadius: BorderRadius.circular(
+                      context.responsive.height20 * 5,
+                    ),
                   ),
                   child: IconButton(
                     onPressed: () {
-                      GoRouter.of(context).push(CartView.id);
+                      context.navigator.push(CartView.id);
                     },
                     enableFeedback: false,
                     icon: const Icon(
@@ -80,11 +80,8 @@ class _CustomAppBarMainBuyerViewState extends State<CustomAppBarMainBuyerView> {
                 ),
               ],
             ),
-            SizedBox(height: Dimensions.height20),
-            CustomSearchTextField(
-              controller: _search,
-              onChange: (value) {},
-            ),
+            context.responsive.height20.verticalSpace,
+            CustomSearchTextField(controller: _search, onChange: (value) {}),
           ],
         ),
       ),

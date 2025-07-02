@@ -1,28 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodix/core/utils/di.dart';
+import 'package:foodix/core/di/dependency_injection.dart';
 import 'package:foodix/core/utils/extensions.dart';
-import 'package:foodix/core/utils/image_picker_helper.dart';
-import 'package:foodix/features/add_food/data/repos/add_food_repo_imp.dart';
 import 'package:foodix/features/add_food/presentation/view/widgets/add_food_view_body.dart';
 import 'package:foodix/features/add_food/presentation/viewmodel/cubits/add_food/add_food_cubit.dart';
 
 class AddFoodView extends StatelessWidget {
-  static const String id = "/add_food";
-
   const AddFoodView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AddFoodCubit(
-        getIt.get<AddFoodRepositoryImp>(),
-        getIt.get<ImagePickerHelper>(),
-      ),
+      create: (context) => getIt<AddFoodCubit>(),
       child: Scaffold(
-        body: AddFoodViewBody(
-          categoryId: context.goRouterState.extra as String,
-        ),
+        body: AddFoodViewBody(categoryId: context.arguments as String),
       ),
     );
   }

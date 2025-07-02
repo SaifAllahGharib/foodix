@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodix/core/errors/failure.dart';
-import 'package:foodix/core/utils/di.dart';
-import 'package:foodix/core/utils/functions/snack_bar.dart';
+import 'package:foodix/core/di/dependency_injection.dart';
 import 'package:foodix/core/utils/my_shared_preferences.dart';
 import 'package:foodix/core/widgets/loading.dart';
 import 'package:foodix/features/home/data/repos/main_buyer/main_buyer_repo_imp.dart';
@@ -35,7 +33,7 @@ class _HomeViewState extends State<HomeView> {
   }
 
   void _getUser(BuildContext context) {
-    final storage = getIt.get<MySharedPreferences>();
+    final storage = getIt.get<SharedPreferencesService>();
     if (storage.getIdUser() == null ||
         storage.getNameUser() == null ||
         storage.getEmailUser() == null ||
@@ -50,7 +48,7 @@ class _HomeViewState extends State<HomeView> {
       _selectedIndex = state.selectedIndex;
     } else if (state is HomeSuccessState) {
       _user = state.user;
-      await getIt.get<MySharedPreferences>().storeUser(_user.toJson());
+      await getIt.get<SharedPreferencesService>().storeUser(_user.toJson());
     } else if (state is FirebaseDBFailure) {
       snackBar(context: context, text: state.errorMsg);
     } else if (state is FirebaseFailure) {

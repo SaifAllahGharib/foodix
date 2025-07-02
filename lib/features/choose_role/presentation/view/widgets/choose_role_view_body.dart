@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:foodix/core/utils/di.dart';
-import 'package:foodix/core/utils/dimensions.dart';
+import 'package:foodix/core/di/dependency_injection.dart';
 import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/utils/roles.dart';
-import 'package:foodix/core/widgets/custom_back_button.dart';
-import 'package:foodix/core/widgets/custom_button.dart';
+import 'package:foodix/core/widgets/app_button.dart';
 import 'package:foodix/features/choose_role/presentation/view/widgets/role_widget.dart';
 import 'package:foodix/features/signup/presentation/view/signup_view.dart';
-import 'package:go_router/go_router.dart';
 
-import '../../../../../core/utils/colors.dart';
-import '../../../../../core/utils/styles.dart';
+import '../../../../../core/styles/app_colors.dart';
+import '../../../../../core/widgets/custom_back_button.dart';
 
 class ChooseRoleViewBody extends StatefulWidget {
   const ChooseRoleViewBody({super.key});
@@ -43,18 +40,18 @@ class _ChooseRoleViewBodyState extends State<ChooseRoleViewBody> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(Dimensions.height20),
+      padding: EdgeInsets.all(context.responsive.height20),
       child: Column(
         children: [
           const CustomBackButton(),
-          SizedBox(height: Dimensions.height20),
+          context.responsive.height20.verticalSpace,
           Container(
-            width: Dimensions.height45 * 0.9,
-            height: Dimensions.height45 * 0.9,
+            width: context.responsive.height40,
+            height: context.responsive.height40,
             decoration: const BoxDecoration(
               shape: BoxShape.circle,
               gradient: LinearGradient(
-                colors: [AppColors.primaryColor, AppColors.disabledColor],
+                colors: [AppColors.primary, AppColors.secondary],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
@@ -62,15 +59,12 @@ class _ChooseRoleViewBodyState extends State<ChooseRoleViewBody> {
             child: Icon(
               Icons.person_2_outlined,
               color: Colors.white,
-              size: Dimensions.iconSize24,
+              size: context.responsive.iconSize24,
             ),
           ),
-          SizedBox(height: Dimensions.height20),
-          Text(
-            context.translate.selectRole,
-            style: Styles.textStyle18(context),
-          ),
-          SizedBox(height: Dimensions.height20),
+          context.responsive.height20.verticalSpace,
+          Text(context.tr.selectRole, style: context.textStyle.s18W600),
+          context.responsive.height20.verticalSpace,
           Expanded(
             child: ListView.builder(
               itemCount: _roles.length,
@@ -84,9 +78,9 @@ class _ChooseRoleViewBodyState extends State<ChooseRoleViewBody> {
               },
             ),
           ),
-          CustomButton(
+          AppButton(
             isEnabled: true,
-            text: context.translate.continueText,
+            text: context.tr.continueText,
             onClick: () => _goToSignup(_selectedRole),
           ),
         ],
@@ -95,6 +89,6 @@ class _ChooseRoleViewBodyState extends State<ChooseRoleViewBody> {
   }
 
   void _goToSignup(String role) {
-    context.pushReplacement(SignupView.id, extra: role);
+    context.navigator.pushReplacementNamed(SignupView.id, arguments: role);
   }
 }

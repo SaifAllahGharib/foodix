@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:foodix/core/utils/dimensions.dart';
-import 'package:foodix/core/utils/styles.dart';
+import 'package:foodix/core/utils/extensions.dart';
 
 class CustomRatingWidget extends StatelessWidget {
   final double rating;
   final int ratingCount;
 
-  const CustomRatingWidget(
-      {super.key, required this.rating, required this.ratingCount});
+  const CustomRatingWidget({
+    super.key,
+    required this.rating,
+    required this.ratingCount,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -16,18 +18,14 @@ class CustomRatingWidget extends StatelessWidget {
         Icon(
           Icons.star,
           color: Colors.yellow,
-          size: Dimensions.height20,
+          size: context.responsive.iconSize20,
         ),
-        SizedBox(width: Dimensions.height10 * 0.5),
-        Text(
-          "$rating",
-          style:
-              Styles.textStyle15(context).copyWith(fontWeight: FontWeight.w500),
-        ),
-        SizedBox(width: Dimensions.height10 * 0.5),
+        context.responsive.width5.horizontalSpace,
+        Text("$rating", style: context.textStyle.s15W500),
+        context.responsive.width5.horizontalSpace,
         Text(
           "($ratingCount)",
-          style: Styles.textStyle15(context).copyWith(color: Colors.grey),
+          style: context.textStyle.s15W500.copyWith(color: Colors.grey),
         ),
       ],
     );

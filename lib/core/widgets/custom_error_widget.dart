@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:foodix/core/utils/extensions.dart';
 
-import '../utils/assets.dart';
-import '../utils/dimensions.dart';
-import '../utils/styles.dart';
+import '../utils/app_assets.dart';
 
 class CustomErrorWidget extends StatelessWidget {
   final String errorMessage;
@@ -16,12 +15,12 @@ class CustomErrorWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Expanded(child: Image.asset(Assets.error)),
-          SizedBox(height: Dimensions.height10),
+          Expanded(child: Image.asset(AppAssets.error)),
+          context.responsive.height10.verticalSpace,
           Text(
             errorMessage,
             textAlign: TextAlign.center,
-            style: Styles.textStyle16(context),
+            style: context.textStyle.s16W500,
           ),
         ],
       ),

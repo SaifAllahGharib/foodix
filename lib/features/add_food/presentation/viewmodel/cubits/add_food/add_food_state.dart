@@ -1,27 +1,14 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../../../../../core/shared/page_state.dart';
 
-sealed class AddFoodState {}
+part 'add_food_state.freezed.dart';
 
-class AddFoodInit extends AddFoodState {}
-
-class AddFoodLoading extends AddFoodState {}
-
-class AddFoodSuccess extends AddFoodState {}
-
-class AddFoodFailure extends AddFoodState {
-  final String errorMsg;
-
-  AddFoodFailure(this.errorMsg);
-}
-
-class AddFoodPickImage extends AddFoodState {
-  final String? image;
-
-  AddFoodPickImage(this.image);
-}
-
-class AddFoodValidation extends AddFoodState {
-  final bool isValid;
-
-  AddFoodValidation(this.isValid);
+@freezed
+sealed class AddFoodState with _$AddFoodState {
+  const factory AddFoodState({
+    @Default(PageState.init()) PageState<void> status,
+    String? pickedImage,
+    @Default(false) bool isValid,
+  }) = _AddFoodState;
 }

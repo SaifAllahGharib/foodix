@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:foodix/core/utils/dimensions.dart';
-import 'package:foodix/core/utils/extensions.dart';
-import 'package:foodix/core/utils/styles.dart';
-import 'package:foodix/core/widgets/custom_details_order_name_image.dart';
+import 'package:foodix/core/utils/AppStyles.dart';
+import 'package:foodix/core/utils/extensionom_details_order_name_image.dart';
 import 'package:foodix/core/widgets/custom_row_cost.dart';
 import 'package:foodix/features/details_order/presentation/view/details_order_view.dart';
-import 'package:go_router/go_router.dart';
 
 class BottomSectionCustomItemOrderListView extends StatelessWidget {
   const BottomSectionCustomItemOrderListView({super.key});
@@ -14,26 +11,26 @@ class BottomSectionCustomItemOrderListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-        top: Dimensions.height20,
-        right: Dimensions.height15,
-        bottom: Dimensions.height20,
-        left: Dimensions.height15,
+        top: context.responsive.height20,
+        right: context.responsive.height15,
+        bottom: context.responsive.height20,
+        left: context.responsive.height15,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const CustomDetailsOrderNameImage(),
-          SizedBox(height: Dimensions.height15),
+          SizedBox(height: context.responsive.height15),
           const CustomRowCost(egp: 280),
-          SizedBox(height: Dimensions.height10 * 0.3),
+          SizedBox(height: context.responsive.height3),
           InkWell(
-            onTap: () => GoRouter.of(context).push(DetailsOrderView.id),
+            onTap: () => context.navigator.push(DetailsOrderView.id),
             hoverColor: Colors.transparent,
             splashColor: Colors.transparent,
             enableFeedback: false,
             child: Text(
-              context.translate.orderDetails,
-              style: Styles.textStyle15(context).copyWith(
+              context.tr.orderDetails,
+              style: context.textStyle.s15W400.copyWith(
                 fontWeight: FontWeight.w400,
                 color: Colors.black,
                 decoration: TextDecoration.underline,

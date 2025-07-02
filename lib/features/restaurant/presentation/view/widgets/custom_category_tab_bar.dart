@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:foodix/core/utils/colors.dart';
-import 'package:foodix/core/utils/dimensions.dart';
-import 'package:foodix/core/utils/styles.dart';
+import 'package:foodix/core/styles/app_colors.dart';
 
 import '../../../../../core/shared/models/category_model.dart';
 
@@ -30,11 +28,11 @@ class CustomCategoryTabBar extends StatelessWidget {
         indicatorColor: Colors.black,
         dividerColor: AppColors.gray,
         labelColor: Colors.black,
-        labelStyle: Styles.textStyle15(
+        labelStyle: AppStyles.textStyle15(
           context,
         ).copyWith(fontWeight: FontWeight.w500),
         labelPadding: EdgeInsets.symmetric(
-          vertical: Dimensions.height10,
+          vertical: context.responsive.height10,
           horizontal: Dimensions.width30,
         ),
         tabAlignment: TabAlignment.start,

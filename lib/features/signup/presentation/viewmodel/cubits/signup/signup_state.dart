@@ -1,5 +1,3 @@
-import 'package:foodix/core/errors/failure.dart';
-
 abstract class SignupState {}
 
 class SignupInit extends SignupState {}

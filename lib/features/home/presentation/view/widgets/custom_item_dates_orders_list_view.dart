@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodix/core/utils/colors.dart';
-import 'package:foodix/core/utils/dimensions.dart';
-import 'package:foodix/core/utils/styles.dart';
+import 'package:foodix/core/styles/app_colors.dart';
+
 import 'package:foodix/features/home/presentation/viewmodel/cubits/orders/orders_cubit.dart';
 
 class CustomItemDatesOrdersListView extends StatelessWidget {
@@ -33,20 +32,15 @@ class CustomItemDatesOrdersListView extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: Dimensions.width30 * 2),
         margin: EdgeInsets.only(right: Dimensions.width30),
         decoration: BoxDecoration(
-          color: selectedIndex == index ? AppColors.primaryColor : Colors.white,
-          borderRadius: BorderRadius.circular(Dimensions.radius20 * 5),
-          border: Border.all(
-            width: 1,
-            color: AppColors.primaryColor,
-          ),
+          color: selectedIndex == index ? AppColors.primary : Colors.white,
+          borderRadius: BorderRadius.circular(context.responsive.radius20 * 5),
+          border: Border.all(width: 1, color: AppColors.primary),
         ),
         child: Center(
           child: Text(
             list[index],
-            style: Styles.textStyle16(context).copyWith(
-              color: selectedIndex == index
-                  ? Colors.white
-                  : AppColors.primaryColor,
+            style: AppStyles.textStyle16(context).copyWith(
+              color: selectedIndex == index ? Colors.white : AppColors.primary,
             ),
           ),
         ),

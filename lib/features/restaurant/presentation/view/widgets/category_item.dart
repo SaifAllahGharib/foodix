@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:foodix/core/utils/dimensions.dart';
-import 'package:foodix/core/utils/styles.dart';
 
 class CategoryItem extends StatefulWidget {
   final String text;
   final bool selected;
 
-  const CategoryItem({
-    super.key,
-    required this.text,
-    required this.selected,
-  });
+  const CategoryItem({super.key, required this.text, required this.selected});
 
   @override
   State<CategoryItem> createState() => _CategoryItemState();
@@ -37,7 +31,7 @@ class _CategoryItemState extends State<CategoryItem> {
     _textPainter = TextPainter(
       text: TextSpan(
         text: widget.text,
-        style: Styles.textStyle15(context).copyWith(
+        style: context.textStyle.s15W400.copyWith(
           fontWeight: FontWeight.w500,
           color: widget.selected ? Colors.black : Colors.grey,
         ),
@@ -55,7 +49,7 @@ class _CategoryItemState extends State<CategoryItem> {
           padding: EdgeInsets.symmetric(horizontal: Dimensions.width20),
           child: Text(
             widget.text,
-            style: Styles.textStyle15(context).copyWith(
+            style: context.textStyle.s15W400.copyWith(
               fontWeight: FontWeight.w500,
               color: widget.selected ? Colors.black : Colors.grey,
             ),
@@ -68,7 +62,7 @@ class _CategoryItemState extends State<CategoryItem> {
           width: widget.selected
               ? _textPainter.width + Dimensions.width20 * 1.65
               : 0,
-          height: Dimensions.height10 * 0.2,
+          height: context.responsive.height10 * 0.2,
           color: Colors.black,
         ),
       ],

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:foodix/core/utils/dimensions.dart';
 
 class SuccessVerificationWidget extends StatefulWidget {
   const SuccessVerificationWidget({super.key});
@@ -17,11 +16,7 @@ class _SuccessVerificationWidgetState extends State<SuccessVerificationWidget> {
         duration: const Duration(seconds: 1),
         curve: Curves.easeOutBack,
         builder: (context, size, child) {
-          return Icon(
-            Icons.check,
-            size: size,
-            color: Colors.green,
-          );
+          return Icon(Icons.check, size: size, color: Colors.green);
         },
       ),
     );

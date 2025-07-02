@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodix/core/utils/colors.dart';
-import 'package:foodix/core/utils/dimensions.dart';
-
-import '../../../../../core/shared/viewmodel/cubits/local_cubit.dart';
+import 'package:foodix/core/styles/app_colors.dart';
 
 class CustomFloatButton extends StatelessWidget {
   final void Function() onClick;
@@ -13,15 +10,15 @@ class CustomFloatButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: context.watch<LocalCubit>().isArabic
+      alignment: currentLocaleIsArabic
           ? Alignment.bottomLeft
           : Alignment.bottomRight,
       child: Container(
         decoration: BoxDecoration(
-          color: AppColors.primaryColor,
+          color: AppColors.primary,
           borderRadius: BorderRadius.circular(5000),
         ),
-        padding: EdgeInsets.all(Dimensions.width10),
+        padding: EdgeInsets.all(context.responsive.width10),
         child: IconButton(
           onPressed: onClick,
           enableFeedback: false,

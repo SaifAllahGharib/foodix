@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/widgets/custom_text_form_field.dart';
 import 'custom_dispaly_info_widget.dart';
 
 class CustomMyRestaurantTextFormField extends StatelessWidget {
@@ -33,7 +32,7 @@ class CustomMyRestaurantTextFormField extends StatelessWidget {
             onClickEdit: onClickEdit,
             textFieldValue: textFieldValue,
           )
-        : CustomTextFormField(
+        : AppTextFormField(
             controller: controller,
             label: label,
             hint: hint,

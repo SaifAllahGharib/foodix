@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/widgets/custom_item_details_order.dart';
 import 'package:foodix/features/details_order/presentation/view/widgets/custom_item_list_view_details_order_section.dart';
 
@@ -21,19 +20,19 @@ class BottomSectionDetailsOrderViewBody extends StatelessWidget {
             child: Column(
               children: [
                 CustomItemDetailsOrder(
-                  startText: context.translate.total,
+                  startText: context.tr.total,
                   endText: "280",
                 ),
                 CustomItemDetailsOrder(
-                  startText: context.translate.delivery,
+                  startText: context.tr.delivery,
                   endText: "20",
                 ),
                 CustomItemDetailsOrder(
-                  startText: context.translate.orderTotal,
+                  startText: context.tr.orderTotal,
                   endText: "300",
                 ),
                 CustomItemDetailsOrder(
-                  startText: context.translate.payment,
+                  startText: context.tr.payment,
                   endText: "cash",
                   cashEnabled: false,
                 ),

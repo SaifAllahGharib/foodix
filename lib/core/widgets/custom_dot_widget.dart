@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:foodix/core/utils/dimensions.dart';
+import 'package:foodix/core/utils/extensions.dart';
 
 class CustomDotWidget extends StatelessWidget {
   const CustomDotWidget({super.key});
@@ -8,7 +8,7 @@ class CustomDotWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Icon(
       Icons.circle,
-      size: Dimensions.height10 * 0.6,
+      size: context.responsive.height6,
       color: Colors.black54,
     );
   }

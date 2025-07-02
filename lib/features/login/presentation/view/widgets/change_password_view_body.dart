@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodix/core/utils/colors.dart';
-import 'package:foodix/core/utils/dimensions.dart';
+import 'package:foodix/core/styles/app_colors.dart';
 import 'package:foodix/core/utils/extensions.dart';
-import 'package:foodix/core/utils/functions/snack_bar.dart';
-import 'package:foodix/core/utils/my_shared_preferences.dart';
-import 'package:foodix/core/widgets/custom_button.dart';
-import 'package:foodix/core/widgets/custom_text.dart';
-import 'package:foodix/core/widgets/custom_text_form_field.dart';
+import 'package:foodix/core/widgets/app_button.dart';
+import 'package:foodix/core/widgets/app_text_form_field.dart';
 import 'package:foodix/core/widgets/loading.dart';
 import 'package:foodix/features/home/presentation/view/home_view.dart';
 import 'package:foodix/features/login/data/models/change_password_model.dart';
 import 'package:foodix/features/login/presentation/viewmodel/cubits/change_password/change_password_cubit.dart';
 import 'package:foodix/features/login/presentation/viewmodel/cubits/change_password/change_password_state.dart';
-import 'package:go_router/go_router.dart';
 
 class ChangePasswordViewBody extends StatefulWidget {
   final String verifyCode;
@@ -71,18 +66,15 @@ class _ChangePasswordViewBodyState extends State<ChangePasswordViewBody> {
       if (msg == "Password updated successfully") {
         snackBar(
           context: context,
-          text: context.translate.changePasswordSuccessful,
-          color: AppColors.primaryColor,
+          text: context.tr.changePasswordSuccessful,
+          color: AppColors.primary,
         );
 
-        await MySharedPreferences().storeUser(state.response.user!);
+        await SharedPreferencesService().storeUser(state.response.user!);
 
-        GoRouter.of(context).go(HomeView.id);
+        context.navigator.go(HomeView.id);
       } else if (msg == "Failed to update password") {
-        snackBar(
-          context: context,
-          text: context.translate.changePasswordFailed,
-        );
+        snackBar(context: context, text: context.tr.changePasswordFailed);
       }
     } else if (state is ChangePasswordFailure) {
       snackBar(context: context, text: "Error: ${state.errorMsg}");
@@ -99,35 +91,35 @@ class _ChangePasswordViewBodyState extends State<ChangePasswordViewBody> {
         }
 
         return Padding(
-          padding: EdgeInsets.all(Dimensions.height20),
+          padding: EdgeInsets.all(context.responsive.height20),
           child: SingleChildScrollView(
             child: Column(
               children: [
                 SizedBox(height: Dimensions.height45),
-                CustomText(text: context.translate.changePassword),
+                CustomText(text: context.tr.changePassword),
                 SizedBox(height: Dimensions.height45 * 2),
-                CustomTextFormField(
+                AppTextFormField(
                   controller: _changePassword,
-                  label: context.translate.labelPass,
+                  label: context.tr.labelPass,
                   isPassword: true,
-                  hint: context.translate.hintPass,
+                  hint: context.tr.hintPass,
                   onPressedShowPassword: () => showPassword(context),
                   showPassword: isShow(context),
                   onChanged: (val) => _validation(context),
                 ),
-                SizedBox(height: Dimensions.height15),
-                CustomTextFormField(
+                SizedBox(height: context.responsive.height15),
+                AppTextFormField(
                   controller: _confirmPassword,
-                  label: context.translate.labelConfPass,
+                  label: context.tr.labelConfPass,
                   isPassword: true,
-                  hint: context.translate.hintPass,
+                  hint: context.tr.hintPass,
                   onPressedShowPassword: () => showPassword(context),
                   showPassword: isShow(context),
                   onChanged: (val) => _validation(context),
                 ),
                 SizedBox(height: Dimensions.height30),
-                CustomButton(
-                  text: context.translate.verify,
+                AppButton(
+                  text: context.tr.verify,
                   isEnabled: context.watch<ChangePasswordCubit>().buttonEnabled,
                   onClick: () =>
                       context.read<ChangePasswordCubit>().changePassword(

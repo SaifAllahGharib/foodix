@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/utils/colors.dart';
-import '../../../../../core/utils/dimensions.dart';
-import '../../../../../core/utils/styles.dart';
+import '../../../../../core/styles/app_colors.dart';
 
 class CustomDisplayInfoWidget extends StatelessWidget {
   final String label;
@@ -27,25 +25,27 @@ class CustomDisplayInfoWidget extends StatelessWidget {
             children: [
               Text(
                 label,
-                style: Styles.textStyle15(
+                style: AppStyles.textStyle15(
                   context,
                 ).copyWith(fontWeight: FontWeight.w600),
               ),
-              SizedBox(height: Dimensions.height10),
+              context.responsive.height10.verticalSpace,
               Container(
                 width: double.infinity,
                 height: Dimensions.height45 * 1.05,
                 padding: EdgeInsets.symmetric(
-                  vertical: Dimensions.height12,
-                  horizontal: Dimensions.height15,
+                  vertical: context.responsive.height12,
+                  horizontal: context.responsive.height15,
                 ),
                 decoration: BoxDecoration(
                   color: AppColors.gray.withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(Dimensions.radius10),
+                  borderRadius: BorderRadius.circular(
+                    context.responsive.radius10,
+                  ),
                 ),
                 child: Text(
                   textFieldValue,
-                  style: Styles.textStyle15(
+                  style: AppStyles.textStyle15(
                     context,
                   ).copyWith(fontWeight: FontWeight.w500),
                 ),
@@ -53,17 +53,17 @@ class CustomDisplayInfoWidget extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(width: Dimensions.width20),
+        context.responsive.width20.horizontalSpace,
         Container(
           width: Dimensions.height45 * 1.05,
           height: Dimensions.height45 * 1.05,
           decoration: BoxDecoration(
             color: AppColors.gray.withOpacity(0.2),
-            borderRadius: BorderRadius.circular(Dimensions.radius10),
+            borderRadius: BorderRadius.circular(context.responsive.radius10),
           ),
           child: IconButton(
             onPressed: onClickEdit,
-            icon: const Icon(Icons.edit, color: AppColors.primaryColor),
+            icon: const Icon(Icons.edit, color: AppColors.primary),
           ),
         ),
       ],

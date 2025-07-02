@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'package:foodix/core/utils/dimensions.dart';
-import 'package:foodix/core/utils/styles.dart';
+import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/widgets/custom_item_details_order.dart';
 
 class InformationPaymentSection extends StatelessWidget {
@@ -10,29 +8,20 @@ class InformationPaymentSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: Dimensions.height15),
+      padding: EdgeInsets.symmetric(horizontal: context.responsive.padding15),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "Information Payment",
-            style: Styles.textStyle18(context),
-          ),
+          Text("Information Payment", style: context.textStyle.s18W600),
           const CustomItemDetailsOrder(
             startText: "total_basket",
             endText: "250",
           ),
-          SizedBox(height: Dimensions.height10 * 0.5),
-          const CustomItemDetailsOrder(
-            startText: "delivery",
-            endText: "20",
-          ),
-          SizedBox(height: Dimensions.height10 * 0.5),
-          const CustomItemDetailsOrder(
-            startText: "total",
-            endText: "270",
-          ),
-          SizedBox(height: Dimensions.height20),
+          context.responsive.height5.verticalSpace,
+          const CustomItemDetailsOrder(startText: "delivery", endText: "20"),
+          context.responsive.height5.verticalSpace,
+          const CustomItemDetailsOrder(startText: "total", endText: "270"),
+          context.responsive.height20.verticalSpace,
         ],
       ),
     );

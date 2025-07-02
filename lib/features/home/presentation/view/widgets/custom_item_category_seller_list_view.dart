@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:foodix/core/utils/colors.dart';
-import 'package:foodix/core/utils/dimensions.dart';
-import 'package:foodix/core/utils/styles.dart';
-import 'package:go_router/go_router.dart';
+import 'package:foodix/core/styles/app_colors.dart';
 
 import '../../../../../core/shared/models/category_model.dart';
 import '../../../../foods_category/presentation/view/foods_category_view.dart';
@@ -27,14 +24,13 @@ class CustomItemCategorySellerListView extends StatelessWidget {
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "${list[index].categoryName}",
-            style: Styles.textStyle18(context),
-          ),
-          if (index != list.length - 1) SizedBox(height: Dimensions.height20),
+          Text("${list[index].categoryName}", style: context.textStyle.s18W600),
+          if (index != list.length - 1)
+            context.responsive.height20.verticalSpace,
           if (index != list.length - 1)
             const Divider(height: 1, color: AppColors.gray),
-          if (index != list.length - 1) SizedBox(height: Dimensions.height20),
+          if (index != list.length - 1)
+            context.responsive.height20.verticalSpace,
         ],
       ),
     );

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:foodix/core/utils/colors.dart';
-import 'package:foodix/core/utils/dimensions.dart';
+import 'package:foodix/core/styles/app_colors.dart';
+import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/widgets/custom_cost_delivery.dart';
 import 'package:foodix/core/widgets/custom_delivery_time_widget.dart';
 import 'package:foodix/core/widgets/custom_dot_widget.dart';
@@ -12,16 +12,16 @@ class CustomBoxOfRestaurantDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      top: Dimensions.height130 * 0.92,
+      top: context.responsive.height117,
       left: 0,
       right: 0,
       child: Container(
         height: Dimensions.height130 * 1.1,
         width: double.infinity,
         padding: EdgeInsets.only(
-          top: Dimensions.height15,
-          right: Dimensions.height15,
-          left: Dimensions.height15,
+          top: context.responsive.height15,
+          right: context.responsive.height15,
+          left: context.responsive.height15,
         ),
         margin: EdgeInsets.symmetric(horizontal: Dimensions.width30 * 1.2),
         decoration: BoxDecoration(
@@ -34,19 +34,19 @@ class CustomBoxOfRestaurantDetails extends StatelessWidget {
               offset: Offset(0, 4),
             ),
           ],
-          borderRadius: BorderRadius.circular(Dimensions.radius20),
+          borderRadius: BorderRadius.circular(context.responsive.radius20),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const ImageAndNameAndRatingWidget(),
-            SizedBox(height: Dimensions.height15),
+            SizedBox(height: context.responsive.height15),
             Row(
               children: [
                 const CustomDeliveryTimeWidget(time: 24),
-                SizedBox(width: Dimensions.width15),
+                SizedBox(width: context.responsive.width15),
                 const CustomDotWidget(),
-                SizedBox(width: Dimensions.width15),
+                SizedBox(width: context.responsive.width15),
                 const CustomCostDelivery(),
               ],
             ),

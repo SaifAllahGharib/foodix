@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodix/core/errors/failure.dart';
-import 'package:foodix/core/utils/dimensions.dart';
 import 'package:foodix/core/utils/extensions.dart';
-import 'package:foodix/core/utils/functions/snack_bar.dart';
-import 'package:foodix/core/widgets/custom_back_button.dart';
-import 'package:foodix/core/widgets/custom_button.dart';
-import 'package:foodix/core/widgets/custom_text.dart';
+import 'package:foodix/core/widgets/app_button.dart';
+import 'package:foodix/core/widgets/custom_backets/app_button.dart';
 import 'package:foodix/core/widgets/custom_text_button.dart';
 import 'package:foodix/core/widgets/loading.dart';
 import 'package:foodix/features/login/presentation/view/login_view.dart';
@@ -15,7 +11,6 @@ import 'package:foodix/features/signup/presentation/view/widgets/column_of_text_
 import 'package:foodix/features/signup/presentation/viewmodel/cubits/signup/signup_cubit.dart';
 import 'package:foodix/features/signup/presentation/viewmodel/cubits/signup/signup_state.dart';
 import 'package:foodix/features/verification/presentation/view/verification_view.dart';
-import 'package:go_router/go_router.dart';
 
 class SignupViewBody extends StatefulWidget {
   final String role;
@@ -52,11 +47,11 @@ class _SignupViewBodyState extends State<SignupViewBody> {
   }
 
   void _pushToVerificationView() {
-    GoRouter.of(context).push(VerificationView.id, extra: _email.text);
+    context.navigator.push(VerificationView.id, extra: _email.text);
   }
 
   void _onSuccess(state) {
-    if (state.msg == context.translate.success) {
+    if (state.msg == context.tr.success) {
       _pushToVerificationView();
     }
   }
@@ -66,9 +61,9 @@ class _SignupViewBodyState extends State<SignupViewBody> {
       final String msg = state.failure.errorMsg;
 
       if (msg == "weak-password") {
-        snackBar(context: context, text: context.translate.weakPassword);
+        snackBar(context: context, text: context.tr.weakPassword);
       } else if (msg == "email-already-in-use") {
-        snackBar(context: context, text: context.translate.userAlreadyExists);
+        snackBar(context: context, text: context.tr.userAlreadyExists);
       }
     } else {
       snackBar(context: context, text: state.failure.errorMsg);
@@ -92,8 +87,8 @@ class _SignupViewBodyState extends State<SignupViewBody> {
         password: _password.text,
         role: widget.role,
       ),
-      context.translate.success,
-      context.translate.field,
+      context.tr.success,
+      context.tr.field,
     );
   }
 
@@ -117,14 +112,14 @@ class _SignupViewBodyState extends State<SignupViewBody> {
         }
 
         return Padding(
-          padding: EdgeInsets.all(Dimensions.height20),
+          padding: EdgeInsets.all(context.responsive.height20),
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(height: Dimensions.height20),
+                context.responsive.height20.verticalSpace,
                 const CustomBackButton(),
                 SizedBox(height: Dimensions.height30),
-                CustomText(text: context.translate.createAccount),
+                CustomText(text: context.tr.createAccount),
                 SizedBox(height: Dimensions.height45 * 1.3),
                 ColumnOfTextFields(
                   context: context,
@@ -135,16 +130,16 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                   validator: (val) => _validation(context),
                 ),
                 SizedBox(height: Dimensions.height45),
-                CustomButton(
-                  text: context.translate.signup,
+                AppButton(
+                  text: context.tr.signup,
                   isEnabled: context.watch<SignupCubit>().buttonEnabled,
                   onClick: () => _signup(context),
                 ),
                 SizedBox(height: Dimensions.height45),
                 CustomTextButton(
-                  text: context.translate.alreadyHaveAccount,
+                  text: context.tr.alreadyHaveAccount,
                   onClick: () {
-                    GoRouter.of(context).push(LoginView.id);
+                    context.navigator.push(LoginView.id);
                   },
                 ),
               ],

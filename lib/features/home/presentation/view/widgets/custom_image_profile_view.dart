@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:foodix/core/utils/assets.dart';
-import 'package:foodix/core/utils/dimensions.dart';
+import 'package:foodix/core/utils/app_assets.dart';
 import 'package:foodix/core/widgets/custom_cashed_network_image.dart';
 import 'package:foodix/core/widgets/custom_item_pick_image.dart';
 
@@ -33,12 +32,12 @@ class CustomImageProfileView extends StatelessWidget {
     return Align(
       alignment: Alignment.topCenter,
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(Dimensions.radius20 * 20),
+        borderRadius: BorderRadius.circular(context.responsive.radius20 * 20),
         child: GestureDetector(
           onTap: () => _showBottomSheet(context),
           child: CustomCashedNetworkImage(
             imageURL: imageURL,
-            placeholder: Assets.placeholder,
+            placeholder: AppAssets.placeholder,
             width: Dimensions.height130 * 1.2,
             height: Dimensions.height130 * 1.2,
           ),

@@ -1,11 +1,13 @@
-sealed class CartState {}
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class CartInitState extends CartState {}
+import '../../../../../../core/shared/page_state.dart';
 
-class CartLadingState extends CartState {}
+part 'cart_state.freezed.dart';
 
-class CartSuccessState extends CartState {}
-
-class CartFailureState extends CartState {}
-
-class CartCounterState extends CartState {}
+@freezed
+sealed class CartState with _$CartState {
+  const factory CartState({
+    @Default(PageState.init()) PageState<void> status,
+    @Default({}) Map<int, int> countMap,
+  }) = _CartState;
+}

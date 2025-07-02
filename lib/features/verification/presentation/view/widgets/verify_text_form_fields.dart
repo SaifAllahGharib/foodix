@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:foodix/core/utils/dimensions.dart';
 
 class VerifyTextFormFields extends StatefulWidget {
   final Function(String code) verifyCode;
@@ -52,60 +51,49 @@ class _VerifyTextFormFieldsState extends State<VerifyTextFormFields> {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: List.generate(
-        4,
-        (index) {
-          return Padding(
-            padding: EdgeInsets.symmetric(horizontal: Dimensions.width15),
-            child: SizedBox(
-              width: Dimensions.width65,
-              height: Dimensions.height80,
-              child: TextFormField(
-                controller: controllers[index],
-                focusNode: focusNodes[index],
-                keyboardType: TextInputType.number,
-                maxLength: 1,
-                buildCounter: (
-                  context, {
-                  required currentLength,
-                  required isFocused,
-                  required maxLength,
-                }) {
-                  return null;
-                },
-                textAlign: TextAlign.center,
-                maxLines: 1,
-                decoration: InputDecoration(
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: const BorderSide(
-                      color: Colors.blue,
-                      width: 2,
-                    ),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: const BorderSide(
-                      color: Colors.grey,
-                      width: 1.3,
-                    ),
-                  ),
-                  disabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: const BorderSide(
-                      color: Colors.grey,
-                      width: 1.3,
-                    ),
-                  ),
+      children: List.generate(4, (index) {
+        return Padding(
+          padding: EdgeInsets.symmetric(horizontal: context.responsive.width15),
+          child: SizedBox(
+            width: Dimensions.width65,
+            height: Dimensions.height80,
+            child: TextFormField(
+              controller: controllers[index],
+              focusNode: focusNodes[index],
+              keyboardType: TextInputType.number,
+              maxLength: 1,
+              buildCounter:
+                  (
+                    context, {
+                    required currentLength,
+                    required isFocused,
+                    required maxLength,
+                  }) {
+                    return null;
+                  },
+              textAlign: TextAlign.center,
+              maxLines: 1,
+              decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: const BorderSide(color: Colors.blue, width: 2),
                 ),
-                onChanged: (value) {
-                  handleTextChange(index);
-                },
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: const BorderSide(color: Colors.grey, width: 1.3),
+                ),
+                disabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: const BorderSide(color: Colors.grey, width: 1.3),
+                ),
               ),
+              onChanged: (value) {
+                handleTextChange(index);
+              },
             ),
-          );
-        },
-      ),
+          ),
+        );
+      }),
     );
   }
 }

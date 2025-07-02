@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:foodix/core/utils/dimensions.dart';
 import 'package:foodix/core/utils/extensions.dart';
-import 'package:foodix/core/utils/styles.dart';
 
 class CustomItemDetailsOrder extends StatelessWidget {
   final String startText;
@@ -18,35 +16,19 @@ class CustomItemDetailsOrder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: Dimensions.height10),
+      padding: EdgeInsets.only(top: context.responsive.height10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            startText,
-            style: Styles.textStyle15(
-              context,
-            ).copyWith(fontWeight: FontWeight.w400, color: Colors.black),
-          ),
+          Text(startText, style: context.textStyle.s15W400),
           Row(
             children: [
-              Text(
-                endText,
-                style: Styles.textStyle15(
-                  context,
-                ).copyWith(fontWeight: FontWeight.w400, color: Colors.black),
-              ),
+              Text(endText, style: context.textStyle.s15W400),
               cashEnabled
-                  ? SizedBox(width: Dimensions.width10)
+                  ? context.responsive.width10.horizontalSpace
                   : const SizedBox.shrink(),
               cashEnabled
-                  ? Text(
-                      context.translate.foodCost,
-                      style: Styles.textStyle15(context).copyWith(
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black,
-                      ),
-                    )
+                  ? Text(context.tr.foodCost, style: context.textStyle.s15W400)
                   : const SizedBox.shrink(),
             ],
           ),

@@ -4,7 +4,7 @@ import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/features/foods_category/data/repos/foods_category_repo_imp.dart';
 import 'package:foodix/features/foods_category/presentation/viewmodel/cubit/foods_category/foods_category_cubit.dart';
 
-import '../../../../core/utils/di.dart';
+import '../../../../core/di/dependency_injection.dart';
 import 'widgets/foods_category_view_body.dart';
 
 class FoodsCategoryView extends StatelessWidget {

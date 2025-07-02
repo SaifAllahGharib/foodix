@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodix/core/utils/dimensions.dart';
+import 'package:foodix/core/shared/page_state.dart';
 import 'package:foodix/core/utils/extensions.dart';
-import 'package:foodix/core/utils/functions/snack_bar.dart';
+import 'package:foodix/core/widgets/app_button.dart';
 import 'package:foodix/core/widgets/custom_back_button.dart';
-import 'package:foodix/core/widgets/custom_button.dart';
-import 'package:foodix/core/widgets/custom_text.dart';
-import 'package:foodix/core/widgets/custom_text_form_field.dart';
 import 'package:foodix/core/widgets/loading.dart';
 import 'package:foodix/features/add_food/presentation/view/widgets/custom_button_image_picker.dart';
 import 'package:foodix/features/add_food/presentation/viewmodel/cubits/add_food/add_food_cubit.dart';
 import 'package:foodix/features/add_food/presentation/viewmodel/cubits/add_food/add_food_state.dart';
-import 'package:go_router/go_router.dart';
 
+import '../../../../../core/shared/functions/snack_bar.dart';
 import '../../../../../core/shared/models/food_model.dart';
+import '../../../../../core/widgets/app_text_form_field.dart';
 
 class AddFoodViewBody extends StatefulWidget {
   final String categoryId;
@@ -28,7 +26,6 @@ class _AddFoodViewBodyState extends State<AddFoodViewBody> {
   late final TextEditingController _foodName;
   late final TextEditingController _foodDesc;
   late final TextEditingController _foodPrice;
-  String? _imagePath;
 
   @override
   void initState() {
@@ -51,17 +48,17 @@ class _AddFoodViewBodyState extends State<AddFoodViewBody> {
       name: _foodName,
       desc: _foodDesc,
       price: _foodPrice,
-      image: _imagePath,
+      image: context.read<AddFoodCubit>().state.pickedImage,
     );
   }
 
   void _pickImageFromCamera(BuildContext context) async {
-    GoRouter.of(context).pop();
+    context.navigator.pop();
     await context.read<AddFoodCubit>().pickFromCamera();
   }
 
   void _pickImageFromGallery(BuildContext context) async {
-    GoRouter.of(context).pop();
+    context.navigator.pop();
     await context.read<AddFoodCubit>().pickFromGallery();
   }
 
@@ -77,15 +74,12 @@ class _AddFoodViewBodyState extends State<AddFoodViewBody> {
     );
   }
 
-  void _handleState(state) {
-    if (state is AddFoodPickImage) {
-      _imagePath = state.image!;
-      _validate(context);
-    } else if (state is AddFoodSuccess) {
-      GoRouter.of(context).pop();
-    } else if (state is AddFoodFailure) {
-      GoRouter.of(context).pop();
-      snackBar(context: context, text: state.errorMsg);
+  void _handleState(AddFoodState state) {
+    if (state.status is PageSuccess) {
+      context.navigator.pop();
+    } else if (state.status is PageFailure) {
+      context.navigator.pop();
+      snackBar(context: context, text: (state.status as PageFailure).message);
     }
   }
 
@@ -94,50 +88,62 @@ class _AddFoodViewBodyState extends State<AddFoodViewBody> {
     return BlocConsumer<AddFoodCubit, AddFoodState>(
       listener: (context, state) => _handleState(state),
       builder: (context, state) {
-        if (state is AddFoodLoading) return const Loading();
+        if (state.status is PageLoading) return const Loading();
 
         return Padding(
-          padding: EdgeInsets.all(Dimensions.height20),
+          padding: EdgeInsets.all(context.responsive.padding20),
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(height: Dimensions.height20),
+                context.responsive.height20.verticalSpace,
                 const CustomBackButton(),
-                SizedBox(height: Dimensions.height45),
-                CustomText(text: context.translate.addFood),
-                SizedBox(height: Dimensions.height45),
-                CustomButtonImagePicker(
-                  pickImageFromCamera: () => _pickImageFromCamera(context),
-                  pickImageFromGallery: () => _pickImageFromGallery(context),
-                  selectedImage: _imagePath,
+                context.responsive.height45.verticalSpace,
+                Text(context.tr.addFood, style: context.textStyle.s30W600),
+                context.responsive.height45.verticalSpace,
+                BlocSelector<AddFoodCubit, AddFoodState, String?>(
+                  selector: (state) => state.pickedImage,
+                  builder: (context, pickedImage) {
+                    _validate(context);
+                    return AppButtonImagePicker(
+                      pickImageFromCamera: () => _pickImageFromCamera(context),
+                      pickImageFromGallery: () =>
+                          _pickImageFromGallery(context),
+                      selectedImage: pickedImage,
+                    );
+                  },
                 ),
-                SizedBox(height: Dimensions.height20),
-                CustomTextFormField(
+                context.responsive.height20.verticalSpace,
+                AppTextFormField(
                   controller: _foodName,
-                  label: context.translate.foodName,
-                  hint: context.translate.foodName,
+                  label: context.tr.foodName,
+                  hint: context.tr.foodName,
                   onChanged: (val) => _validate(context),
                 ),
-                SizedBox(height: Dimensions.height10),
-                CustomTextFormField(
+                context.responsive.height10.verticalSpace,
+                AppTextFormField(
                   controller: _foodDesc,
-                  label: context.translate.foodDesc,
-                  hint: context.translate.foodDesc,
+                  label: context.tr.foodDesc,
+                  hint: context.tr.foodDesc,
                   onChanged: (val) => _validate(context),
                 ),
-                SizedBox(height: Dimensions.height10),
-                CustomTextFormField(
+                context.responsive.height10.verticalSpace,
+                AppTextFormField(
                   controller: _foodPrice,
-                  label: context.translate.foodCost,
-                  hint: context.translate.foodCost,
+                  label: context.tr.foodCost,
+                  hint: context.tr.foodCost,
                   textInputType: TextInputType.number,
                   onChanged: (val) => _validate(context),
                 ),
-                SizedBox(height: Dimensions.height30),
-                CustomButton(
-                  text: context.translate.add,
-                  isEnabled: context.watch<AddFoodCubit>().isValid,
-                  onClick: () => _addFood(context),
+                context.responsive.height30.verticalSpace,
+                BlocSelector<AddFoodCubit, AddFoodState, bool>(
+                  selector: (state) => state.isValid,
+                  builder: (context, isValid) {
+                    return AppButton(
+                      text: context.tr.add,
+                      isEnabled: isValid,
+                      onClick: () => _addFood(context),
+                    );
+                  },
                 ),
               ],
             ),

@@ -1,27 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodix/core/utils/colors.dart';
-import 'package:foodix/core/utils/dimensions.dart';
-import 'package:foodix/core/utils/extensions.dart';
-import 'package:foodix/core/utils/functions/snack_bar.dart';
-import 'package:foodix/core/widgets/custom_back_button.dart';
-import 'package:foodix/core/widgets/custom_button.dart';
-import 'package:foodix/core/widgets/custom_text.dart';
-import 'package:foodix/core/widgets/custom_text_form_field.dart';
+import 'package:foodix/core/styles/app_colors.dart';
+import 'package:foodix/core/utils/extensions.dart';';
+import 'package:foodix/core/widgets/app_button.dart';
+import 'package:foodix/core/widgets/custom_backets/app_button.dart';
+
+import 'package:foodix/core/widgets/app_text_form_field.dart';
 import 'package:foodix/core/widgets/loading.dart';
 import 'package:foodix/features/login/presentation/viewmodel/cubits/forget_password/forget_password_cubit.dart';
 import 'package:foodix/features/login/presentation/viewmodel/cubits/forget_password/forget_password_state.dart';
 import 'package:foodix/features/verification/presentation/view/verification_view.dart';
-import 'package:go_router/go_router.dart';
 
-class ForgetPasswordViewBody extends StatefulWidget {
-  const ForgetPasswordViewBody({super.key});
+class ForgotPasswordViewBody extends StatefulWidget {
+  const ForgotPasswordViewBody({super.key});
 
   @override
-  State<ForgetPasswordViewBody> createState() => _ForgetPasswordViewBodyState();
+  State<ForgotPasswordViewBody> createState() => _ForgotPasswordViewBodyState();
 }
 
-class _ForgetPasswordViewBodyState extends State<ForgetPasswordViewBody> {
+class _ForgotPasswordViewBodyState extends State<ForgotPasswordViewBody> {
   late final TextEditingController _email;
 
   @override
@@ -39,7 +36,7 @@ class _ForgetPasswordViewBodyState extends State<ForgetPasswordViewBody> {
   }
 
   void _onSuccess(user) {
-    GoRouter.of(context).push(
+    context.navigator.push(
       VerificationView.id,
       extra: {"user": user, "purpose": "forget_password"},
     );
@@ -54,7 +51,7 @@ class _ForgetPasswordViewBodyState extends State<ForgetPasswordViewBody> {
         snackBar(
           context: context,
           text: "code_send_successfully",
-          color: AppColors.primaryColor,
+          color: AppColors.primary,
         );
 
         _onSuccess(user);
@@ -80,25 +77,25 @@ class _ForgetPasswordViewBodyState extends State<ForgetPasswordViewBody> {
         }
 
         return Padding(
-          padding: EdgeInsets.all(Dimensions.height20),
+          padding: EdgeInsets.all(context.responsive.height20),
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(height: Dimensions.height20),
+                context.responsive.height20.verticalSpace,
                 const CustomBackButton(),
                 SizedBox(height: Dimensions.height30),
                 const CustomText(text: "re_password"),
                 SizedBox(height: Dimensions.height45 * 2),
-                CustomTextFormField(
+                AppTextFormField(
                   controller: _email,
-                  label: context.translate.labelEmail,
-                  hint: context.translate.hintEmail,
+                  label: context.tr.labelEmail,
+                  hint: context.tr.hintEmail,
                   onChanged: (val) => context
                       .read<ForgetPasswordCubit>()
                       .validationFields(email: _email),
                 ),
                 SizedBox(height: Dimensions.height30),
-                CustomButton(
+                AppButton(
                   text: "verify",
                   isEnabled: context.watch<ForgetPasswordCubit>().buttonEnabled,
                   onClick: () {

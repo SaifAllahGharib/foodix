@@ -1,10 +1,10 @@
 enum RestaurantInfoParams {
-  id("id"),
+  id("restaurantId"),
   restaurantName("restaurantName"),
-  deliveryTime("deliveryTime"),
-  deliveryCost("deliveryCost"),
-  openTime("openTime"),
-  closeTime("closeTime");
+  deliveryTime("restaurantDeliveryTime"),
+  deliveryCost("restaurantDeliveryCost"),
+  openTime("restaurantOpenTime"),
+  closeTime("restaurantCloseTime");
 
   final String _value;
 

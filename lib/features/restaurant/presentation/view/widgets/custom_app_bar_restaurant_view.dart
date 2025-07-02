@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:foodix/core/utils/colors.dart';
-import 'package:foodix/core/utils/dimensions.dart';
+import 'package:foodix/core/styles/app_colors.dart';
 import 'package:foodix/core/widgets/custom_back_button.dart';
 import 'package:foodix/features/restaurant/presentation/view/widgets/custom_category_tab_bar.dart';
 
@@ -45,7 +44,7 @@ class CustomAppBarRestaurantView extends StatelessWidget {
           padding: EdgeInsets.only(
             left: Dimensions.width30,
             right: Dimensions.width30,
-            top: Dimensions.height20,
+            top: context.responsive.height20,
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -65,7 +64,10 @@ class CustomAppBarRestaurantView extends StatelessWidget {
                   enableFeedback: false,
                   splashColor: Colors.transparent,
                   highlightColor: Colors.transparent,
-                  icon: Icon(Icons.search_rounded, size: Dimensions.iconSize24),
+                  icon: Icon(
+                    Icons.search_rounded,
+                    size: context.responsive.iconSize24,
+                  ),
                 ),
               ),
             ],

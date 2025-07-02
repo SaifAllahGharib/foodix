@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/features/foods_category/presentation/viewmodel/cubit/foods_category/foods_category_cubit.dart';
-import 'package:go_router/go_router.dart';
 
-import '../../../../../core/utils/colors.dart';
-import '../../../../../core/utils/styles.dart';
+import '../../../../../core/styles/app_colors.dart';
 
 class CustomOptionsFoodDialog extends StatelessWidget {
   final VoidCallback onClickEdit;
@@ -27,11 +25,8 @@ class CustomOptionsFoodDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      title: Text(
-        context.translate.chooseAnAction,
-        style: Styles.textStyle18(context),
-      ),
-      content: Text(context.translate.doYouWantToEditOrDeleteThisItem),
+      title: Text(context.tr.chooseAnAction, style: context.textStyle.s18W600),
+      content: Text(context.tr.doYouWantToEditOrDeleteThisItem),
       actions: [
         TextButton(
           onPressed: () {
@@ -39,10 +34,10 @@ class CustomOptionsFoodDialog extends StatelessWidget {
             onClickEdit();
           },
           child: Text(
-            context.translate.edit,
-            style: Styles.textStyle12(
+            context.tr.edit,
+            style: AppStyles.textStyle12(
               context,
-            ).copyWith(color: AppColors.primaryColor),
+            ).copyWith(color: AppColors.primary),
           ),
         ),
         TextButton(
@@ -51,8 +46,8 @@ class CustomOptionsFoodDialog extends StatelessWidget {
             _deleteFood(context, categoryId, foodId);
           },
           child: Text(
-            context.translate.delete,
-            style: Styles.textStyle12(context).copyWith(color: Colors.red),
+            context.tr.delete,
+            style: AppStyles.textStyle12(context).copyWith(color: Colors.red),
           ),
         ),
       ],

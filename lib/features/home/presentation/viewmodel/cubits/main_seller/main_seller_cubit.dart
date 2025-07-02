@@ -12,11 +12,11 @@ import '../../../../../../core/utils/my_shared_preferences.dart';
 
 class MainSellerCubit extends Cubit<MainSellerState> {
   final MainSellerRepository _mainSellerRepository;
-  final MySharedPreferences _mySharedPreferences;
+  final SharedPreferencesService _SharedPreferencesService;
   bool _isEnabled = false;
   StreamSubscription? _categorySubscription;
 
-  MainSellerCubit(this._mainSellerRepository, this._mySharedPreferences)
+  MainSellerCubit(this._mainSellerRepository, this._SharedPreferencesService)
     : super(MainSellerInit());
 
   @override
@@ -73,23 +73,23 @@ class MainSellerCubit extends Cubit<MainSellerState> {
   Future<bool> storeRestaurantInLocalDB(RestaurantModel restaurant) async {
     try {
       await Future.wait([
-        _mySharedPreferences.storeString(
+        _SharedPreferencesService.storeString(
           RestaurantInfoParams.restaurantName.toString(),
           restaurant.name!,
         ),
-        _mySharedPreferences.storeString(
+        _SharedPreferencesService.storeString(
           RestaurantInfoParams.deliveryTime.toString(),
           restaurant.deliveryTime.toString(),
         ),
-        _mySharedPreferences.storeString(
+        _SharedPreferencesService.storeString(
           RestaurantInfoParams.deliveryCost.toString(),
           restaurant.deliveryCost.toString(),
         ),
-        _mySharedPreferences.storeString(
+        _SharedPreferencesService.storeString(
           RestaurantInfoParams.openTime.toString(),
           restaurant.openTime!,
         ),
-        _mySharedPreferences.storeString(
+        _SharedPreferencesService.storeString(
           RestaurantInfoParams.closeTime.toString(),
           restaurant.closeTime!,
         ),

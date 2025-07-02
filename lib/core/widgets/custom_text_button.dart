@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:foodix/core/utils/colors.dart';
-import 'package:foodix/core/utils/dimensions.dart';
+import 'package:foodix/core/styles/app_colors.dart';
+import 'package:foodix/core/utils/extensions.dart';
 
 class CustomTextButton extends StatelessWidget {
   final String text;
@@ -11,7 +11,7 @@ class CustomTextButton extends StatelessWidget {
     super.key,
     required this.text,
     required this.onClick,
-    this.color = AppColors.primaryColor,
+    this.color = AppColors.primary,
   });
 
   @override
@@ -20,10 +20,7 @@ class CustomTextButton extends StatelessWidget {
       onPressed: onClick,
       child: Text(
         text,
-        style: TextStyle(
-          color: color,
-          fontSize: Dimensions.fontSize15,
-        ),
+        style: context.textStyle.s15W400.copyWith(color: color),
       ),
     );
   }

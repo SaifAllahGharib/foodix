@@ -1,5 +1,3 @@
-import 'package:foodix/core/errors/failure.dart';
-
 sealed class LoginState {}
 
 class LoginInit extends LoginState {}

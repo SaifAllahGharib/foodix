@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:foodix/core/utils/custom_placeholder.dart';
+import 'package:foodix/core/widgets/custom_placeholder.dart';
 
 class CustomCashedNetworkImage extends StatelessWidget {
   final String? imageURL;

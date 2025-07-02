@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:foodix/core/utils/colors.dart';
-import 'package:foodix/core/utils/dimensions.dart';
-import 'package:foodix/core/utils/styles.dart';
+import 'package:foodix/core/styles/app_colors.dart';
 
 class CustomItemListViewAddresses extends StatelessWidget {
   const CustomItemListViewAddresses({super.key});
@@ -9,37 +7,34 @@ class CustomItemListViewAddresses extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: Dimensions.height10),
-      padding: EdgeInsets.all(Dimensions.height15),
+      margin: EdgeInsets.only(bottom: context.responsive.height10),
+      padding: EdgeInsets.all(context.responsive.height15),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(Dimensions.radius20),
-        border: Border.all(
-          color: AppColors.gray,
-          width: 1,
-        ),
+        borderRadius: BorderRadius.circular(context.responsive.radius20),
+        border: Border.all(color: AppColors.gray, width: 1),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             "الدواجن حلوان البلد3",
-            style: Styles.textStyle15(context).copyWith(
-              fontWeight: FontWeight.w400,
-            ),
+            style: AppStyles.textStyle15(
+              context,
+            ).copyWith(fontWeight: FontWeight.w400),
           ),
-          SizedBox(height: Dimensions.height10),
+          context.responsive.height10.verticalSpace,
           Text(
             "النصر عماره الحج نبوي 3, 9, بوابه الجيش",
-            style: Styles.textStyle15(context).copyWith(
-              fontWeight: FontWeight.w400,
-            ),
+            style: AppStyles.textStyle15(
+              context,
+            ).copyWith(fontWeight: FontWeight.w400),
           ),
-          SizedBox(height: Dimensions.height10),
+          context.responsive.height10.verticalSpace,
           Text(
             "phone number: +201014890911",
-            style: Styles.textStyle15(context).copyWith(
-              fontWeight: FontWeight.w400,
-            ),
+            style: AppStyles.textStyle15(
+              context,
+            ).copyWith(fontWeight: FontWeight.w400),
           ),
         ],
       ),

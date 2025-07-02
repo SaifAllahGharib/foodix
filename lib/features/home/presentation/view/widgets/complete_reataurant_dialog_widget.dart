@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:foodix/core/utils/extensions.dart';
-import 'package:go_router/go_router.dart';
 
-import '../../../../../core/utils/colors.dart';
-import '../../../../../core/utils/dimensions.dart';
-import '../../../../../core/utils/styles.dart';
+import '../../../../../core/styles/app_colors.dart';
+t';
+
+import '../../../../../core/utils/dimensionpStyles.dart';
 
 class CompleteRestaurantDialogWidget extends StatelessWidget {
   const CompleteRestaurantDialogWidget({super.key});
@@ -14,47 +14,54 @@ class CompleteRestaurantDialogWidget extends StatelessWidget {
     return Dialog(
       backgroundColor: Colors.white,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(Dimensions.radius20),
+        borderRadius: BorderRadius.circular(context.responsive.radius20),
       ),
       child: Padding(
-        padding: EdgeInsets.all(Dimensions.height20),
+        padding: EdgeInsets.all(context.responsive.height20),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(
               Icons.restaurant_menu_rounded,
               size: Dimensions.height45,
-              color: AppColors.primaryColor,
+              color: AppColors.primary,
             ),
-            SizedBox(height: Dimensions.height10),
+            context.responsive.height10.verticalSpace,
             Text(
-              context.translate.completeYourRestaurant,
-              style: Styles.textStyle18(context),
+              context.tr.completeYourRestaurant,
+              style: context.textStyle.s18W600,
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: Dimensions.height10),
+            context.responsive.height10.verticalSpace,
             Text(
-              context.translate.toProceedPlease,
-              style: Styles.textStyle12(context),
+              context.tr.toProceedPlease,
+              style: AppStyles.textStyle12(context),
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: Dimensions.height20),
+            context.responsive.height20.verticalSpace,
             SizedBox(
               width: double.infinity,
               child: ElevatedButton.icon(
-                icon: const Icon(Icons.check_circle_outline, color: Colors.white),
+                icon: const Icon(
+                  Icons.check_circle_outline,
+                  color: Colors.white,
+                ),
                 label: Text(
-                  context.translate.gotIt,
-                  style: Styles.textStyle12(
+                  context.tr.gotIt,
+                  style: AppStyles.textStyle12(
                     context,
                   ).copyWith(color: Colors.white),
                 ),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primaryColor,
+                  backgroundColor: AppColors.primary,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(Dimensions.radius10),
+                    borderRadius: BorderRadius.circular(
+                      context.responsive.radius10,
+                    ),
                   ),
-                  padding: EdgeInsets.symmetric(vertical: Dimensions.height10),
+                  padding: EdgeInsets.symmetric(
+                    vertical: context.responsive.height10,
+                  ),
                 ),
                 onPressed: context.pop,
               ),

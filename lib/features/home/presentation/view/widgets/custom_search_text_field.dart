@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:foodix/core/utils/colors.dart';
-import 'package:foodix/core/utils/dimensions.dart';
+import 'package:foodix/core/styles/app_colors.dart';
 import 'package:foodix/core/utils/extensions.dart';
 
 class CustomSearchTextField extends StatelessWidget {
@@ -22,21 +21,23 @@ class CustomSearchTextField extends StatelessWidget {
       decoration: InputDecoration(
         filled: true,
         fillColor: Colors.white,
-        hintText: context.translate.search,
+        hintText: context.tr.search,
         hintStyle: const TextStyle(color: Colors.black45),
-        contentPadding: EdgeInsets.symmetric(horizontal: Dimensions.height20),
+        contentPadding: EdgeInsets.symmetric(
+          horizontal: context.responsive.height20,
+        ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(Dimensions.radius20 * 4),
+          borderRadius: BorderRadius.circular(context.responsive.radius20 * 4),
           borderSide: BorderSide(
             width: isSeller ? 1 : 0,
             color: isSeller ? AppColors.gray : Colors.white,
           ),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(Dimensions.radius20 * 2),
+          borderRadius: BorderRadius.circular(context.responsive.radius20 * 2),
           borderSide: BorderSide(
             width: isSeller ? 1 : 0,
-            color: isSeller ? AppColors.primaryColor : Colors.white,
+            color: isSeller ? AppColors.primary : Colors.white,
           ),
         ),
       ),

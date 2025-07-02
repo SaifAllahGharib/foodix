@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodix/core/utils/colors.dart';
-import 'package:foodix/core/utils/dimensions.dart';
+import 'package:foodix/core/styles/app_colors.dart';
 import 'package:foodix/core/widgets/counter_product_widget.dart';
 import 'package:foodix/features/restaurant/presentation/view/widgets/custom_button_add_to_cart.dart';
 import 'package:foodix/features/restaurant/viewmodel/cubits/restaurant/restaurant_cubit.dart';
@@ -31,15 +30,11 @@ class BottomSectionBottomSheetProduct extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(Dimensions.height20),
+      padding: EdgeInsets.all(context.responsive.height20),
       decoration: const BoxDecoration(
         color: Colors.white,
         boxShadow: [
-          BoxShadow(
-            color: AppColors.gray,
-            spreadRadius: 5,
-            blurRadius: 5,
-          ),
+          BoxShadow(color: AppColors.gray, spreadRadius: 5, blurRadius: 5),
         ],
       ),
       child: Row(
@@ -50,10 +45,8 @@ class BottomSectionBottomSheetProduct extends StatelessWidget {
             decrement: () => _decrementCountOfProduct(context, index),
             count: getCountOfProduct(context, index),
           ),
-          SizedBox(width: Dimensions.width30),
-          CustomButtonAddToCart(
-            price: price * getCountOfProduct(context, index),
-          ),
+          context.responsive.width30.horizontalSpace,
+          AppButtonAddToCart(price: price * getCountOfProduct(context, index)),
         ],
       ),
     );

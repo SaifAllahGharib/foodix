@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:foodix/core/utils/dimensions.dart';
-import 'package:foodix/core/utils/styles.dart';
 
 class CustomTimeWidget extends StatelessWidget {
   final String day;
   final String time;
 
-  const CustomTimeWidget({
-    super.key,
-    required this.day,
-    required this.time,
-  });
+  const CustomTimeWidget({super.key, required this.day, required this.time});
 
   @override
   Widget build(BuildContext context) {
@@ -18,24 +12,22 @@ class CustomTimeWidget extends StatelessWidget {
       children: [
         Text(
           day,
-          style: Styles.textStyle15(context).copyWith(
-            fontWeight: FontWeight.w500,
-            color: Colors.grey,
-          ),
+          style: AppStyles.textStyle15(
+            context,
+          ).copyWith(fontWeight: FontWeight.w500, color: Colors.grey),
         ),
-        SizedBox(width: Dimensions.width10),
+        SizedBox(width: context.responsive.width10),
         Icon(
           Icons.circle,
           color: Colors.grey,
-          size: Dimensions.width10 * 1.2,
+          size: context.responsive.width10 * 1.2,
         ),
-        SizedBox(width: Dimensions.width10),
+        SizedBox(width: context.responsive.width10),
         Text(
           time,
-          style: Styles.textStyle15(context).copyWith(
-            fontWeight: FontWeight.w500,
-            color: Colors.grey,
-          ),
+          style: AppStyles.textStyle15(
+            context,
+          ).copyWith(fontWeight: FontWeight.w500, color: Colors.grey),
         ),
       ],
     );

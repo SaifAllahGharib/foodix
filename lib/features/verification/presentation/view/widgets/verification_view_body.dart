@@ -3,18 +3,16 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodix/core/services/firebase_service.dart';
-import 'package:foodix/core/utils/assets.dart';
-import 'package:foodix/core/utils/colors.dart';
-import 'package:foodix/core/utils/dimensions.dart';
+import 'package:foodix/core/styles/app_colors.dart';
+import 'package:foodix/core/utils/app_assets.dart';art';
+
 import 'package:foodix/core/utils/extensions.dart';
-import 'package:foodix/core/utils/functions/snack_bar.dart';
-import 'package:foodix/core/utils/styles.dart';
-import 'package:foodix/core/widgets/custom_button.dart';
+
+import 'package:foodix/core/widgets/app_button.dart';
 import 'package:foodix/features/home/presentation/view/home_view.dart';
 import 'package:foodix/features/verification/presentation/view/widgets/success_verification_widget.dart';
 import 'package:foodix/features/verification/presentation/viewmodel/cubits/verification/verification_cubit.dart';
 import 'package:foodix/features/verification/presentation/viewmodel/cubits/verification/verification_state.dart';
-import 'package:go_router/go_router.dart';
 
 class VerificationViewBody extends StatefulWidget {
   final String email;
@@ -48,15 +46,15 @@ class _VerificationViewBodyState extends State<VerificationViewBody> {
 
   void _pushToHomeView() async {
     await Future.delayed(const Duration(seconds: 2));
-    GoRouter.of(context).go(HomeView.id);
+    context.navigator.go(HomeView.id);
   }
 
   void _handelState(BuildContext context, state) async {
     if (state is VerificationIsEmailVerificationSend) {
       snackBar(
         context: context,
-        text: context.translate.sendToEmailSuccess,
-        color: AppColors.primaryColor,
+        text: context.tr.sendToEmailSuccess,
+        color: AppColors.primary,
       );
     } else if (state is VerificationSuccess) {
       _pushToHomeView();
@@ -98,7 +96,7 @@ class _VerificationViewBodyState extends State<VerificationViewBody> {
             }
 
             return Padding(
-              padding: EdgeInsets.all(Dimensions.height20),
+              padding: EdgeInsets.all(context.responsive.height20),
               child: SizedBox(
                 width: double.infinity,
                 child: Column(
@@ -110,27 +108,27 @@ class _VerificationViewBodyState extends State<VerificationViewBody> {
                       alignment: WrapAlignment.center,
                       runAlignment: WrapAlignment.center,
                       spacing: Dimensions.width20,
-                      runSpacing: Dimensions.height10 * 0.3,
+                      runSpacing: context.responsive.height3,
                       children: [
                         Text(
-                          context.translate.sendLinkVerificationYourEmailTo,
-                          style: Styles.textStyle16(context),
+                          context.tr.sendLinkVerificationYourEmailTo,
+                          style: AppStyles.textStyle16(context),
                         ),
                         Text(
                           widget.email,
-                          style: Styles.textStyle12(
+                          style: AppStyles.textStyle12(
                             context,
-                          ).copyWith(color: AppColors.primaryColor),
+                          ).copyWith(color: AppColors.primary),
                         ),
                       ],
                     ),
-                    SizedBox(height: Dimensions.height20),
-                    Image.asset(Assets.verify),
+                    context.responsive.height20.verticalSpace,
+                    Image.asset(AppAssets.verify),
                     const Spacer(),
-                    CustomButton(
+                    AppButton(
                       text: context.read<VerificationCubit>().time != 0
                           ? "${context.read<VerificationCubit>().time}s"
-                          : context.translate.resendEmail,
+                          : context.tr.resendEmail,
                       isEnabled: context.read<VerificationCubit>().canSend,
                       onClick: () => _sendEmailVerification(context),
                     ),

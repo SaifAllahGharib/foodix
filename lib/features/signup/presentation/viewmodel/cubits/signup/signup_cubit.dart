@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodix/core/utils/functions/is_valid_email.dart';
-import 'package:foodix/core/utils/functions/is_valid_phone.dart';
+import 'package:foodix/core/utils/functions/phone_validator.dart';
 import 'package:foodix/features/signup/data/models/signup_model.dart';
 import 'package:foodix/features/signup/data/repos/signup_repo.dart';
 import 'package:foodix/features/signup/presentation/viewmodel/cubits/signup/signup_state.dart';
@@ -45,7 +45,7 @@ class SignupCubit extends Cubit<SignupState> {
         phone.text.isNotEmpty &&
         password.text.isNotEmpty &&
         isValidEmail(email.text) &&
-        isValidPhone(phone.text) &&
+        phoneValidator(phone.text) &&
         userType.isNotEmpty;
     emit(SignupButtonIsEnabled(_buttonEnabled));
   }

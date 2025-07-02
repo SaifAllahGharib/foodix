@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:foodix/core/utils/colors.dart';
-import 'package:foodix/core/utils/dimensions.dart';
-import 'package:foodix/core/utils/styles.dart';
+import 'package:foodix/core/styles/app_colors.dart';
+import 'package:foodix/core/utils/extensions.dart';
 
 class CounterProductWidget extends StatelessWidget {
   final void Function() increment;
@@ -20,41 +19,29 @@ class CounterProductWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: Dimensions.height10 * 0.5,
-      ),
+      padding: EdgeInsets.symmetric(horizontal: context.responsive.height5),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(Dimensions.radius20 * 5),
-        border: Border.all(
-          color: AppColors.gray,
-          width: 1,
-        ),
+        borderRadius: BorderRadius.circular(context.responsive.radius100),
+        border: Border.all(color: AppColors.gray, width: 1),
       ),
       child: Row(
         children: [
           IconButton(
             onPressed: increment,
-            icon: const Icon(
-              Icons.add,
-              color: AppColors.primaryColor,
-            ),
+            icon: const Icon(Icons.add, color: AppColors.primary),
           ),
-          SizedBox(width: Dimensions.width15),
-          Text(
-            "$count",
-            style: Styles.textStyle15(context)
-                .copyWith(fontWeight: FontWeight.w600),
-          ),
-          SizedBox(width: Dimensions.width15),
+          SizedBox(width: context.responsive.width15),
+          Text("$count", style: context.textStyle.s15W600),
+          SizedBox(width: context.responsive.width15),
           IconButton(
             onPressed: decrement,
             icon: Icon(
               Icons.remove,
               color: count == 1
                   ? isCart
-                      ? AppColors.primaryColor
-                      : Colors.grey
-                  : AppColors.primaryColor,
+                        ? AppColors.primary
+                        : Colors.grey
+                  : AppColors.primary,
             ),
           ),
         ],
