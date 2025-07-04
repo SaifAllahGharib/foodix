@@ -47,7 +47,7 @@ class _EditFoodDerailsWidgetsState extends State<EditFoodDerailsWidgets> {
         child: Column(
           children: [
             const CustomDivider(),
-            SizedBox(height: Dimensions.height45),
+            context.responsive.height45.verticalSpace,
             AppTextFormField(
               controller: _nameFood,
               label: context.tr.foodName,
@@ -68,7 +68,7 @@ class _EditFoodDerailsWidgetsState extends State<EditFoodDerailsWidgets> {
               hint: context.tr.foodCost,
               onChanged: (val) {},
             ),
-            SizedBox(height: Dimensions.height30),
+            context.responsive.height30.verticalSpace,
             AppButton(text: context.tr.edit, onClick: () {}),
           ],
         ),

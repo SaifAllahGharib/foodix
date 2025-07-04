@@ -1,29 +1,13 @@
-abstract class SignupState {}
+import 'package:foodix/core/shared/page_state.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class SignupInit extends SignupState {}
+part 'signup_state.freezed.dart';
 
-class SignupLoading extends SignupState {}
-
-class SignupSuccess extends SignupState {
-  final String msg;
-
-  SignupSuccess(this.msg);
-}
-
-class SignupFailure extends SignupState {
-  final Failure failure;
-
-  SignupFailure(this.failure);
-}
-
-class SignupShowPassword extends SignupState {
-  final bool showPassword;
-
-  SignupShowPassword(this.showPassword);
-}
-
-class SignupButtonIsEnabled extends SignupState {
-  final bool buttonEnabled;
-
-  SignupButtonIsEnabled(this.buttonEnabled);
+@freezed
+sealed class SignupState with _$SignupState {
+  const factory SignupState({
+    @Default(PageState.init()) PageState status,
+    @Default(false) bool buttonEnabled,
+    @Default("") String msg,
+  }) = _SignupState;
 }

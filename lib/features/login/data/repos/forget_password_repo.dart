@@ -1,7 +1,8 @@
-import 'package:dartz/dartz.dart';
+import 'package:failure_handler/failure_handler.dart';
 
 import '../../../../core/shared/models/response.dart';
+import '../../../../core/utils/result.dart';
 
 abstract class ForgetPasswordRepository {
-  Future<Either<Failure, ResponseModel>> forgetPassword(String email);
+  Future<Result<AppFailure, ResponseModel>> forgetPassword(String email);
 }

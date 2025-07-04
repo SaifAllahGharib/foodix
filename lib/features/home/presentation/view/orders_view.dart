@@ -51,7 +51,7 @@ class _OrdersViewState extends State<OrdersView> {
                 list: listOfDates,
                 selectedIndex: _selectedIndex,
               ),
-              SizedBox(height: Dimensions.height30),
+              context.responsive.height30.verticalSpace,
               Expanded(
                 child: ListView.builder(
                   itemCount: 4,

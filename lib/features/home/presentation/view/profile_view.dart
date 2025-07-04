@@ -118,7 +118,7 @@ class _ProfileViewState extends State<ProfileView> {
         return SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: Dimensions.height30),
+              context.responsive.height30.verticalSpace,
               CustomImageProfileView(
                 imageURL: _imagePath,
                 pickImageFromCamera: () => _pickImageFromCamera(context),
@@ -139,19 +139,19 @@ class _ProfileViewState extends State<ProfileView> {
                 height: 1,
                 thickness: context.responsive.height10,
               ),
-              SizedBox(height: Dimensions.height45),
+              context.responsive.height45.verticalSpace,
               CustomItemProfileView(
                 title: _userRole == getIt<Seller>()
                     ? context.tr.myRestaurant
                     : context.tr.addresses,
                 onClick: () => _handleRoleNavigation(context),
               ),
-              SizedBox(height: Dimensions.height30),
+              context.responsive.height30.verticalSpace,
               CustomItemProfileView(
                 title: context.tr.language,
                 onClick: () => _showBottomSheet(context),
               ),
-              SizedBox(height: Dimensions.height30),
+              context.responsive.height30.verticalSpace,
               CustomItemProfileView(
                 title: context.tr.logout,
                 dividerIsShowing: false,

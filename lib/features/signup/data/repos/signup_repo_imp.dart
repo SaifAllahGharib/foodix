@@ -1,12 +1,11 @@
-import 'package:dartz/dartz.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-
-import 'package:foodix/core/services/auth_services.dart';
-import 'package:foodix/core/services/db_services.dart';
-import 'package:foodix/features/signup/data/models/signup_model.dart';
+import 'package:failure_handler/failure_handler.dart';
+import 'package:foodix/core/utils/result.dart';
 import 'package:foodix/features/signup/data/repos/signup_repo.dart';
 
+import '../../../../core/services/auth_services.dart';
+import '../../../../core/services/db_services.dart';
 import '../../../../core/shared/models/user_model.dart';
+import '../models/signup_model.dart';
 
 class SignupRepositoryImp extends SignupRepository {
   final AuthServices _authService;
@@ -15,7 +14,7 @@ class SignupRepositoryImp extends SignupRepository {
   SignupRepositoryImp(this._authService, this._dbServices);
 
   @override
-  Future<Either<Failure, String>> signup(
+  Future<Result<AppFailure, String>> signup(
     SignupModel user,
     String successMsg,
     String fieldMsg,
@@ -35,24 +34,22 @@ class SignupRepositoryImp extends SignupRepository {
 
         return _saveUserToDB(userModel, successMsg);
       } else {
-        return right(fieldMsg);
+        return Success(fieldMsg);
       }
-    } on FirebaseAuthException catch (e) {
-      return left(FirebaseAuthFailure(e.code));
     } catch (e) {
-      return left(FirebaseFailure(e.toString()));
+      return Failure(ErrorHandler.handle(e));
     }
   }
 
-  Future<Either<Failure, String>> _saveUserToDB(
+  Future<Result<AppFailure, String>> _saveUserToDB(
     UserModel user,
     String successMsg,
   ) async {
     try {
       await _dbServices.setUser(user);
-      return right(successMsg);
+      return Success(successMsg);
     } catch (e) {
-      return left(FirebaseDBFailure(e.toString()));
+      return Failure(ErrorHandler.handle(e));
     }
   }
 }

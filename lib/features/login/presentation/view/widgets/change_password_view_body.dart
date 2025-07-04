@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:foodix/core/routing/app_route_name.dart';
 import 'package:foodix/core/styles/app_colors.dart';
 import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/widgets/app_button.dart';
 import 'package:foodix/core/widgets/app_text_form_field.dart';
 import 'package:foodix/core/widgets/loading.dart';
-import 'package:foodix/features/home/presentation/view/home_view.dart';
 import 'package:foodix/features/login/data/models/change_password_model.dart';
 import 'package:foodix/features/login/presentation/viewmodel/cubits/change_password/change_password_cubit.dart';
 import 'package:foodix/features/login/presentation/viewmodel/cubits/change_password/change_password_state.dart';
+
+import '../../../../../core/shared/functions/snack_bar.dart';
 
 class ChangePasswordViewBody extends StatefulWidget {
   final String verifyCode;
@@ -44,14 +46,6 @@ class _ChangePasswordViewBodyState extends State<ChangePasswordViewBody> {
     super.dispose();
   }
 
-  void showPassword(BuildContext context) {
-    context.read<ChangePasswordCubit>().togglePasswordVisibility();
-  }
-
-  bool isShow(BuildContext context) {
-    return context.watch<ChangePasswordCubit>().showPassword;
-  }
-
   void _validation(BuildContext context) {
     context.read<ChangePasswordCubit>().validationFields(
       changePassword: _changePassword,
@@ -70,9 +64,12 @@ class _ChangePasswordViewBodyState extends State<ChangePasswordViewBody> {
           color: AppColors.primary,
         );
 
-        await SharedPreferencesService().storeUser(state.response.user!);
+        // await getIt<SharedPreferencesService>().storeUser(state.response.user!);
 
-        context.navigator.go(HomeView.id);
+        context.navigator.pushNamedAndRemoveUntil(
+          AppRouteName.home,
+          (route) => false,
+        );
       } else if (msg == "Failed to update password") {
         snackBar(context: context, text: context.tr.changePasswordFailed);
       }
@@ -95,16 +92,17 @@ class _ChangePasswordViewBodyState extends State<ChangePasswordViewBody> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(height: Dimensions.height45),
-                CustomText(text: context.tr.changePassword),
-                SizedBox(height: Dimensions.height45 * 2),
+                context.responsive.height45.verticalSpace,
+                Text(
+                  context.tr.changePassword,
+                  style: context.textStyle.s30W600,
+                ),
+                context.responsive.height90.verticalSpace,
                 AppTextFormField(
                   controller: _changePassword,
                   label: context.tr.labelPass,
                   isPassword: true,
                   hint: context.tr.hintPass,
-                  onPressedShowPassword: () => showPassword(context),
-                  showPassword: isShow(context),
                   onChanged: (val) => _validation(context),
                 ),
                 SizedBox(height: context.responsive.height15),
@@ -113,11 +111,9 @@ class _ChangePasswordViewBodyState extends State<ChangePasswordViewBody> {
                   label: context.tr.labelConfPass,
                   isPassword: true,
                   hint: context.tr.hintPass,
-                  onPressedShowPassword: () => showPassword(context),
-                  showPassword: isShow(context),
                   onChanged: (val) => _validation(context),
                 ),
-                SizedBox(height: Dimensions.height30),
+                context.responsive.height30.verticalSpace,
                 AppButton(
                   text: context.tr.verify,
                   isEnabled: context.watch<ChangePasswordCubit>().buttonEnabled,

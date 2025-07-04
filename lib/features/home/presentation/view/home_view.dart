@@ -13,8 +13,6 @@ import '../../../../core/shared/models/user_model.dart';
 import '../viewmodel/cubits/main_buyer/main_buyer/main_buyer_cubit.dart';
 
 class HomeView extends StatefulWidget {
-  static const String id = "/home_view";
-
   const HomeView({super.key});
 
   @override

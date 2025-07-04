@@ -380,7 +380,7 @@ class _MyRestaurantViewBodyState extends State<MyRestaurantViewBody> {
               ],
             ),
           ),
-          SizedBox(height: Dimensions.height30),
+          context.responsive.height30.verticalSpace,
           !_restaurantInfoIsEmpty(
                 _getMyRestaurantInfo(_SharedPreferencesService),
               )

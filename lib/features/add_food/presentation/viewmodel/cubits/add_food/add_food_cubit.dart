@@ -45,8 +45,7 @@ class AddFoodCubit extends Cubit<AddFoodState> {
     result.when(
       failure: (failure) =>
           emit(state.copyWith(status: PageState.failure(failure.message!))),
-      success: (_) =>
-          emit(state.copyWith(status: const PageState.success(null))),
+      success: (_) => emit(state.copyWith(status: const PageState.success())),
     );
   }
 }

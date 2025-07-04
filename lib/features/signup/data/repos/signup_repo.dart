@@ -1,9 +1,10 @@
-import 'package:dartz/dartz.dart';
+import 'package:failure_handler/failure_handler.dart';
 
-import 'package:foodix/features/signup/data/models/signup_model.dart';
+import '../../../../core/utils/result.dart';
+import '../models/signup_model.dart';
 
 abstract class SignupRepository {
-  Future<Either<Failure, String>> signup(
+  Future<Result<AppFailure, String>> signup(
     SignupModel user,
     String successMsg,
     String fieldMsg,

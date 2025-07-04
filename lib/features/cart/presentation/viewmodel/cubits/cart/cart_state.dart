@@ -7,7 +7,7 @@ part 'cart_state.freezed.dart';
 @freezed
 sealed class CartState with _$CartState {
   const factory CartState({
-    @Default(PageState.init()) PageState<void> status,
+    @Default(PageState.init()) PageState status,
     @Default({}) Map<int, int> countMap,
   }) = _CartState;
 }

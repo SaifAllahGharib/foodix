@@ -1,29 +1,12 @@
-sealed class LoginState {}
+import 'package:foodix/core/shared/page_state.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class LoginInit extends LoginState {}
+part 'login_state.freezed.dart';
 
-class LoginLoading extends LoginState {}
-
-class LoginSuccess extends LoginState {
-  final String msg;
-
-  LoginSuccess(this.msg);
-}
-
-class LoginFailure extends LoginState {
-  final Failure failure;
-
-  LoginFailure(this.failure);
-}
-
-class LoginShowPassword extends LoginState {
-  final bool showPassword;
-
-  LoginShowPassword(this.showPassword);
-}
-
-class LoginButtonIsEnabled extends LoginState {
-  final bool buttonEnabled;
-
-  LoginButtonIsEnabled(this.buttonEnabled);
+@freezed
+sealed class LoginState with _$LoginState {
+  const factory LoginState({
+    @Default(PageState.init()) PageState status,
+    @Default(false) bool buttonEnabled,
+  }) = _LoginState;
 }

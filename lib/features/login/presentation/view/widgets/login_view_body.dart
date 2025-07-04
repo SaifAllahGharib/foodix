@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:foodix/core/di/dependency_injection.dart';
+import 'package:foodix/core/routing/app_route_name.dart';
 import 'package:foodix/core/services/firebase_service.dart';
+import 'package:foodix/core/shared/page_state.dart';
 import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/widgets/app_button.dart';
 import 'package:foodix/core/widgets/app_text_form_field.dart';
 import 'package:foodix/core/widgets/custom_text_button.dart';
 import 'package:foodix/core/widgets/loading.dart';
-import 'package:foodix/features/home/presentation/view/home_view.dart';
 import 'package:foodix/features/login/data/models/login_model.dart';
-import 'package:foodix/features/login/presentation/view/forgot_password_view.dart';
 import 'package:foodix/features/login/presentation/viewmodel/cubits/login/login_cubit.dart';
 import 'package:foodix/features/login/presentation/viewmodel/cubits/login/login_state.dart';
-import 'package:foodix/features/verification/presentation/view/verification_view.dart';
 
-import '../../../../../core/errors/failure.dart';
-import '../../../../choose_role/presentation/view/choose_role_view.dart';
+import '../../../../../core/shared/functions/snack_bar.dart';
 
 class LoginViewBody extends StatefulWidget {
   const LoginViewBody({super.key});
@@ -43,40 +42,30 @@ class _LoginViewBodyState extends State<LoginViewBody> {
   }
 
   bool _isEmailVerified() {
-    FirebaseService firebaseService = FirebaseService();
-    return firebaseService.auth.currentUser?.emailVerified ?? false;
+    return getIt<FirebaseService>().auth.currentUser?.emailVerified ?? false;
   }
 
-  void _onSuccess(state) {
-    if (state.msg == context.tr.success) {
+  void _handleState(LoginState state) {
+    final status = state.status;
+
+    if (status is PageSuccess) {
       if (_isEmailVerified()) {
-        context.navigator.go(HomeView.id);
+        context.navigator.pushNamedAndRemoveUntil(
+          AppRouteName.home,
+          (route) => false,
+        );
       } else {
-        context.navigator.push(VerificationView.id, extra: _email.text);
+        context.navigator.pushNamed(AppRouteName.verification);
       }
-    }
-  }
-
-  void _onFailure(state) {
-    if (state.failure is FirebaseAuthFailure) {
-      final String msg = state.failure.errorMsg;
-      if (msg == "user-not-found") {
+    } else if (status is PageFailure) {
+      final msg = status.message;
+      if (msg == "user_not_found") {
         snackBar(context: context, text: context.tr.thisUserDoesNotExist);
-      } else if (msg == "wrong-password") {
+      } else if (msg == "wrong_password") {
         snackBar(context: context, text: context.tr.passwordIncorrect);
       } else {
         snackBar(context: context, text: msg);
       }
-    } else {
-      snackBar(context: context, text: state.failure.errorMsg);
-    }
-  }
-
-  void _handelState(state) async {
-    if (state is LoginSuccess) {
-      _onSuccess(state);
-    } else if (state is LoginFailure) {
-      _onFailure(state);
     }
   }
 
@@ -98,9 +87,9 @@ class _LoginViewBodyState extends State<LoginViewBody> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LoginCubit, LoginState>(
-      listener: (context, state) => _handelState(state),
+      listener: (context, state) => _handleState(state),
       builder: (context, state) {
-        if (state is LoginLoading) {
+        if (state.status is PageLoading) {
           return const Loading();
         }
 
@@ -109,9 +98,9 @@ class _LoginViewBodyState extends State<LoginViewBody> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(height: Dimensions.height30),
-                CustomText(text: context.tr.welcomeBack),
-                SizedBox(height: Dimensions.height45 * 2),
+                context.responsive.height30.verticalSpace,
+                Text(context.tr.welcomeBack, style: context.textStyle.s30W600),
+                context.responsive.height90.verticalSpace,
                 AppTextFormField(
                   controller: _email,
                   label: context.tr.labelEmail,
@@ -124,10 +113,6 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                   label: context.tr.labelPass,
                   isPassword: true,
                   hint: context.tr.hintPass,
-                  onPressedShowPassword: context
-                      .read<LoginCubit>()
-                      .togglePasswordVisibility,
-                  showPassword: context.watch<LoginCubit>().showPassword,
                   onChanged: (val) => _validation(context),
                 ),
                 context.responsive.height10.verticalSpace,
@@ -136,14 +121,14 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                   child: CustomTextButton(
                     text: context.tr.forgetPass,
                     onClick: () {
-                      context.navigator.push(ForgotPasswordView.id);
+                      context.navigator.pushNamed(AppRouteName.forgotPassword);
                     },
                   ),
                 ),
-                SizedBox(height: Dimensions.height30),
+                context.responsive.height30.verticalSpace,
                 AppButton(
                   text: context.tr.login,
-                  isEnabled: context.watch<LoginCubit>().buttonEnabled,
+                  isEnabled: state.buttonEnabled,
                   onClick: () => _login(context),
                 ),
                 context.responsive.height20.verticalSpace,
@@ -151,7 +136,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                   text: context.tr.notHaveAccount,
                   color: Colors.black,
                   onClick: () {
-                    context.navigator.push(ChooseRoleView.id);
+                    context.navigator.pushNamed(AppRouteName.chooseRole);
                   },
                 ),
               ],

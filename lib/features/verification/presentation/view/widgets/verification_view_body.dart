@@ -102,7 +102,7 @@ class _VerificationViewBodyState extends State<VerificationViewBody> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(height: Dimensions.height30),
+                    context.responsive.height30.verticalSpace,
                     Wrap(
                       crossAxisAlignment: WrapCrossAlignment.center,
                       alignment: WrapAlignment.center,
@@ -132,7 +132,7 @@ class _VerificationViewBodyState extends State<VerificationViewBody> {
                       isEnabled: context.read<VerificationCubit>().canSend,
                       onClick: () => _sendEmailVerification(context),
                     ),
-                    SizedBox(height: Dimensions.height30),
+                    context.responsive.height30.verticalSpace,
                   ],
                 ),
               ),

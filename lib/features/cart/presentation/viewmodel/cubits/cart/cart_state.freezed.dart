@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$CartState {
 
- PageState<void> get status; Map<int, int> get countMap;
+ PageState get status; Map<int, int> get countMap;
 /// Create a copy of CartState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -46,11 +46,11 @@ abstract mixin class $CartStateCopyWith<$Res>  {
   factory $CartStateCopyWith(CartState value, $Res Function(CartState) _then) = _$CartStateCopyWithImpl;
 @useResult
 $Res call({
- PageState<void> status, Map<int, int> countMap
+ PageState status, Map<int, int> countMap
 });
 
 
-$PageStateCopyWith<void, $Res> get status;
+$PageStateCopyWith<$Res> get status;
 
 }
 /// @nodoc
@@ -66,7 +66,7 @@ class _$CartStateCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') @override $Res call({Object? status = null,Object? countMap = null,}) {
   return _then(_self.copyWith(
 status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
-as PageState<void>,countMap: null == countMap ? _self.countMap : countMap // ignore: cast_nullable_to_non_nullable
+as PageState,countMap: null == countMap ? _self.countMap : countMap // ignore: cast_nullable_to_non_nullable
 as Map<int, int>,
   ));
 }
@@ -74,9 +74,9 @@ as Map<int, int>,
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$PageStateCopyWith<void, $Res> get status {
+$PageStateCopyWith<$Res> get status {
   
-  return $PageStateCopyWith<void, $Res>(_self.status, (value) {
+  return $PageStateCopyWith<$Res>(_self.status, (value) {
     return _then(_self.copyWith(status: value));
   });
 }
@@ -90,7 +90,7 @@ class _CartState implements CartState {
   const _CartState({this.status = const PageState.init(), final  Map<int, int> countMap = const {}}): _countMap = countMap;
   
 
-@override@JsonKey() final  PageState<void> status;
+@override@JsonKey() final  PageState status;
  final  Map<int, int> _countMap;
 @override@JsonKey() Map<int, int> get countMap {
   if (_countMap is EqualUnmodifiableMapView) return _countMap;
@@ -129,11 +129,11 @@ abstract mixin class _$CartStateCopyWith<$Res> implements $CartStateCopyWith<$Re
   factory _$CartStateCopyWith(_CartState value, $Res Function(_CartState) _then) = __$CartStateCopyWithImpl;
 @override @useResult
 $Res call({
- PageState<void> status, Map<int, int> countMap
+ PageState status, Map<int, int> countMap
 });
 
 
-@override $PageStateCopyWith<void, $Res> get status;
+@override $PageStateCopyWith<$Res> get status;
 
 }
 /// @nodoc
@@ -149,7 +149,7 @@ class __$CartStateCopyWithImpl<$Res>
 @override @pragma('vm:prefer-inline') $Res call({Object? status = null,Object? countMap = null,}) {
   return _then(_CartState(
 status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
-as PageState<void>,countMap: null == countMap ? _self._countMap : countMap // ignore: cast_nullable_to_non_nullable
+as PageState,countMap: null == countMap ? _self._countMap : countMap // ignore: cast_nullable_to_non_nullable
 as Map<int, int>,
   ));
 }
@@ -158,9 +158,9 @@ as Map<int, int>,
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$PageStateCopyWith<void, $Res> get status {
+$PageStateCopyWith<$Res> get status {
   
-  return $PageStateCopyWith<void, $Res>(_self.status, (value) {
+  return $PageStateCopyWith<$Res>(_self.status, (value) {
     return _then(_self.copyWith(status: value));
   });
 }

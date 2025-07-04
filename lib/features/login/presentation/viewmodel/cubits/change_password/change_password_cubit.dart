@@ -5,7 +5,6 @@ import 'package:foodix/features/login/presentation/viewmodel/cubits/change_passw
 
 class ChangePasswordCubit extends Cubit<ChangePasswordState> {
   // final ChangePasswordRepository _changePasswordRepository;
-  bool _showPassword = true;
   bool _buttonEnabled = false;
 
   ChangePasswordCubit() : super(ChangePasswordInit());
@@ -20,11 +19,6 @@ class ChangePasswordCubit extends Cubit<ChangePasswordState> {
     // );
   }
 
-  void togglePasswordVisibility() {
-    _showPassword = !_showPassword;
-    emit(ChangePasswordShowPassword(_showPassword));
-  }
-
   void validationFields({
     required TextEditingController changePassword,
     required TextEditingController confirmPassword,
@@ -35,8 +29,6 @@ class ChangePasswordCubit extends Cubit<ChangePasswordState> {
     _buttonEnabled = p1.isNotEmpty && p2.isNotEmpty && p1 == p2;
     emit(ChangePasswordButtonIsEnabled(_buttonEnabled));
   }
-
-  bool get showPassword => _showPassword;
 
   bool get buttonEnabled => _buttonEnabled;
 }

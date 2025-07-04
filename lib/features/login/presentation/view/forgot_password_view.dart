@@ -4,8 +4,6 @@ import 'package:foodix/features/login/presentation/view/widgets/forget_password_
 import 'package:foodix/features/login/presentation/viewmodel/cubits/forget_password/forget_password_cubit.dart';
 
 class ForgotPasswordView extends StatelessWidget {
-  static const String id = "/forget-password";
-
   const ForgotPasswordView({super.key});
 
   @override

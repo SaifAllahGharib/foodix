@@ -7,7 +7,7 @@ part 'add_food_state.freezed.dart';
 @freezed
 sealed class AddFoodState with _$AddFoodState {
   const factory AddFoodState({
-    @Default(PageState.init()) PageState<void> status,
+    @Default(PageState.init()) PageState status,
     String? pickedImage,
     @Default(false) bool isValid,
   }) = _AddFoodState;

@@ -1,9 +1,9 @@
-import 'package:dartz/dartz.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:failure_handler/failure_handler.dart';
 
-import 'package:foodix/core/services/auth_services.dart';
-import 'package:foodix/features/login/data/models/login_model.dart';
-import 'package:foodix/features/login/data/repos/login_repo.dart';
+import '../../../../core/services/auth_services.dart';
+import '../../../../core/utils/result.dart';
+import '../models/login_model.dart';
+import 'login_repo.dart';
 
 class LoginRepositoryImp implements LoginRepository {
   final AuthServices _authServices;
@@ -11,7 +11,7 @@ class LoginRepositoryImp implements LoginRepository {
   LoginRepositoryImp(this._authServices);
 
   @override
-  Future<Either<Failure, String>> login(
+  Future<Result<AppFailure, String>> login(
     LoginModel user,
     String successMsg,
     String fieldMsg,
@@ -20,14 +20,12 @@ class LoginRepositoryImp implements LoginRepository {
       final response = await _authServices.login(user);
 
       if (response.user != null) {
-        return right(successMsg);
+        return Success(successMsg);
       } else {
-        return right(fieldMsg);
+        return Success(fieldMsg);
       }
-    } on FirebaseAuthException catch (e) {
-      return left(FirebaseAuthFailure(e.code));
     } catch (e) {
-      return left(FirebaseFailure(e.toString()));
+      return Failure(ErrorHandler.handle(e));
     }
   }
 }

@@ -1,7 +1,5 @@
-import 'package:dartz/dartz.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-
-import 'package:foodix/core/services/auth_services.dart';
+ 
+import 'package:firebase_auth/firebase_auth.dart';ices/auth_services.dart';
 import 'package:foodix/core/services/db_services.dart';
 import 'package:foodix/features/home/data/repos/profile/profile_repo.dart';
 

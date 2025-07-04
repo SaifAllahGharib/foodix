@@ -6,8 +6,6 @@ import 'package:foodix/features/login/presentation/view/widgets/login_view_body.
 import 'package:foodix/features/login/presentation/viewmodel/cubits/login/login_cubit.dart';
 
 class LoginView extends StatelessWidget {
-  static const id = "/login_view";
-
   const LoginView({super.key});
 
   @override

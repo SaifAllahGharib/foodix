@@ -5,13 +5,11 @@ import 'package:foodix/features/login/presentation/view/widgets/change_password_
 import 'package:foodix/features/login/presentation/viewmodel/cubits/change_password/change_password_cubit.dart';
 
 class ChangePasswordView extends StatelessWidget {
-  static const String id = "/change_password";
-
   const ChangePasswordView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final extra = context.goRouterState.extra as Map<String, dynamic>;
+    final extra = context.arguments as Map<String, dynamic>;
 
     return BlocProvider(
       create: (context) => ChangePasswordCubit(

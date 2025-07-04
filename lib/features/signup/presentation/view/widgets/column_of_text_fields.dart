@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodix/core/utils/extensions.dart';
-import 'package:foodix/features/signup/presentation/viewmodel/cubits/signup/signup_cubit.dart';
+
+import '../../../../../core/widgets/app_text_form_field.dart';
 
 class ColumnOfTextFields extends StatefulWidget {
   final BuildContext context;
@@ -56,10 +56,6 @@ class _ColumnOfTextFieldsState extends State<ColumnOfTextFields> {
           label: context.tr.labelPass,
           isPassword: true,
           hint: context.tr.hintPass,
-          onPressedShowPassword: widget.context
-              .read<SignupCubit>()
-              .togglePasswordVisibility,
-          showPassword: widget.context.watch<SignupCubit>().showPassword,
           onChanged: widget.validator,
         ),
       ],

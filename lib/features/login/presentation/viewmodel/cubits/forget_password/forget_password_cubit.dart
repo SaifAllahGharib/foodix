@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodix/core/utils/functions/is_valid_email.dart';
+import 'package:foodix/core/shared/functions/email_validator.dart';
 import 'package:foodix/features/login/presentation/viewmodel/cubits/forget_password/forget_password_state.dart';
 
 class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
@@ -21,7 +21,7 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
   }
 
   void validationFields({required TextEditingController email}) {
-    _buttonEnabled = email.text.isNotEmpty && isValidEmail(email.text);
+    _buttonEnabled = email.text.isNotEmpty && emailValidator(email.text);
     emit(ForgetPasswordButtonIsEnabled(_buttonEnabled));
   }
 

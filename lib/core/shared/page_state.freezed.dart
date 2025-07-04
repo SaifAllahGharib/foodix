@@ -13,7 +13,7 @@ part of 'page_state.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$PageState<T> {
+mixin _$PageState {
 
 
 
@@ -21,7 +21,7 @@ mixin _$PageState<T> {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PageState<T>);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PageState);
 }
 
 
@@ -30,22 +30,22 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'PageState<$T>()';
+  return 'PageState()';
 }
 
 
 }
 
 /// @nodoc
-class $PageStateCopyWith<T,$Res>  {
-$PageStateCopyWith(PageState<T> _, $Res Function(PageState<T>) __);
+class $PageStateCopyWith<$Res>  {
+$PageStateCopyWith(PageState _, $Res Function(PageState) __);
 }
 
 
 /// @nodoc
 
 
-class PageInit<T> implements PageState<T> {
+class PageInit implements PageState {
   const PageInit();
   
 
@@ -56,7 +56,7 @@ class PageInit<T> implements PageState<T> {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PageInit<T>);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PageInit);
 }
 
 
@@ -65,7 +65,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'PageState<$T>.init()';
+  return 'PageState.init()';
 }
 
 
@@ -77,7 +77,7 @@ String toString() {
 /// @nodoc
 
 
-class PageLoading<T> implements PageState<T> {
+class PageLoading implements PageState {
   const PageLoading();
   
 
@@ -88,7 +88,7 @@ class PageLoading<T> implements PageState<T> {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PageLoading<T>);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PageLoading);
 }
 
 
@@ -97,7 +97,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'PageState<$T>.loading()';
+  return 'PageState.loading()';
 }
 
 
@@ -109,73 +109,39 @@ String toString() {
 /// @nodoc
 
 
-class PageSuccess<T> implements PageState<T> {
-  const PageSuccess(this.data);
+class PageSuccess implements PageState {
+  const PageSuccess();
   
 
- final  T data;
 
-/// Create a copy of PageState
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$PageSuccessCopyWith<T, PageSuccess<T>> get copyWith => _$PageSuccessCopyWithImpl<T, PageSuccess<T>>(this, _$identity);
+
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PageSuccess<T>&&const DeepCollectionEquality().equals(other.data, data));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PageSuccess);
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(data));
+int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'PageState<$T>.success(data: $data)';
+  return 'PageState.success()';
 }
 
 
 }
 
-/// @nodoc
-abstract mixin class $PageSuccessCopyWith<T,$Res> implements $PageStateCopyWith<T, $Res> {
-  factory $PageSuccessCopyWith(PageSuccess<T> value, $Res Function(PageSuccess<T>) _then) = _$PageSuccessCopyWithImpl;
-@useResult
-$Res call({
- T data
-});
 
 
-
-
-}
-/// @nodoc
-class _$PageSuccessCopyWithImpl<T,$Res>
-    implements $PageSuccessCopyWith<T, $Res> {
-  _$PageSuccessCopyWithImpl(this._self, this._then);
-
-  final PageSuccess<T> _self;
-  final $Res Function(PageSuccess<T>) _then;
-
-/// Create a copy of PageState
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? data = freezed,}) {
-  return _then(PageSuccess<T>(
-freezed == data ? _self.data : data // ignore: cast_nullable_to_non_nullable
-as T,
-  ));
-}
-
-
-}
 
 /// @nodoc
 
 
-class PageFailure<T> implements PageState<T> {
+class PageFailure implements PageState {
   const PageFailure(this.message);
   
 
@@ -185,13 +151,13 @@ class PageFailure<T> implements PageState<T> {
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$PageFailureCopyWith<T, PageFailure<T>> get copyWith => _$PageFailureCopyWithImpl<T, PageFailure<T>>(this, _$identity);
+$PageFailureCopyWith<PageFailure> get copyWith => _$PageFailureCopyWithImpl<PageFailure>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PageFailure<T>&&(identical(other.message, message) || other.message == message));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PageFailure&&(identical(other.message, message) || other.message == message));
 }
 
 
@@ -200,15 +166,15 @@ int get hashCode => Object.hash(runtimeType,message);
 
 @override
 String toString() {
-  return 'PageState<$T>.failure(message: $message)';
+  return 'PageState.failure(message: $message)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $PageFailureCopyWith<T,$Res> implements $PageStateCopyWith<T, $Res> {
-  factory $PageFailureCopyWith(PageFailure<T> value, $Res Function(PageFailure<T>) _then) = _$PageFailureCopyWithImpl;
+abstract mixin class $PageFailureCopyWith<$Res> implements $PageStateCopyWith<$Res> {
+  factory $PageFailureCopyWith(PageFailure value, $Res Function(PageFailure) _then) = _$PageFailureCopyWithImpl;
 @useResult
 $Res call({
  String message
@@ -219,17 +185,17 @@ $Res call({
 
 }
 /// @nodoc
-class _$PageFailureCopyWithImpl<T,$Res>
-    implements $PageFailureCopyWith<T, $Res> {
+class _$PageFailureCopyWithImpl<$Res>
+    implements $PageFailureCopyWith<$Res> {
   _$PageFailureCopyWithImpl(this._self, this._then);
 
-  final PageFailure<T> _self;
-  final $Res Function(PageFailure<T>) _then;
+  final PageFailure _self;
+  final $Res Function(PageFailure) _then;
 
 /// Create a copy of PageState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? message = null,}) {
-  return _then(PageFailure<T>(
+  return _then(PageFailure(
 null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
 as String,
   ));

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodix/core/utils/extensions.dart';
 
 class Or extends StatelessWidget {
   const Or({super.key});
@@ -9,13 +10,7 @@ class Or extends StatelessWidget {
       children: [
         const Expanded(child: Divider(thickness: 2)),
         const SizedBox(width: 7),
-        Text(
-          "or",
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: Dimensions.fontSize15,
-          ),
-        ),
+        Text("or", style: context.textStyle.s15W400),
         const SizedBox(width: 7),
         const Expanded(child: Divider(thickness: 2)),
       ],

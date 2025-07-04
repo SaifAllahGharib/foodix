@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AddFoodState {
 
- PageState<void> get status; String? get pickedImage; bool get isValid;
+ PageState get status; String? get pickedImage; bool get isValid;
 /// Create a copy of AddFoodState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -46,11 +46,11 @@ abstract mixin class $AddFoodStateCopyWith<$Res>  {
   factory $AddFoodStateCopyWith(AddFoodState value, $Res Function(AddFoodState) _then) = _$AddFoodStateCopyWithImpl;
 @useResult
 $Res call({
- PageState<void> status, String? pickedImage, bool isValid
+ PageState status, String? pickedImage, bool isValid
 });
 
 
-$PageStateCopyWith<void, $Res> get status;
+$PageStateCopyWith<$Res> get status;
 
 }
 /// @nodoc
@@ -66,7 +66,7 @@ class _$AddFoodStateCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') @override $Res call({Object? status = null,Object? pickedImage = freezed,Object? isValid = null,}) {
   return _then(_self.copyWith(
 status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
-as PageState<void>,pickedImage: freezed == pickedImage ? _self.pickedImage : pickedImage // ignore: cast_nullable_to_non_nullable
+as PageState,pickedImage: freezed == pickedImage ? _self.pickedImage : pickedImage // ignore: cast_nullable_to_non_nullable
 as String?,isValid: null == isValid ? _self.isValid : isValid // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
@@ -75,9 +75,9 @@ as bool,
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$PageStateCopyWith<void, $Res> get status {
+$PageStateCopyWith<$Res> get status {
   
-  return $PageStateCopyWith<void, $Res>(_self.status, (value) {
+  return $PageStateCopyWith<$Res>(_self.status, (value) {
     return _then(_self.copyWith(status: value));
   });
 }
@@ -91,7 +91,7 @@ class _AddFoodState implements AddFoodState {
   const _AddFoodState({this.status = const PageState.init(), this.pickedImage, this.isValid = false});
   
 
-@override@JsonKey() final  PageState<void> status;
+@override@JsonKey() final  PageState status;
 @override final  String? pickedImage;
 @override@JsonKey() final  bool isValid;
 
@@ -125,11 +125,11 @@ abstract mixin class _$AddFoodStateCopyWith<$Res> implements $AddFoodStateCopyWi
   factory _$AddFoodStateCopyWith(_AddFoodState value, $Res Function(_AddFoodState) _then) = __$AddFoodStateCopyWithImpl;
 @override @useResult
 $Res call({
- PageState<void> status, String? pickedImage, bool isValid
+ PageState status, String? pickedImage, bool isValid
 });
 
 
-@override $PageStateCopyWith<void, $Res> get status;
+@override $PageStateCopyWith<$Res> get status;
 
 }
 /// @nodoc
@@ -145,7 +145,7 @@ class __$AddFoodStateCopyWithImpl<$Res>
 @override @pragma('vm:prefer-inline') $Res call({Object? status = null,Object? pickedImage = freezed,Object? isValid = null,}) {
   return _then(_AddFoodState(
 status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
-as PageState<void>,pickedImage: freezed == pickedImage ? _self.pickedImage : pickedImage // ignore: cast_nullable_to_non_nullable
+as PageState,pickedImage: freezed == pickedImage ? _self.pickedImage : pickedImage // ignore: cast_nullable_to_non_nullable
 as String?,isValid: null == isValid ? _self.isValid : isValid // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
@@ -155,9 +155,9 @@ as bool,
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$PageStateCopyWith<void, $Res> get status {
+$PageStateCopyWith<$Res> get status {
   
-  return $PageStateCopyWith<void, $Res>(_self.status, (value) {
+  return $PageStateCopyWith<$Res>(_self.status, (value) {
     return _then(_self.copyWith(status: value));
   });
 }

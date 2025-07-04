@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodix/core/styles/app_colors.dart';
-import 'package:foodix/core/utils/extensions.dart';';
-import 'package:foodix/core/widgets/app_button.dart';
-import 'package:foodix/core/widgets/custom_backets/app_button.dart';
+import 'package:foodix/core/routing/app_route_name.dart';
+import 'package:foodix/core/utils/extensions.dart';
 
-import 'package:foodix/core/widgets/app_text_form_field.dart';
-import 'package:foodix/core/widgets/loading.dart';
-import 'package:foodix/features/login/presentation/viewmodel/cubits/forget_password/forget_password_cubit.dart';
-import 'package:foodix/features/login/presentation/viewmodel/cubits/forget_password/forget_password_state.dart';
-import 'package:foodix/features/verification/presentation/view/verification_view.dart';
+import '../../../../../core/shared/functions/snack_bar.dart';
+import '../../../../../core/styles/app_colors.dart';
+import '../../../../../core/widgets/app_button.dart';
+import '../../../../../core/widgets/app_text_form_field.dart';
+import '../../../../../core/widgets/custom_back_button.dart';
+import '../../../../../core/widgets/loading.dart';
+import '../../viewmodel/cubits/forget_password/forget_password_cubit.dart';
+import '../../viewmodel/cubits/forget_password/forget_password_state.dart';
 
 class ForgotPasswordViewBody extends StatefulWidget {
   const ForgotPasswordViewBody({super.key});
@@ -36,9 +37,9 @@ class _ForgotPasswordViewBodyState extends State<ForgotPasswordViewBody> {
   }
 
   void _onSuccess(user) {
-    context.navigator.push(
-      VerificationView.id,
-      extra: {"user": user, "purpose": "forget_password"},
+    context.navigator.pushNamed(
+      AppRouteName.verification,
+      arguments: {"user": user, "purpose": "forget_password"},
     );
   }
 
@@ -83,9 +84,9 @@ class _ForgotPasswordViewBodyState extends State<ForgotPasswordViewBody> {
               children: [
                 context.responsive.height20.verticalSpace,
                 const CustomBackButton(),
-                SizedBox(height: Dimensions.height30),
-                const CustomText(text: "re_password"),
-                SizedBox(height: Dimensions.height45 * 2),
+                context.responsive.height30.verticalSpace,
+                Text(context.tr.rePassword),
+                context.responsive.height90.verticalSpace,
                 AppTextFormField(
                   controller: _email,
                   label: context.tr.labelEmail,
@@ -94,9 +95,9 @@ class _ForgotPasswordViewBodyState extends State<ForgotPasswordViewBody> {
                       .read<ForgetPasswordCubit>()
                       .validationFields(email: _email),
                 ),
-                SizedBox(height: Dimensions.height30),
+                context.responsive.height30.verticalSpace,
                 AppButton(
-                  text: "verify",
+                  text: context.tr.verify,
                   isEnabled: context.watch<ForgetPasswordCubit>().buttonEnabled,
                   onClick: () {
                     context.read<ForgetPasswordCubit>().forgetPassword(
