@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodix/core/styles/app_colors.dart';
 import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/widgets/custom_back_button.dart';
@@ -19,7 +18,7 @@ class DetailsOrderViewBody extends StatelessWidget {
         children: [
           context.responsive.height20.verticalSpace,
           const CustomBackButton(),
-          SizedBox(height: context.responsive.height15),
+          context.responsive.height15.verticalSpace,
           const TopSectionDetailsOrderViewBody(),
           context.responsive.height20.verticalSpace,
           const Divider(color: AppColors.gray, height: 1),
@@ -28,13 +27,7 @@ class DetailsOrderViewBody extends StatelessWidget {
           context.responsive.height20.verticalSpace,
           const Divider(color: AppColors.gray, height: 1),
           context.responsive.height20.verticalSpace,
-          CustomText(
-            text: context.tr.yourOrder,
-            textSize: Dimensions.fontSize20 * 1.1,
-            alignment: currentLocaleIsArabic
-                ? Alignment.topRight
-                : Alignment.topLeft,
-          ),
+          Text(context.tr.yourOrder, style: context.textStyle.s20WB),
           context.responsive.height10.verticalSpace,
           const BottomSectionDetailsOrderViewBody(),
         ],

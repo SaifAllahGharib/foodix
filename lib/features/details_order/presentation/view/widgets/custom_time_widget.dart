@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:foodix/core/styles/app_colors.dart';
+import 'package:foodix/core/utils/extensions.dart';
 
 class CustomTimeWidget extends StatelessWidget {
   final String day;
@@ -12,22 +14,18 @@ class CustomTimeWidget extends StatelessWidget {
       children: [
         Text(
           day,
-          style: AppStyles.textStyle15(
-            context,
-          ).copyWith(fontWeight: FontWeight.w500, color: Colors.grey),
+          style: context.textStyle.s15W500.copyWith(color: AppColors.gray),
         ),
-        SizedBox(width: context.responsive.width10),
+        context.responsive.width10.horizontalSpace,
         Icon(
           Icons.circle,
           color: Colors.grey,
-          size: context.responsive.width10 * 1.2,
+          size: context.responsive.iconSize12,
         ),
-        SizedBox(width: context.responsive.width10),
+        context.responsive.width10.horizontalSpace,
         Text(
           time,
-          style: AppStyles.textStyle15(
-            context,
-          ).copyWith(fontWeight: FontWeight.w500, color: Colors.grey),
+          style: context.textStyle.s15W500.copyWith(color: AppColors.gray),
         ),
       ],
     );

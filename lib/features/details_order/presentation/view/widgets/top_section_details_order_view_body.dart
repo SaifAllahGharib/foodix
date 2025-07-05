@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/widgets/custom_details_order_name_image.dart';
 import 'package:foodix/features/details_order/presentation/view/widgets/custom_time_widget.dart';
 

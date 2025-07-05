@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/widgets/custom_row_cost.dart';
 
 class CustomItemListViewDetailsOrderSection extends StatelessWidget {
@@ -13,26 +14,11 @@ class CustomItemListViewDetailsOrderSection extends StatelessWidget {
         children: [
           Row(
             children: [
-              Text(
-                "1",
-                style: AppStyles.textStyle15(
-                  context,
-                ).copyWith(fontWeight: FontWeight.w400, color: Colors.black),
-              ),
-              SizedBox(width: context.responsive.width15),
-              Text(
-                "x",
-                style: AppStyles.textStyle15(
-                  context,
-                ).copyWith(fontWeight: FontWeight.w400, color: Colors.black),
-              ),
-              SizedBox(width: context.responsive.width15),
-              Text(
-                "cocakola, 200m",
-                style: AppStyles.textStyle15(
-                  context,
-                ).copyWith(fontWeight: FontWeight.w400, color: Colors.black),
-              ),
+              Text("1", style: context.textStyle.s15W400),
+              context.responsive.width15.horizontalSpace,
+              Text("x", style: context.textStyle.s15W400),
+              context.responsive.width15.horizontalSpace,
+              Text("cocakola, 200m", style: context.textStyle.s15W400),
             ],
           ),
           const CustomRowCost(egp: 280),
