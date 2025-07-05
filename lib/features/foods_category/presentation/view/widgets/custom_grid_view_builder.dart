@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:foodix/core/routing/app_route_name.dart';
 import 'package:foodix/core/shared/models/food_model.dart';
-import 'package:foodix/features/food_details/presentation/view/details_food_view.dart';
+import 'package:foodix/core/utils/extensions.dart';
 
 import 'grid_item_view.dart';
 
@@ -21,7 +22,7 @@ class CustomGridViewBuilder extends StatelessWidget {
         crossAxisCount: 2,
         crossAxisSpacing: context.responsive.height10,
         mainAxisSpacing: context.responsive.height10,
-        childAspectRatio: Dimensions.screenHeight * 0.00087,
+        childAspectRatio: context.responsive.screenHeight * 0.00087,
       ),
       padding: EdgeInsets.zero,
       itemCount: foodsCategory.length,
@@ -30,9 +31,10 @@ class CustomGridViewBuilder extends StatelessWidget {
           food: foodsCategory[index],
           index: index,
           onClick: () {
-            GoRouter.of(
-              context,
-            ).push(DetailsFoodView.id, extra: foodsCategory[index]);
+            context.navigator.pushNamed(
+              AppRouteName.detailsFood,
+              arguments: foodsCategory[index],
+            );
           },
           onLongPress: onLongPressOnItem,
         );

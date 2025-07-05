@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:foodix/features/choose_role/presentation/view/widgets/choose_role_view_body.dart';
+import 'package:flutter/material.dart';  
+import 'package:foodix/features/choose_role/presentation/view/widgets/choose_role_view_body.dart';  
 
 class ChooseRoleView extends StatelessWidget {
   static const String id = "/choose_role";

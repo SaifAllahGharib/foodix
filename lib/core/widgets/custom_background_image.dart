@@ -16,10 +16,7 @@ class CustomBackgroundImage extends StatelessWidget {
       width: double.infinity,
       height: height,
       decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(image),
-          fit: BoxFit.cover,
-        ),
+        image: DecorationImage(image: AssetImage(image), fit: BoxFit.cover),
       ),
     );
   }

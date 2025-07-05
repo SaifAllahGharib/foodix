@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodix/core/styles/app_colors.dart';
+import 'package:foodix/core/utils/extensions.dart';
 
 class CustomItemProfileView extends StatelessWidget {
   final String title;

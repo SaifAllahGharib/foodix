@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodix/core/di/dependency_injection.dart';
 import 'package:foodix/core/routing/app_route_name.dart';
-import 'package:foodix/core/services/firebase_service.dart';
-import 'package:foodix/core/shared/page_state.dart';
 import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/widgets/app_button.dart';
 import 'package:foodix/core/widgets/app_text_form_field.dart';
@@ -13,7 +11,9 @@ import 'package:foodix/features/login/data/models/login_model.dart';
 import 'package:foodix/features/login/presentation/viewmodel/cubits/login/login_cubit.dart';
 import 'package:foodix/features/login/presentation/viewmodel/cubits/login/login_state.dart';
 
+import '../../../../../core/services/firebase_service.dart';
 import '../../../../../core/shared/functions/snack_bar.dart';
+import '../../../../../core/shared/page_state.dart';
 
 class LoginViewBody extends StatefulWidget {
   const LoginViewBody({super.key});

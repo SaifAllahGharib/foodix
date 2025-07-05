@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/widgets/image_and_back_button.dart';
 
 class TopSectionBottomSheetProduct extends StatelessWidget {
@@ -22,9 +23,7 @@ class TopSectionBottomSheetProduct extends StatelessWidget {
               SizedBox(height: context.responsive.height15),
               Text(
                 "foodDesc",
-                style: AppStyles.textStyle15(
-                  context,
-                ).copyWith(color: Colors.grey),
+                style: context.textStyle.s15W400.copyWith(color: Colors.grey),
               ),
             ],
           ),

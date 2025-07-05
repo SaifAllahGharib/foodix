@@ -4,8 +4,6 @@ import 'package:foodix/features/restaurant/presentation/view/widgets/restaurant_
 import 'package:foodix/features/restaurant/viewmodel/cubits/restaurant/restaurant_cubit.dart';
 
 class RestaurantView extends StatelessWidget {
-  static const String id = "/restaurant_view";
-
   const RestaurantView({super.key});
 
   @override

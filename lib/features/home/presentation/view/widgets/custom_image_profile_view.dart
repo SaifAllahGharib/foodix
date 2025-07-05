@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodix/core/utils/app_assets.dart';
+import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/widgets/custom_cashed_network_image.dart';
 import 'package:foodix/core/widgets/custom_item_pick_image.dart';
 
@@ -38,8 +39,8 @@ class CustomImageProfileView extends StatelessWidget {
           child: CustomCashedNetworkImage(
             imageURL: imageURL,
             placeholder: AppAssets.placeholder,
-            width: Dimensions.height130 * 1.2,
-            height: Dimensions.height130 * 1.2,
+            width: context.responsive.height130 * 1.2,
+            height: context.responsive.height130 * 1.2,
           ),
         ),
       ),

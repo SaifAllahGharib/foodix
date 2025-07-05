@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/features/restaurant/presentation/view/widgets/custom_bottom_sheet_restaurant_product_widget.dart';
 import 'package:foodix/features/restaurant/presentation/view/widgets/custom_item_food_category_list_view.dart';
 
+import '../../../../../core/shared/functions/current_locale_is_arabic.dart';
 import '../../../../../core/shared/models/food_model.dart';
 
 class CustomFoodCategoryListView extends StatelessWidget {
@@ -17,9 +18,9 @@ class CustomFoodCategoryListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-        bottom: context.responsive.height20,
-        right: currentLocaleIsArabic ? context.responsive.height15 : 0,
-        left: currentLocaleIsArabic ? 0 : context.responsive.height15,
+        bottom: context.responsive.padding20,
+        right: currentLocaleIsArabic ? context.responsive.padding15 : 0,
+        left: currentLocaleIsArabic ? 0 : context.responsive.padding15,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

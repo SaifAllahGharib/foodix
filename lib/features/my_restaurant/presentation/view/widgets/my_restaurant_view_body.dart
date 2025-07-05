@@ -4,12 +4,14 @@ import 'package:foodix/core/styles/app_colors.dart';
 import 'package:foodix/core/utils/enums.dart';
 import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/widgets/app_button.dart';
-import 'package:foodix/core/widgets/custom_backgets/app_button.dart';
-import 'package:foodix/features/home/presentation/view/home_view.dart';
 import 'package:foodix/features/my_restaurant/data/models/restaurant_model.dart';
 
 import '../../../../../core/di/dependency_injection.dart';
-import '../../../../../core/utils/my_shared_preferences.dart';
+import '../../../../../core/routing/app_route_name.dart';
+import '../../../../../core/services/shared_preferences_service.dart';
+import '../../../../../core/shared/functions/snack_bar.dart';
+import '../../../../../core/shared/page_state.dart';
+import '../../../../../core/widgets/custom_back_button.dart';
 import '../../../../../core/widgets/custom_dialog_loading_widget.dart';
 import '../../../../../core/widgets/custom_edit_field_widget.dart';
 import '../../viewmodel/cubits/my_restaurant/my_restaurant_cubit.dart';
@@ -28,7 +30,7 @@ class _MyRestaurantViewBodyState extends State<MyRestaurantViewBody> {
   late final TextEditingController _nameController;
   late final TextEditingController _deliveryTimeController;
   late final TextEditingController _deliveryCostController;
-  late final SharedPreferencesService _SharedPreferencesService;
+  late final SharedPreferencesService _sharedPreferencesService;
   late final TextEditingController _updateNameController;
   late final TextEditingController _updateDeliveryTimeController;
   late final TextEditingController _updateDeliveryCostController;
@@ -44,7 +46,7 @@ class _MyRestaurantViewBodyState extends State<MyRestaurantViewBody> {
     _updateNameController = TextEditingController();
     _updateDeliveryTimeController = TextEditingController();
     _updateDeliveryCostController = TextEditingController();
-    _SharedPreferencesService = getIt<SharedPreferencesService>();
+    _sharedPreferencesService = getIt<SharedPreferencesService>();
 
     super.initState();
   }
@@ -65,7 +67,7 @@ class _MyRestaurantViewBodyState extends State<MyRestaurantViewBody> {
 
   @override
   void didChangeDependencies() {
-    _getMyRestaurantInfo(_SharedPreferencesService);
+    _getMyRestaurantInfo(_sharedPreferencesService);
     super.didChangeDependencies();
   }
 
@@ -145,33 +147,37 @@ class _MyRestaurantViewBodyState extends State<MyRestaurantViewBody> {
   }
 
   void _handleState(MyRestaurantState state) async {
-    if (state is MyRestaurantLoading) {
+    final status = state.status;
+    if (status is PageLoading) {
       _showLoadingDialog();
-    } else if (state is MyRestaurantCreated) {
-      context.pop();
-      context.go(HomeView.id);
-    } else if (state is MyRestaurantFailure) {
-      snackBar(context: context, text: state.errorMsg);
+    } else if (status is PageSuccess) {
+      context.navigator.pop();
+      context.navigator.pushNamedAndRemoveUntil(
+        AppRouteName.home,
+        (route) => false,
+      );
+    } else if (status is PageFailure<RestaurantModel>) {
+      snackBar(context: context, text: status.message);
     }
   }
 
   List<String?> _getMyRestaurantInfo(
-    SharedPreferencesService SharedPreferencesService,
+    SharedPreferencesService sharedPreferencesService,
   ) {
     return [
-      SharedPreferencesService.getString(
+      sharedPreferencesService.getString(
         RestaurantInfoParams.restaurantName.toString(),
       ),
-      SharedPreferencesService.getString(
+      sharedPreferencesService.getString(
         RestaurantInfoParams.deliveryTime.toString(),
       ),
-      SharedPreferencesService.getString(
+      sharedPreferencesService.getString(
         RestaurantInfoParams.deliveryCost.toString(),
       ),
-      SharedPreferencesService.getString(
+      sharedPreferencesService.getString(
         RestaurantInfoParams.openTime.toString(),
       ),
-      SharedPreferencesService.getString(
+      sharedPreferencesService.getString(
         RestaurantInfoParams.closeTime.toString(),
       ),
     ];
@@ -212,7 +218,7 @@ class _MyRestaurantViewBodyState extends State<MyRestaurantViewBody> {
                 label: label,
                 hint: hint,
                 onChanged: (val) => _validateUpdateField(controller),
-                isEnabled: context.watch<MyRestaurantCubit>().isValid,
+                isEnabled: state.isValidate,
               );
             },
           ),
@@ -223,61 +229,62 @@ class _MyRestaurantViewBodyState extends State<MyRestaurantViewBody> {
 
   void _whenUpdateSuccess(String key, String value) async {
     context.read<MyRestaurantCubit>().resetValidation();
-    await _SharedPreferencesService.storeString(key, value);
-    context.pop();
+    await _sharedPreferencesService.storeString(key, value);
+    context.navigator.pop();
     setState(() {});
   }
 
-  void _handleStateUpdateFields(state) {
-    if (state is MyRestaurantLoading) {
+  void _handleStateUpdateFields(MyRestaurantState state) {
+    final status = state.status;
+    if (status is PageLoading) {
       _showLoadingDialog();
-    } else if (state is MyRestaurantNameUpdated) {
+    } else if (state.nameUpdated) {
       _whenUpdateSuccess(
         RestaurantInfoParams.restaurantName.toString(),
         _updateNameController.text,
       );
-    } else if (state is MyRestaurantTimeDeliveryUpdated) {
+    } else if (state.timeDeliveryUpdated) {
       _whenUpdateSuccess(
         RestaurantInfoParams.deliveryTime.toString(),
         _updateDeliveryTimeController.text,
       );
-    } else if (state is MyRestaurantCostDeliveryUpdated) {
+    } else if (state.costDeliveryUpdated) {
       _whenUpdateSuccess(
         RestaurantInfoParams.deliveryCost.toString(),
         _updateDeliveryCostController.text,
       );
-    } else if (state is MyRestaurantOpenTimeUpdated) {
+    } else if (state.openTimeUpdated) {
       _whenUpdateSuccess(
         RestaurantInfoParams.openTime.toString(),
         _formatTime(context, _openTime),
       );
-    } else if (state is MyRestaurantCloseTimeUpdated) {
+    } else if (state.closeTimeUpdated) {
       _whenUpdateSuccess(
         RestaurantInfoParams.closeTime.toString(),
         _formatTime(context, _closeTime),
       );
-    } else if (state is MyRestaurantFailure) {
-      context.pop();
-      snackBar(context: context, text: state.errorMsg);
+    } else if (status is PageFailure<RestaurantModel>) {
+      context.navigator.pop();
+      snackBar(context: context, text: status.message);
     }
   }
 
   void _updateName() async {
-    context.pop();
+    context.navigator.pop();
     await context.read<MyRestaurantCubit>().updateRestaurantName(
       _updateNameController.text,
     );
   }
 
   void _updateTimeDelivery() async {
-    context.pop();
+    context.navigator.pop();
     await context.read<MyRestaurantCubit>().updateRestaurantTimeDelivery(
       int.tryParse(_updateDeliveryTimeController.text) ?? 0,
     );
   }
 
   void _updateCostDelivery() async {
-    context.pop();
+    context.navigator.pop();
     await context.read<MyRestaurantCubit>().updateRestaurantCostDelivery(
       int.tryParse(_updateDeliveryCostController.text) ?? 0,
     );
@@ -313,12 +320,7 @@ class _MyRestaurantViewBodyState extends State<MyRestaurantViewBody> {
               children: [
                 const CustomBackButton(),
                 context.responsive.height20.verticalSpace,
-                Text(
-                  context.tr.restaurantInfo,
-                  style: AppStyles.textStyle20(
-                    context,
-                  ).copyWith(fontWeight: FontWeight.bold),
-                ),
+                Text(context.tr.restaurantInfo, style: context.textStyle.s20WB),
                 context.responsive.height20.verticalSpace,
                 _buildTextFormField(
                   controller: _nameController,
@@ -382,17 +384,17 @@ class _MyRestaurantViewBodyState extends State<MyRestaurantViewBody> {
           ),
           context.responsive.height30.verticalSpace,
           !_restaurantInfoIsEmpty(
-                _getMyRestaurantInfo(_SharedPreferencesService),
+                _getMyRestaurantInfo(_sharedPreferencesService),
               )
               ? const SizedBox.shrink()
-              : BlocListener<MyRestaurantCubit, MyRestaurantState>(
+              : BlocConsumer<MyRestaurantCubit, MyRestaurantState>(
                   listener: (context, state) => _handleState(state),
-                  child: AppButton(
+                  builder: (context, state) => AppButton(
                     text: context.tr.saveRestaurant,
-                    isEnabled: context.watch<MyRestaurantCubit>().isValid,
+                    isEnabled: state.isValidate,
                     onClick: () => _createRestaurant(
                       RestaurantModel(
-                        id: getIt<SharedPreferencesService>().getIdUser()!,
+                        id: "getIt<SharedPreferencesService>().getIdUser()!",
                         name: _nameController.text,
                         deliveryTime: int.tryParse(
                           _deliveryTimeController.text.trim(),
@@ -422,14 +424,14 @@ class _MyRestaurantViewBodyState extends State<MyRestaurantViewBody> {
     return CustomMyRestaurantTextFormField(
       controller: controller,
       textFieldValue:
-          _getMyRestaurantInfo(_SharedPreferencesService)[resInfo] ?? "",
+          _getMyRestaurantInfo(_sharedPreferencesService)[resInfo] ?? "",
       hint: hint,
       onChanged: (_) => _validationFields(),
       label: label,
       textInputType: textInputType,
       onClickEdit: onClickEdit,
       restaurantInfoIsEmpty: _restaurantInfoIsEmpty(
-        _getMyRestaurantInfo(_SharedPreferencesService),
+        _getMyRestaurantInfo(_sharedPreferencesService),
       ),
     );
   }
@@ -444,11 +446,11 @@ class _MyRestaurantViewBodyState extends State<MyRestaurantViewBody> {
     return CustomMyRestaurantTimeDisplay(
       label: label,
       textValue:
-          _getMyRestaurantInfo(_SharedPreferencesService)[resInfo] ??
+          _getMyRestaurantInfo(_sharedPreferencesService)[resInfo] ??
           _formatTime(context, time),
       time: _formatTime(context, time),
       restaurantInfoIsEmpty: _restaurantInfoIsEmpty(
-        _getMyRestaurantInfo(_SharedPreferencesService),
+        _getMyRestaurantInfo(_sharedPreferencesService),
       ),
       onTap: () async => await _pickTime(context, isOpenTime),
       onClickEdit: onClickEdit,

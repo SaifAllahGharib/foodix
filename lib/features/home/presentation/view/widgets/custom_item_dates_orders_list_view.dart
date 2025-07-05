@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodix/core/styles/app_colors.dart';
-
+import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/features/home/presentation/viewmodel/cubits/orders/orders_cubit.dart';
 
 class CustomItemDatesOrdersListView extends StatelessWidget {
@@ -29,8 +29,10 @@ class CustomItemDatesOrdersListView extends StatelessWidget {
       onTap: () => _setSelectedIndex(context, index),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
-        padding: EdgeInsets.symmetric(horizontal: Dimensions.width30 * 2),
-        margin: EdgeInsets.only(right: Dimensions.width30),
+        padding: EdgeInsets.symmetric(
+          horizontal: context.responsive.width30 * 2,
+        ),
+        margin: EdgeInsets.only(right: context.responsive.width30),
         decoration: BoxDecoration(
           color: selectedIndex == index ? AppColors.primary : Colors.white,
           borderRadius: BorderRadius.circular(context.responsive.radius20 * 5),
@@ -39,7 +41,7 @@ class CustomItemDatesOrdersListView extends StatelessWidget {
         child: Center(
           child: Text(
             list[index],
-            style: AppStyles.textStyle16(context).copyWith(
+            style: context.textStyle.s16W500.copyWith(
               color: selectedIndex == index ? Colors.white : AppColors.primary,
             ),
           ),

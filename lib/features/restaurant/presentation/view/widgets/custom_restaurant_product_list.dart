@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:foodix/core/utils/AppStyles.dart';
-import 'package:foodix/core/utils/dimensionnt/presentation/view/widgets/custom_food_category_list_view.dart';
+import 'package:foodix/core/utils/extensions.dart';
 
 import '../../../../../core/shared/models/category_model.dart';
+import 'custom_food_category_list_view.dart';
 
 class CustomRestaurantProductList extends StatelessWidget {
   final List<CategoryModel> listOfFoodCategories;

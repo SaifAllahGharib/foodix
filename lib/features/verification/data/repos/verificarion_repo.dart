@@ -1,5 +1,9 @@
-abstract class VerificationRepository {
-  Future<Either<Failure, void>> sendEmailVerification();
+import 'package:failure_handler/failure_handler.dart';
 
-  Future<Either<Failure, bool>> isEmailVerified();
+import '../../../../core/utils/result.dart';
+
+abstract class VerificationRepository {
+  Future<Result<AppFailure, void>> sendEmailVerification();
+
+  Future<Result<AppFailure, bool>> isEmailVerified();
 }

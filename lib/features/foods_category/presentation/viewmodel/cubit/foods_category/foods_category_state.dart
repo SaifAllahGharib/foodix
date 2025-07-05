@@ -1,23 +1,14 @@
 import 'package:foodix/core/shared/models/food_model.dart';
+import 'package:foodix/core/shared/page_state.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-sealed class FoodsCategoryState {}
+part 'foods_category_state.freezed.dart';
 
-class FoodsCategoryInit extends FoodsCategoryState {}
-
-class FoodsCategoryLoading extends FoodsCategoryState {}
-
-class FoodsCategorySuccess extends FoodsCategoryState {
-  final List<FoodModel>? foods;
-
-  FoodsCategorySuccess(this.foods);
-}
-
-class FoodsCategoryUpdateFoodSuccess extends FoodsCategoryState {}
-
-class FoodsCategoryDeleteFoodSuccess extends FoodsCategoryState {}
-
-class FoodsCategoryFailure extends FoodsCategoryState {
-  final String errorMsg;
-
-  FoodsCategoryFailure(this.errorMsg);
+@freezed
+sealed class FoodsCategoryState with _$FoodsCategoryState {
+  const factory FoodsCategoryState({
+    @Default(PageState.init()) PageState<List<FoodModel>> getFoodsStatus,
+    @Default(PageState.init()) PageState<void> updateFoodStatus,
+    @Default(PageState.init()) PageState<void> deleteFoodStatus,
+  }) = _FoodsCategoryState;
 }

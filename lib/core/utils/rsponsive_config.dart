@@ -26,6 +26,10 @@ class ResponsiveConfig {
     required this.height,
   });
 
+  double get screenHeight => height;
+
+  double get screenWidth => height;
+
   // Scale factors based on design dimensions
   double get scaleWidth => width / designWidth;
 
@@ -216,6 +220,8 @@ class ResponsiveConfig {
   double get fontSize30 => r(30);
 
   // Padding / Margin
+  double get padding5 => r(5);
+
   double get padding8 => r(8);
 
   double get padding10 => r(10);
@@ -237,6 +243,8 @@ class ResponsiveConfig {
   double get padding28 => r(28);
 
   double get padding30 => r(30);
+
+  double get padding40 => r(40);
 
   // Radius
   double get radius8 => r(8);

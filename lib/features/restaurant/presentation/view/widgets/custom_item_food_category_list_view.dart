@@ -1,11 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodix/core/styles/app_colors.dart';;
+import 'package:flutter/material.dart';  
+import 'package:foodix/core/styles/app_colors.dart';  
+import 'package:foodix/core/utils/extensions.dart';  
+import 'package:foodix/core/widgets/custom_food_image.dart';  
+import 'package:foodix/core/widgets/custom_row_cost.dart';  
 
-import 'package:foodix/core/widgets/custom_food_image.dart';
-import 'package:foodix/core/widgets/custom_row_cost.dart';
-
-
+import '../../../../../core/shared/functions/current_locale_is_arabic.dart';  
 
 class CustomItemFoodCategoryListView extends StatelessWidget {
   final int index;
@@ -39,15 +38,11 @@ class CustomItemFoodCategoryListView extends StatelessWidget {
           Container(
             color: Colors.white,
             width: double.infinity,
-            height: Dimensions.height130,
+            height: context.responsive.height130,
             padding: EdgeInsets.only(
-              bottom: context.responsive.height15,
-              right: currentLocaleIsArabic
-                  ? 0
-                  : context.responsive.height20,
-              left: currentLocaleIsArabic
-                  ? context.responsive.height20
-                  : 0,
+              bottom: context.responsive.padding15,
+              right: currentLocaleIsArabic ? 0 : context.responsive.padding20,
+              left: currentLocaleIsArabic ? context.responsive.padding20 : 0,
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -57,7 +52,7 @@ class CustomItemFoodCategoryListView extends StatelessWidget {
                   width: context.responsive.height117,
                   height: context.responsive.height117,
                 ),
-                SizedBox(width: Dimensions.width30 * 2),
+                SizedBox(width: context.responsive.width30 * 2),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -68,7 +63,7 @@ class CustomItemFoodCategoryListView extends StatelessWidget {
                           foodName,
                           softWrap: true,
                           overflow: TextOverflow.ellipsis,
-                          style: AppStyles.textStyle16(context),
+                          style: context.textStyle.s16W500,
                         ),
                       ),
                       context.responsive.height10.verticalSpace,
@@ -78,7 +73,7 @@ class CustomItemFoodCategoryListView extends StatelessWidget {
                           softWrap: true,
                           textAlign: TextAlign.end,
                           overflow: TextOverflow.ellipsis,
-                          style: AppStyles.textStyle12(context),
+                          style: context.textStyle.s12W400,
                         ),
                       ),
                       const Spacer(),

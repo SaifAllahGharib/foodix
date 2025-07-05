@@ -1,11 +1,13 @@
-import 'package:firebase_database/firebase_database.dart';
+import 'package:failure_handler/failure_handler.dart';  
+import 'package:firebase_database/firebase_database.dart';  
 
-import '../../../../../core/shared/models/category_model.dart';
+import '../../../../../core/shared/models/category_model.dart';  
+import '../../../../../core/utils/result.dart';  
 
 abstract class MainSellerRepository {
-  Future<Either<Failure, void>> addCategory(CategoryModel category);
+  Future<Result<AppFailure, void>> addCategory(CategoryModel category);
 
-  Stream<Either<Failure, DataSnapshot>> getCategories();
+  Stream<Result<AppFailure, DataSnapshot>> getCategories();
 
-  Future<Either<Failure, DataSnapshot?>> getMyRestaurant();
+  Future<Result<AppFailure, DataSnapshot?>> getMyRestaurant();
 }

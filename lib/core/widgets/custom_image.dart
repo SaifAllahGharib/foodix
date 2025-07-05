@@ -5,12 +5,7 @@ class CustomImage extends StatelessWidget {
   final double? width;
   final double? height;
 
-  const CustomImage({
-    super.key,
-    required this.image,
-    this.width,
-    this.height,
-  });
+  const CustomImage({super.key, required this.image, this.width, this.height});
 
   @override
   Widget build(BuildContext context) {

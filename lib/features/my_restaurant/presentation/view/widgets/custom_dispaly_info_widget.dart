@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodix/core/utils/extensions.dart';
 
 import '../../../../../core/styles/app_colors.dart';
 
@@ -23,16 +24,11 @@ class CustomDisplayInfoWidget extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                label,
-                style: AppStyles.textStyle15(
-                  context,
-                ).copyWith(fontWeight: FontWeight.w600),
-              ),
+              Text(label, style: context.textStyle.s15W600),
               context.responsive.height10.verticalSpace,
               Container(
                 width: double.infinity,
-                height: Dimensions.height45 * 1.05,
+                height: context.responsive.height47,
                 padding: EdgeInsets.symmetric(
                   vertical: context.responsive.height12,
                   horizontal: context.responsive.height15,
@@ -43,20 +39,15 @@ class CustomDisplayInfoWidget extends StatelessWidget {
                     context.responsive.radius10,
                   ),
                 ),
-                child: Text(
-                  textFieldValue,
-                  style: AppStyles.textStyle15(
-                    context,
-                  ).copyWith(fontWeight: FontWeight.w500),
-                ),
+                child: Text(textFieldValue, style: context.textStyle.s15W500),
               ),
             ],
           ),
         ),
         context.responsive.width20.horizontalSpace,
         Container(
-          width: Dimensions.height45 * 1.05,
-          height: Dimensions.height45 * 1.05,
+          width: context.responsive.height47,
+          height: context.responsive.height47,
           decoration: BoxDecoration(
             color: AppColors.gray.withOpacity(0.2),
             borderRadius: BorderRadius.circular(context.responsive.radius10),

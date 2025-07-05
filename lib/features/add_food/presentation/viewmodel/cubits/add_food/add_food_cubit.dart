@@ -1,11 +1,11 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodix/core/shared/page_state.dart';
-import 'package:foodix/core/utils/image_picker_helper.dart';
-import 'package:foodix/features/add_food/data/repos/add_food_repo.dart';
-import 'package:foodix/features/add_food/presentation/viewmodel/cubits/add_food/add_food_state.dart';
+import 'package:flutter/cupertino.dart';  
+import 'package:flutter_bloc/flutter_bloc.dart';  
+import 'package:foodix/core/shared/page_state.dart';  
+import 'package:foodix/core/utils/image_picker_helper.dart';  
+import 'package:foodix/features/add_food/data/repos/add_food_repo.dart';  
+import 'package:foodix/features/add_food/presentation/viewmodel/cubits/add_food/add_food_state.dart';  
 
-import '../../../../../../core/shared/models/food_model.dart';
+import '../../../../../../core/shared/models/food_model.dart';  
 
 class AddFoodCubit extends Cubit<AddFoodState> {
   final AddFoodRepository _addFoodRepository;

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/widgets/loading.dart';
 import 'package:foodix/features/home/presentation/view/widgets/custom_app_bar_main_buyer_view.dart';
 import 'package:foodix/features/home/presentation/view/widgets/custom_sliver_list_view_main_buyer_view.dart';
 import 'package:foodix/features/home/presentation/viewmodel/cubits/main_buyer/main_buyer/main_buyer_cubit.dart';
 import 'package:foodix/features/home/presentation/viewmodel/cubits/main_buyer/main_buyer/main_buyer_state.dart';
 import 'package:foodix/features/my_restaurant/data/models/restaurant_model.dart';
+
+import '../../../../core/shared/functions/snack_bar.dart';
 
 class MainBuyerView extends StatefulWidget {
   const MainBuyerView({super.key});
@@ -40,7 +43,7 @@ class _MainBuyerViewState extends State<MainBuyerView> {
           slivers: [
             const SliverToBoxAdapter(child: CustomAppBarMainBuyerView()),
             SliverPadding(
-              padding: EdgeInsets.all(context.responsive.height20),
+              padding: EdgeInsets.all(context.responsive.padding20),
               sliver: CustomSliverListViewMainBuyerView(list: restaurants),
             ),
           ],

@@ -5,6 +5,7 @@ import 'package:foodix/core/widgets/app_button.dart';
 import 'package:foodix/features/home/presentation/viewmodel/cubits/main_seller/main_seller_cubit.dart';
 
 import '../../../../../core/shared/models/category_model.dart';
+import '../../../../../core/widgets/app_text_form_field.dart';
 
 class CustomWidgetFloatButtonAddCategory extends StatelessWidget {
   final TextEditingController categoryController;

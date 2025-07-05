@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/widgets/custom_rating_widget.dart';
 
 class ImageAndNameAndRatingWidget extends StatelessWidget {
@@ -9,8 +10,8 @@ class ImageAndNameAndRatingWidget extends StatelessWidget {
     return Row(
       children: [
         Container(
-          width: Dimensions.height80 * 0.9,
-          height: Dimensions.height80 * 0.9,
+          width: context.responsive.height80 * 0.9,
+          height: context.responsive.height80 * 0.9,
           decoration: BoxDecoration(
             image: const DecorationImage(
               image: AssetImage(" "),
@@ -23,9 +24,9 @@ class ImageAndNameAndRatingWidget extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Bazoka", style: AppStyles.textStyle16(context)),
+            Text("Bazoka", style: context.textStyle.s16W500),
             SizedBox(height: context.responsive.height10 * 0.2),
-            Text("Burger, Cheken, Beef", style: AppStyles.textStyle12(context)),
+            Text("Burger, Cheken, Beef", style: context.textStyle.s12W400),
             SizedBox(height: context.responsive.height10 * 0.2),
             const CustomRatingWidget(rating: 4.9, ratingCount: 1925),
           ],

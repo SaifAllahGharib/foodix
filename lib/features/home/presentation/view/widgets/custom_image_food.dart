@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodix/core/utils/app_assets.dart';
+import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/widgets/custom_cashed_network_image.dart';
 
 class CustomImageFood extends StatelessWidget {
@@ -11,7 +12,7 @@ class CustomImageFood extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: Dimensions.height130 * 1.2,
+      height: context.responsive.height130 * 1.2,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(context.responsive.radius20),
         child: CustomCashedNetworkImage(

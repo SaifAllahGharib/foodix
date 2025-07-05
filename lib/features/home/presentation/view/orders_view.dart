@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodix/core/utils/AppStyles.dart';
-import 'package:foodix/core/utils/extensionsentation/view/widgets/custom_item_order_list_view.dart';
+import 'package:foodix/core/utils/extensions.dart';
+import 'package:foodix/features/home/presentation/view/widgets/custom_item_order_list_view.dart';
 import 'package:foodix/features/home/presentation/view/widgets/dates_orders_list_view.dart';
 import 'package:foodix/features/home/presentation/viewmodel/cubits/orders/orders_cubit.dart';
 import 'package:foodix/features/home/presentation/viewmodel/cubits/orders/orders_state.dart';
@@ -37,9 +37,9 @@ class _OrdersViewState extends State<OrdersView> {
       builder: (context, state) {
         return Padding(
           padding: EdgeInsets.only(
-            top: context.responsive.height20 * 2,
-            right: context.responsive.height20,
-            left: context.responsive.height20,
+            top: context.responsive.padding40,
+            right: context.responsive.padding20,
+            left: context.responsive.padding20,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

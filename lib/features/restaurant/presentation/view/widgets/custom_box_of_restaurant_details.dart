@@ -16,14 +16,16 @@ class CustomBoxOfRestaurantDetails extends StatelessWidget {
       left: 0,
       right: 0,
       child: Container(
-        height: Dimensions.height130 * 1.1,
+        height: context.responsive.height130 * 1.1,
         width: double.infinity,
         padding: EdgeInsets.only(
           top: context.responsive.height15,
           right: context.responsive.height15,
           left: context.responsive.height15,
         ),
-        margin: EdgeInsets.symmetric(horizontal: Dimensions.width30 * 1.2),
+        margin: EdgeInsets.symmetric(
+          horizontal: context.responsive.width30 * 1.2,
+        ),
         decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: const [

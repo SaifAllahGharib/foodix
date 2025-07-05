@@ -48,7 +48,7 @@ class _NameAndEmailState extends State<NameAndEmail> {
   }
 
   void _updateName() {
-    context.pop();
+    context.navigator.pop();
     context.read<ProfileCubit>().updateName(_editName.text);
   }
 
@@ -66,17 +66,8 @@ class _NameAndEmailState extends State<NameAndEmail> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CustomText(
-                text: widget.name,
-                textSize: context.responsive.height20 * 1.2,
-                alignment: AlignmentDirectional.topStart,
-              ),
-              Text(
-                widget.email,
-                style: AppStyles.textStyle15(
-                  context,
-                ).copyWith(fontWeight: FontWeight.w500),
-              ),
+              Text(widget.name, style: context.textStyle.s30W600),
+              Text(widget.email, style: context.textStyle.s15W500),
             ],
           ),
           IconButton(

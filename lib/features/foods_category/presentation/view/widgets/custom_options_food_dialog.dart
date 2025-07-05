@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodix/core/utils/extensions.dart';
-import 'package:foodix/features/foods_category/presentation/viewmodel/cubit/foods_category/foods_category_cubit.dart';
+import 'package:flutter/material.dart';  
+import 'package:flutter_bloc/flutter_bloc.dart';  
+import 'package:foodix/core/utils/extensions.dart';  
+import 'package:foodix/features/foods_category/presentation/viewmodel/cubit/foods_category/foods_category_cubit.dart';  
 
-import '../../../../../core/styles/app_colors.dart';
+import '../../../../../core/styles/app_colors.dart';  
 
 class CustomOptionsFoodDialog extends StatelessWidget {
   final VoidCallback onClickEdit;
@@ -30,24 +30,22 @@ class CustomOptionsFoodDialog extends StatelessWidget {
       actions: [
         TextButton(
           onPressed: () {
-            context.pop();
+            context.navigator.pop();
             onClickEdit();
           },
           child: Text(
             context.tr.edit,
-            style: AppStyles.textStyle12(
-              context,
-            ).copyWith(color: AppColors.primary),
+            style: context.textStyle.s12W400.copyWith(color: AppColors.primary),
           ),
         ),
         TextButton(
           onPressed: () {
-            context.pop();
+            context.navigator.pop();
             _deleteFood(context, categoryId, foodId);
           },
           child: Text(
             context.tr.delete,
-            style: AppStyles.textStyle12(context).copyWith(color: Colors.red),
+            style: context.textStyle.s12W400.copyWith(color: Colors.red),
           ),
         ),
       ],

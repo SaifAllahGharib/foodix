@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodix/core/shared/models/food_model.dart';
+import 'package:foodix/core/routing/app_route_name.dart';
+import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/widgets/loading.dart';
 import 'package:foodix/features/foods_category/presentation/viewmodel/cubit/foods_category/foods_category_cubit.dart';
 import 'package:foodix/features/foods_category/presentation/viewmodel/cubit/foods_category/foods_category_state.dart';
-art';
 
+import '../../../../../core/shared/models/food_model.dart';
+import '../../../../../core/shared/page_state.dart';
 import '../../../../../core/widgets/custom_back_button.dart';
 import '../../../../../core/widgets/custom_dialog_loading_widget.dart';
 import '../../../../../core/widgets/custom_error_widget.dart';
 import '../../../../../core/widgets/empty_widget.dart';
-import '../../../../add_food/presentation/view/add_food_view.dart';
 import '../../../../home/presentation/view/widgets/custom_float_button.dart';
 import '../../../../home/presentation/view/widgets/custom_search_text_field.dart';
 import 'custom_edit_food_dialog.dart';
@@ -72,12 +73,33 @@ class _FoodsCategoryViewBodyState extends State<FoodsCategoryViewBody> {
     );
   }
 
+  void _handleState(FoodsCategoryState state) {
+    final getFoodsStatus = state.getFoodsStatus;
+    final updateFoodStatus = state.updateFoodStatus;
+    final deleteFoodStatus = state.deleteFoodStatus;
+    if (getFoodsStatus is PageSuccess<List<FoodModel>>) {
+      _foodsCategory.clear();
+      _foodsCategory.addAll(getFoodsStatus.data ?? []);
+    } else if (getFoodsStatus is PageLoading ||
+        deleteFoodStatus is PageLoading ||
+        updateFoodStatus is PageLoading) {
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => const CustomDialogLoadingWidget(),
+      );
+    } else if (updateFoodStatus is PageSuccess ||
+        deleteFoodStatus is PageSuccess) {
+      context.navigator.pop();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
       color: Colors.white,
-      padding: EdgeInsets.all(context.responsive.height20),
+      padding: EdgeInsets.all(context.responsive.padding20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -89,30 +111,19 @@ class _FoodsCategoryViewBodyState extends State<FoodsCategoryViewBody> {
             onChange: (value) {},
           ),
           context.responsive.height20.verticalSpace,
-          Text(widget.categoryId, style: AppStyles.textStyle20(context)),
+          Text(widget.categoryId, style: context.textStyle.s20WB),
           context.responsive.height20.verticalSpace,
           Expanded(
             child: BlocConsumer<FoodsCategoryCubit, FoodsCategoryState>(
-              listener: (context, state) {
-                if (state is FoodsCategorySuccess) {
-                  _foodsCategory.clear();
-                  _foodsCategory.addAll(state.foods ?? []);
-                } else if (state is FoodsCategoryLoading) {
-                  showDialog(
-                    context: context,
-                    barrierDismissible: false,
-                    builder: (context) => const CustomDialogLoadingWidget(),
-                  );
-                } else if (state is FoodsCategoryDeleteFoodSuccess ||
-                    state is FoodsCategoryUpdateFoodSuccess) {
-                  context.pop();
-                }
-              },
+              listener: (context, state) => _handleState(state),
               builder: (context, state) {
-                if (state is FoodsCategoryLoading) {
+                final getFoodsStatus = state.getFoodsStatus;
+                if (getFoodsStatus is PageLoading) {
                   return const Loading();
-                } else if (state is FoodsCategoryFailure) {
-                  return CustomErrorWidget(errorMessage: state.errorMsg);
+                } else if (getFoodsStatus is PageFailure<List<FoodModel>>) {
+                  return CustomErrorWidget(
+                    errorMessage: getFoodsStatus.message,
+                  );
                 }
 
                 return _foodsCategory.isEmpty
@@ -126,8 +137,10 @@ class _FoodsCategoryViewBodyState extends State<FoodsCategoryViewBody> {
             ),
           ),
           CustomFloatButton(
-            onClick: () =>
-                context.push(AddFoodView.id, extra: widget.categoryId),
+            onClick: () => context.navigator.pushNamed(
+              AppRouteName.addFood,
+              arguments: widget.categoryId,
+            ),
           ),
         ],
       ),

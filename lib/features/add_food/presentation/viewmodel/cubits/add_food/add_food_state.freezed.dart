@@ -12,47 +12,62 @@ part of 'add_food_state.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
+
 /// @nodoc
 mixin _$AddFoodState {
 
- PageState get status; String? get pickedImage; bool get isValid;
-/// Create a copy of AddFoodState
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$AddFoodStateCopyWith<AddFoodState> get copyWith => _$AddFoodStateCopyWithImpl<AddFoodState>(this as AddFoodState, _$identity);
+  PageState get status;
+
+  String? get pickedImage;
+
+  bool get isValid;
+
+  /// Create a copy of AddFoodState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $AddFoodStateCopyWith<AddFoodState> get copyWith =>
+      _$AddFoodStateCopyWithImpl<AddFoodState>(
+          this as AddFoodState, _$identity);
 
 
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is AddFoodState &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.pickedImage, pickedImage) ||
+                other.pickedImage == pickedImage) &&
+            (identical(other.isValid, isValid) || other.isValid == isValid));
+  }
 
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AddFoodState&&(identical(other.status, status) || other.status == status)&&(identical(other.pickedImage, pickedImage) || other.pickedImage == pickedImage)&&(identical(other.isValid, isValid) || other.isValid == isValid));
-}
 
+  @override
+  int get hashCode => Object.hash(runtimeType, status, pickedImage, isValid);
 
-@override
-int get hashCode => Object.hash(runtimeType,status,pickedImage,isValid);
-
-@override
-String toString() {
-  return 'AddFoodState(status: $status, pickedImage: $pickedImage, isValid: $isValid)';
-}
+  @override
+  String toString() {
+    return 'AddFoodState(status: $status, pickedImage: $pickedImage, isValid: $isValid)';
+  }
 
 
 }
 
 /// @nodoc
-abstract mixin class $AddFoodStateCopyWith<$Res>  {
-  factory $AddFoodStateCopyWith(AddFoodState value, $Res Function(AddFoodState) _then) = _$AddFoodStateCopyWithImpl;
-@useResult
-$Res call({
- PageState status, String? pickedImage, bool isValid
-});
+abstract mixin class $AddFoodStateCopyWith<$Res> {
+  factory $AddFoodStateCopyWith(AddFoodState value,
+      $Res Function(AddFoodState) _then) = _$AddFoodStateCopyWithImpl;
+
+  @useResult
+  $Res call({
+    PageState status, String? pickedImage, bool isValid
+  });
 
 
-$PageStateCopyWith<$Res> get status;
+  $PageStateCopyWith<dynamic, $Res> get status;
 
 }
+
 /// @nodoc
 class _$AddFoodStateCopyWithImpl<$Res>
     implements $AddFoodStateCopyWith<$Res> {
@@ -61,26 +76,37 @@ class _$AddFoodStateCopyWithImpl<$Res>
   final AddFoodState _self;
   final $Res Function(AddFoodState) _then;
 
-/// Create a copy of AddFoodState
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? status = null,Object? pickedImage = freezed,Object? isValid = null,}) {
-  return _then(_self.copyWith(
-status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
-as PageState,pickedImage: freezed == pickedImage ? _self.pickedImage : pickedImage // ignore: cast_nullable_to_non_nullable
-as String?,isValid: null == isValid ? _self.isValid : isValid // ignore: cast_nullable_to_non_nullable
-as bool,
-  ));
-}
-/// Create a copy of AddFoodState
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$PageStateCopyWith<$Res> get status {
-  
-  return $PageStateCopyWith<$Res>(_self.status, (value) {
-    return _then(_self.copyWith(status: value));
-  });
-}
+  /// Create a copy of AddFoodState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call(
+      {Object? status = null, Object? pickedImage = freezed, Object? isValid = null,}) {
+    return _then(_self.copyWith(
+      status: null == status
+          ? _self.status
+          : status // ignore: cast_nullable_to_non_nullable
+      as PageState,
+      pickedImage: freezed == pickedImage
+          ? _self.pickedImage
+          : pickedImage // ignore: cast_nullable_to_non_nullable
+      as String?,
+      isValid: null == isValid
+          ? _self.isValid
+          : isValid // ignore: cast_nullable_to_non_nullable
+      as bool,
+    ));
+  }
+
+  /// Create a copy of AddFoodState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $PageStateCopyWith<dynamic, $Res> get status {
+    return $PageStateCopyWith<dynamic, $Res>(_self.status, (value) {
+      return _then(_self.copyWith(status: value));
+    });
+  }
 }
 
 
@@ -88,50 +114,66 @@ $PageStateCopyWith<$Res> get status {
 
 
 class _AddFoodState implements AddFoodState {
-  const _AddFoodState({this.status = const PageState.init(), this.pickedImage, this.isValid = false});
-  
-
-@override@JsonKey() final  PageState status;
-@override final  String? pickedImage;
-@override@JsonKey() final  bool isValid;
-
-/// Create a copy of AddFoodState
-/// with the given fields replaced by the non-null parameter values.
-@override @JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-_$AddFoodStateCopyWith<_AddFoodState> get copyWith => __$AddFoodStateCopyWithImpl<_AddFoodState>(this, _$identity);
+  const _AddFoodState({this.status = const PageState
+      .init(), this.pickedImage, this.isValid = false});
 
 
+  @override
+  @JsonKey()
+  final PageState status;
+  @override final String? pickedImage;
+  @override
+  @JsonKey()
+  final bool isValid;
 
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AddFoodState&&(identical(other.status, status) || other.status == status)&&(identical(other.pickedImage, pickedImage) || other.pickedImage == pickedImage)&&(identical(other.isValid, isValid) || other.isValid == isValid));
-}
+  /// Create a copy of AddFoodState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$AddFoodStateCopyWith<_AddFoodState> get copyWith =>
+      __$AddFoodStateCopyWithImpl<_AddFoodState>(this, _$identity);
 
 
-@override
-int get hashCode => Object.hash(runtimeType,status,pickedImage,isValid);
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _AddFoodState &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.pickedImage, pickedImage) ||
+                other.pickedImage == pickedImage) &&
+            (identical(other.isValid, isValid) || other.isValid == isValid));
+  }
 
-@override
-String toString() {
-  return 'AddFoodState(status: $status, pickedImage: $pickedImage, isValid: $isValid)';
-}
+
+  @override
+  int get hashCode => Object.hash(runtimeType, status, pickedImage, isValid);
+
+  @override
+  String toString() {
+    return 'AddFoodState(status: $status, pickedImage: $pickedImage, isValid: $isValid)';
+  }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$AddFoodStateCopyWith<$Res> implements $AddFoodStateCopyWith<$Res> {
-  factory _$AddFoodStateCopyWith(_AddFoodState value, $Res Function(_AddFoodState) _then) = __$AddFoodStateCopyWithImpl;
-@override @useResult
-$Res call({
- PageState status, String? pickedImage, bool isValid
-});
+abstract mixin class _$AddFoodStateCopyWith<$Res>
+    implements $AddFoodStateCopyWith<$Res> {
+  factory _$AddFoodStateCopyWith(_AddFoodState value,
+      $Res Function(_AddFoodState) _then) = __$AddFoodStateCopyWithImpl;
+
+  @override
+  @useResult
+  $Res call({
+    PageState status, String? pickedImage, bool isValid
+  });
 
 
-@override $PageStateCopyWith<$Res> get status;
+  @override $PageStateCopyWith<dynamic, $Res> get status;
 
 }
+
 /// @nodoc
 class __$AddFoodStateCopyWithImpl<$Res>
     implements _$AddFoodStateCopyWith<$Res> {
@@ -140,27 +182,37 @@ class __$AddFoodStateCopyWithImpl<$Res>
   final _AddFoodState _self;
   final $Res Function(_AddFoodState) _then;
 
-/// Create a copy of AddFoodState
-/// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? status = null,Object? pickedImage = freezed,Object? isValid = null,}) {
-  return _then(_AddFoodState(
-status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
-as PageState,pickedImage: freezed == pickedImage ? _self.pickedImage : pickedImage // ignore: cast_nullable_to_non_nullable
-as String?,isValid: null == isValid ? _self.isValid : isValid // ignore: cast_nullable_to_non_nullable
-as bool,
-  ));
-}
+  /// Create a copy of AddFoodState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call(
+      {Object? status = null, Object? pickedImage = freezed, Object? isValid = null,}) {
+    return _then(_AddFoodState(
+      status: null == status
+          ? _self.status
+          : status // ignore: cast_nullable_to_non_nullable
+      as PageState,
+      pickedImage: freezed == pickedImage
+          ? _self.pickedImage
+          : pickedImage // ignore: cast_nullable_to_non_nullable
+      as String?,
+      isValid: null == isValid
+          ? _self.isValid
+          : isValid // ignore: cast_nullable_to_non_nullable
+      as bool,
+    ));
+  }
 
-/// Create a copy of AddFoodState
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$PageStateCopyWith<$Res> get status {
-  
-  return $PageStateCopyWith<$Res>(_self.status, (value) {
-    return _then(_self.copyWith(status: value));
-  });
-}
+  /// Create a copy of AddFoodState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $PageStateCopyWith<dynamic, $Res> get status {
+    return $PageStateCopyWith<dynamic, $Res>(_self.status, (value) {
+      return _then(_self.copyWith(status: value));
+    });
+  }
 }
 
 // dart format on

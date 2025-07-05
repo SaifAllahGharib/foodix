@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:foodix/core/di/dependency_injection.dart';
-import 'package:foodix/core/services/shared_preferences_service.dart';
-import 'package:foodix/core/utils/extensions.dart';
+import 'package:flutter/material.dart';  
+import 'package:foodix/core/di/dependency_injection.dart';  
+import 'package:foodix/core/services/shared_preferences_service.dart';  
+import 'package:foodix/core/utils/extensions.dart';  
 
-import '../styles/app_colors.dart';
+import '../styles/app_colors.dart';  
 
 abstract class LightTheme {
   static TextStyle _textStyle(BuildContext context) => TextStyle(

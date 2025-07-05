@@ -6,17 +6,17 @@ import 'package:foodix/features/home/data/repos/main_seller/main_seller_repo.dar
 import 'package:foodix/features/home/presentation/viewmodel/cubits/main_seller/main_seller_state.dart';
 import 'package:foodix/features/my_restaurant/data/models/restaurant_model.dart';
 
+import '../../../../../../core/services/shared_preferences_service.dart';
 import '../../../../../../core/shared/models/category_model.dart';
 import '../../../../../../core/utils/enums.dart';
-import '../../../../../../core/utils/my_shared_preferences.dart';
 
 class MainSellerCubit extends Cubit<MainSellerState> {
   final MainSellerRepository _mainSellerRepository;
-  final SharedPreferencesService _SharedPreferencesService;
+  final SharedPreferencesService _sharedPreferencesService;
   bool _isEnabled = false;
   StreamSubscription? _categorySubscription;
 
-  MainSellerCubit(this._mainSellerRepository, this._SharedPreferencesService)
+  MainSellerCubit(this._mainSellerRepository, this._sharedPreferencesService)
     : super(MainSellerInit());
 
   @override
@@ -29,9 +29,9 @@ class MainSellerCubit extends Cubit<MainSellerState> {
     emit(MainSellerLoading());
     final result = await _mainSellerRepository.addCategory(category);
 
-    result.fold(
-      (l) => emit(MainSellerFailure(l.errorMsg)),
-      (r) => emit(MainSellerAddCategory()),
+    result.when(
+      failure: (l) => emit(MainSellerFailure(l.message!)),
+      success: (r) => emit(MainSellerAddCategory()),
     );
   }
 
@@ -43,16 +43,19 @@ class MainSellerCubit extends Cubit<MainSellerState> {
       result,
     ) {
       if (isClosed) return;
-      result.fold((l) => emit(MainSellerFailure(l.errorMsg)), (snapshot) {
-        List<CategoryModel> categoryList = [];
-        if (snapshot.exists) {
-          final Map categories = snapshot.value as Map;
-          categoryList = categories.entries
-              .map((e) => CategoryModel.fromJson(e.value as Map))
-              .toList();
-        }
-        emit(MainSellerGetCategory(categoryList));
-      });
+      result.when(
+        failure: (l) => emit(MainSellerFailure(l.message!)),
+        success: (snapshot) {
+          List<CategoryModel> categoryList = [];
+          if (snapshot.exists) {
+            final Map categories = snapshot.value as Map;
+            categoryList = categories.entries
+                .map((e) => CategoryModel.fromJson(e.value as Map))
+                .toList();
+          }
+          emit(MainSellerGetCategory(categoryList));
+        },
+      );
     });
   }
 
@@ -60,9 +63,9 @@ class MainSellerCubit extends Cubit<MainSellerState> {
     final result = await _mainSellerRepository.getMyRestaurant();
 
     if (isClosed) return;
-    result.fold(
-      (l) => emit(MainSellerFailure(l.errorMsg)),
-      (restaurant) => emit(
+    result.when(
+      failure: (l) => emit(MainSellerFailure(l.message!)),
+      success: (restaurant) => emit(
         MainSellerGetMyRestaurant(
           RestaurantModel.fromJson(restaurant?.value as Map? ?? {}),
         ),
@@ -73,23 +76,23 @@ class MainSellerCubit extends Cubit<MainSellerState> {
   Future<bool> storeRestaurantInLocalDB(RestaurantModel restaurant) async {
     try {
       await Future.wait([
-        _SharedPreferencesService.storeString(
+        _sharedPreferencesService.storeString(
           RestaurantInfoParams.restaurantName.toString(),
           restaurant.name!,
         ),
-        _SharedPreferencesService.storeString(
+        _sharedPreferencesService.storeString(
           RestaurantInfoParams.deliveryTime.toString(),
           restaurant.deliveryTime.toString(),
         ),
-        _SharedPreferencesService.storeString(
+        _sharedPreferencesService.storeString(
           RestaurantInfoParams.deliveryCost.toString(),
           restaurant.deliveryCost.toString(),
         ),
-        _SharedPreferencesService.storeString(
+        _sharedPreferencesService.storeString(
           RestaurantInfoParams.openTime.toString(),
           restaurant.openTime!,
         ),
-        _SharedPreferencesService.storeString(
+        _sharedPreferencesService.storeString(
           RestaurantInfoParams.closeTime.toString(),
           restaurant.closeTime!,
         ),

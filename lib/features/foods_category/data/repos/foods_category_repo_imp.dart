@@ -1,7 +1,9 @@
- 
-import 'package:firebase_database/firebase_database.dart';ed/models/food_model.dart';
+import 'package:failure_handler/failure_handler.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 import '../../../../core/services/db_services.dart';
+import '../../../../core/shared/models/food_model.dart';
+import '../../../../core/utils/result.dart';
 import 'foods_category_repo.dart';
 
 class FoodsCategoryRepositoryImp implements FoodsCategoryRepository {
@@ -10,43 +12,37 @@ class FoodsCategoryRepositoryImp implements FoodsCategoryRepository {
   FoodsCategoryRepositoryImp(this._dbServices);
 
   @override
-  Stream<Either<Failure, DataSnapshot>> getFoodsCategory(String categoryId) {
+  Stream<Result<AppFailure, DataSnapshot>> getFoodsCategory(String categoryId) {
     return _dbServices.getFoodsCategory(categoryId).map((snapshot) {
       try {
-        return right(snapshot);
+        return Success(snapshot);
       } catch (e) {
-        return left(
-          FirebaseDBFailure(e is FirebaseDBFailure ? e.errorMsg : e.toString()),
-        );
+        return Failure(ErrorHandler.handle(e));
       }
     });
   }
 
   @override
-  Future<Either<Failure, void>> deleteFood(
+  Future<Result<AppFailure, void>> deleteFood(
     String categoryId,
     String foodId,
   ) async {
     try {
-      return right(await _dbServices.deleteFood(categoryId, foodId));
+      return Success(await _dbServices.deleteFood(categoryId, foodId));
     } catch (e) {
-      return left(
-        FirebaseDBFailure(e is FirebaseDBFailure ? e.errorMsg : e.toString()),
-      );
+      return Failure(ErrorHandler.handle(e));
     }
   }
 
   @override
-  Future<Either<Failure, void>> updateFood(
+  Future<Result<AppFailure, void>> updateFood(
     String categoryId,
     FoodModel food,
   ) async {
     try {
-      return right(await _dbServices.updateFood(categoryId, food));
+      return Success(await _dbServices.updateFood(categoryId, food));
     } catch (e) {
-      return left(
-        FirebaseDBFailure(e is FirebaseDBFailure ? e.errorMsg : e.toString()),
-      );
+      return Failure(ErrorHandler.handle(e));
     }
   }
 }

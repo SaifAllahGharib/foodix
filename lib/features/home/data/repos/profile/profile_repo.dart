@@ -1,5 +1,9 @@
-abstract class ProfileRepository {
-  Future<Either<Failure, void>> signOut();
+import 'package:failure_handler/failure_handler.dart';
 
-  Future<Either<Failure, void>> updateName(String name);
+import '../../../../../core/utils/result.dart';
+
+abstract class ProfileRepository {
+  Future<Result<AppFailure, void>> signOut();
+
+  Future<Result<AppFailure, void>> updateName(String name);
 }

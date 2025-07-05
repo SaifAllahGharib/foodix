@@ -1,6 +1,6 @@
-import 'package:foodix/features/my_restaurant/data/models/restaurant_model.dart';
+import 'package:foodix/features/my_restaurant/data/models/restaurant_model.dart';  
 
-import '../../../../../../core/shared/models/category_model.dart';
+import '../../../../../../core/shared/models/category_model.dart';  
 
 abstract class MainSellerState {}
 

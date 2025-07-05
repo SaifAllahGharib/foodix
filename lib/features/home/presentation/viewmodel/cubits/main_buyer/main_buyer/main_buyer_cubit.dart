@@ -15,11 +15,11 @@ class MainBuyerCubit extends Cubit<MainBuyerState> {
 
     if (isClosed) return;
 
-    result.fold(
-      (failure) {
-        if (!isClosed) emit(MainBuyerFailure(failure.errorMsg));
+    result.when(
+      failure: (failure) {
+        if (!isClosed) emit(MainBuyerFailure(failure.message!));
       },
-      (snapshot) {
+      success: (snapshot) {
         if (!isClosed) {
           final data = snapshot.value as Map<dynamic, dynamic>;
           emit(MainBuyerSuccess(RestaurantModel.fromJsonMap(data)));

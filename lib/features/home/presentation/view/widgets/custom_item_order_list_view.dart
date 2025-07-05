@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodix/core/styles/app_colors.dart';
+import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/features/home/presentation/view/widgets/bottom_section_custom_item_order_list_view.dart';
 import 'package:foodix/features/home/presentation/view/widgets/top_section_custom_item_order_list_view.dart';
 

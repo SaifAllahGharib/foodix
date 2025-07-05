@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodix/core/styles/app_colors.dart';
+import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/widgets/custom_cost_delivery.dart';
 import 'package:foodix/core/widgets/custom_delivery_time_widget.dart';
 import 'package:foodix/core/widgets/custom_dot_widget.dart';

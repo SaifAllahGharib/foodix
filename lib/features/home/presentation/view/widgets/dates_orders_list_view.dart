@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/features/home/presentation/view/widgets/custom_item_dates_orders_list_view.dart';
 
 class DatesOrdersListView extends StatelessWidget {
@@ -15,7 +15,7 @@ class DatesOrdersListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: Dimensions.height80 * 0.6,
+      height: context.responsive.height80 * 0.6,
       child: ListView.builder(
         padding: EdgeInsets.zero,
         itemCount: list.length,

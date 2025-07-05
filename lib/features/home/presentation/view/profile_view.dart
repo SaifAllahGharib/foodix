@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodix/core/di/dependency_injection.dart';
+import 'package:foodix/core/routing/app_route_name.dart';
 import 'package:foodix/core/styles/app_colors.dart';
 import 'package:foodix/core/utils/extensions.dart';
-import 'package:foodix/core/utils/my_shared_preferences.dart';
 import 'package:foodix/core/utils/roles.dart';
 import 'package:foodix/core/widgets/loading.dart';
 import 'package:foodix/features/home/presentation/view/widgets/change_language_widget.dart';
@@ -14,6 +14,8 @@ import 'package:foodix/features/home/presentation/viewmodel/cubits/home/home_cub
 import 'package:foodix/features/home/presentation/viewmodel/cubits/profile/profile_cubit.dart';
 import 'package:foodix/features/home/presentation/viewmodel/cubits/profile/profile_state.dart';
 
+import '../../../../core/services/shared_preferences_service.dart';
+import '../../../../core/shared/functions/snack_bar.dart';
 import '../../../../core/shared/models/user_model.dart';
 
 class ProfileView extends StatefulWidget {
@@ -71,7 +73,10 @@ class _ProfileViewState extends State<ProfileView> {
       text: context.tr.success,
       color: AppColors.primary,
     );
-    context.navigator.go("/");
+    context.navigator.pushNamedAndRemoveUntil(
+      AppRouteName.login,
+      (route) => false,
+    );
   }
 
   void _updateNameSuccess(state) {
@@ -98,10 +103,10 @@ class _ProfileViewState extends State<ProfileView> {
   void _handleRoleNavigation(BuildContext context) {
     switch (_userRole) {
       case Seller():
-        _userRole.navigate(context);
+        _userRole.executeAction(context);
         break;
       case Buyer():
-        _userRole.navigate(context);
+        _userRole.executeAction(context);
       case null:
         snackBar(context: context, text: "User Role is NULL");
         break;

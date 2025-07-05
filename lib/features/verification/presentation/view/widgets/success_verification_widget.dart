@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';  
+import 'package:foodix/core/utils/extensions.dart';  
 
 class SuccessVerificationWidget extends StatefulWidget {
   const SuccessVerificationWidget({super.key});
@@ -12,7 +13,7 @@ class _SuccessVerificationWidgetState extends State<SuccessVerificationWidget> {
   Widget build(BuildContext context) {
     return Center(
       child: TweenAnimationBuilder<double>(
-        tween: Tween<double>(begin: 0, end: Dimensions.height130),
+        tween: Tween<double>(begin: 0, end: context.responsive.height130),
         duration: const Duration(seconds: 1),
         curve: Curves.easeOutBack,
         builder: (context, size, child) {

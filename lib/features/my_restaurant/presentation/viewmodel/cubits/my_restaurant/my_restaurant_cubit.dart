@@ -1,51 +1,56 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodix/core/utils/my_shared_preferences.dart';
-import 'package:foodix/features/my_restaurant/data/models/restaurant_model.dart';
-import 'package:foodix/features/my_restaurant/data/repos/my_restaurant_repo.dart';
+import 'package:flutter/material.dart';  
+import 'package:flutter_bloc/flutter_bloc.dart';  
+import 'package:foodix/core/shared/page_state.dart';  
+import 'package:foodix/features/my_restaurant/data/models/restaurant_model.dart';  
+import 'package:foodix/features/my_restaurant/data/repos/my_restaurant_repo.dart';  
 
-import '../../../../../../core/utils/enums.dart';
-import 'my_restaurant_state.dart';
+import '../../../../../../core/services/shared_preferences_service.dart';  
+import '../../../../../../core/utils/enums.dart';  
+import 'my_restaurant_state.dart';  
 
 class MyRestaurantCubit extends Cubit<MyRestaurantState> {
   final MyRestaurantRepository _myRestaurantRepository;
-  final SharedPreferencesService _SharedPreferencesService;
+  final SharedPreferencesService _sharedPreferencesService;
   bool _isValid = false;
 
   MyRestaurantCubit(
     this._myRestaurantRepository,
-    this._SharedPreferencesService,
-  ) : super(MyRestaurantInit());
+    this._sharedPreferencesService,
+  ) : super(const MyRestaurantState());
 
   Future<void> createRestaurant(RestaurantModel restaurant) async {
-    emit(MyRestaurantLoading());
+    emit(state.copyWith(status: const PageState.loading()));
     final result = await _myRestaurantRepository.createRestaurant(restaurant);
 
-    result.fold((failure) => emit(MyRestaurantFailure(failure.errorMsg)), (_) {
-      _saveRestaurant(restaurant);
-      emit(MyRestaurantCreated(restaurant));
-    });
+    result.when(
+      failure: (failure) =>
+          emit(state.copyWith(status: PageState.failure(failure.message!))),
+      success: (_) {
+        _saveRestaurant(restaurant);
+        emit(state.copyWith(status: PageState.success(restaurant)));
+      },
+    );
   }
 
   void _saveRestaurant(RestaurantModel restaurantModel) async {
     await Future.wait([
-      _SharedPreferencesService.storeString(
+      _sharedPreferencesService.storeString(
         RestaurantInfoParams.restaurantName.toString(),
         restaurantModel.name!,
       ),
-      _SharedPreferencesService.storeString(
+      _sharedPreferencesService.storeString(
         RestaurantInfoParams.deliveryTime.toString(),
         restaurantModel.deliveryTime.toString(),
       ),
-      _SharedPreferencesService.storeString(
+      _sharedPreferencesService.storeString(
         RestaurantInfoParams.deliveryCost.toString(),
         restaurantModel.deliveryCost.toString(),
       ),
-      _SharedPreferencesService.storeString(
+      _sharedPreferencesService.storeString(
         RestaurantInfoParams.openTime.toString(),
         restaurantModel.openTime!,
       ),
-      _SharedPreferencesService.storeString(
+      _sharedPreferencesService.storeString(
         RestaurantInfoParams.closeTime.toString(),
         restaurantModel.closeTime!,
       ),
@@ -53,60 +58,65 @@ class MyRestaurantCubit extends Cubit<MyRestaurantState> {
   }
 
   Future<void> updateRestaurantName(String name) async {
-    emit(MyRestaurantLoading());
+    emit(state.copyWith(status: const PageState.loading()));
     final result = await _myRestaurantRepository.updateRestaurantName(name);
 
-    result.fold(
-      (failure) => emit(MyRestaurantFailure(failure.errorMsg)),
-      (_) => emit(MyRestaurantNameUpdated()),
+    result.when(
+      failure: (failure) =>
+          emit(state.copyWith(status: PageState.failure(failure.message!))),
+      success: (_) => emit(state.copyWith(nameUpdated: true)),
     );
   }
 
   Future<void> updateRestaurantTimeDelivery(int time) async {
-    emit(MyRestaurantLoading());
+    emit(state.copyWith(status: const PageState.loading()));
     final result = await _myRestaurantRepository.updateRestaurantTimeDelivery(
       time,
     );
 
-    result.fold(
-      (failure) => emit(MyRestaurantFailure(failure.errorMsg)),
-      (_) => emit(MyRestaurantTimeDeliveryUpdated()),
+    result.when(
+      failure: (failure) =>
+          emit(state.copyWith(status: PageState.failure(failure.message!))),
+      success: (_) => emit(state.copyWith(timeDeliveryUpdated: true)),
     );
   }
 
   Future<void> updateRestaurantCostDelivery(int cost) async {
-    emit(MyRestaurantLoading());
+    emit(state.copyWith(status: const PageState.loading()));
     final result = await _myRestaurantRepository.updateRestaurantCostDelivery(
       cost,
     );
 
-    result.fold(
-      (failure) => emit(MyRestaurantFailure(failure.errorMsg)),
-      (_) => emit(MyRestaurantCostDeliveryUpdated()),
+    result.when(
+      failure: (failure) =>
+          emit(state.copyWith(status: PageState.failure(failure.message!))),
+      success: (_) => emit(state.copyWith(costDeliveryUpdated: true)),
     );
   }
 
   Future<void> updateRestaurantOpenTime(String openTime) async {
-    emit(MyRestaurantLoading());
+    emit(state.copyWith(status: const PageState.loading()));
     final result = await _myRestaurantRepository.updateRestaurantOpenTime(
       openTime,
     );
 
-    result.fold(
-      (failure) => emit(MyRestaurantFailure(failure.errorMsg)),
-      (_) => emit(MyRestaurantOpenTimeUpdated()),
+    result.when(
+      failure: (failure) =>
+          emit(state.copyWith(status: PageState.failure(failure.message!))),
+      success: (_) => emit(state.copyWith(openTimeUpdated: true)),
     );
   }
 
   Future<void> updateRestaurantCloseTime(String closeTime) async {
-    emit(MyRestaurantLoading());
+    emit(state.copyWith(status: const PageState.loading()));
     final result = await _myRestaurantRepository.updateRestaurantCloseTime(
       closeTime,
     );
 
-    result.fold(
-      (failure) => emit(MyRestaurantFailure(failure.errorMsg)),
-      (_) => emit(MyRestaurantCloseTimeUpdated()),
+    result.when(
+      failure: (failure) =>
+          emit(state.copyWith(status: PageState.failure(failure.message!))),
+      success: (_) => emit(state.copyWith(closeTimeUpdated: true)),
     );
   }
 
@@ -142,19 +152,17 @@ class MyRestaurantCubit extends Cubit<MyRestaurantState> {
 
     _isValid = allFieldsFilled && hasValidTimes && isValidTimeRange;
 
-    emit(MyRestaurantValidationFields());
+    emit(state.copyWith(isValidate: _isValid));
   }
 
   void validateUpdateField(TextEditingController controller) {
     _isValid = controller.text.isNotEmpty;
 
-    emit(MyRestaurantValidationFields());
+    emit(state.copyWith(isValidate: _isValid));
   }
 
   void resetValidation() {
     _isValid = false;
-    emit(MyRestaurantValidationFields());
+    emit(state.copyWith(isValidate: _isValid));
   }
-
-  bool get isValid => _isValid;
 }

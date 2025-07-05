@@ -2,17 +2,19 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodix/core/services/firebase_service.dart';
-import 'package:foodix/core/styles/app_colors.dart';
-import 'package:foodix/core/utils/app_assets.dart';art';
-
+import 'package:foodix/core/di/dependency_injection.dart';
+import 'package:foodix/core/routing/app_route_name.dart';
+import 'package:foodix/core/utils/app_assets.dart';
 import 'package:foodix/core/utils/extensions.dart';
-
 import 'package:foodix/core/widgets/app_button.dart';
-import 'package:foodix/features/home/presentation/view/home_view.dart';
 import 'package:foodix/features/verification/presentation/view/widgets/success_verification_widget.dart';
 import 'package:foodix/features/verification/presentation/viewmodel/cubits/verification/verification_cubit.dart';
 import 'package:foodix/features/verification/presentation/viewmodel/cubits/verification/verification_state.dart';
+
+import '../../../../../core/services/firebase_service.dart';
+import '../../../../../core/shared/functions/snack_bar.dart';
+import '../../../../../core/shared/page_state.dart';
+import '../../../../../core/styles/app_colors.dart';
 
 class VerificationViewBody extends StatefulWidget {
   final String email;
@@ -30,7 +32,7 @@ class _VerificationViewBodyState extends State<VerificationViewBody> {
 
   @override
   void initState() {
-    _firebaseService = FirebaseService();
+    _firebaseService = getIt<FirebaseService>();
     _verificationController = StreamController.broadcast();
     _sendEmailVerification(context);
     _startVerificationListener(context);
@@ -46,20 +48,25 @@ class _VerificationViewBodyState extends State<VerificationViewBody> {
 
   void _pushToHomeView() async {
     await Future.delayed(const Duration(seconds: 2));
-    context.navigator.go(HomeView.id);
+    context.navigator.pushNamedAndRemoveUntil(
+      AppRouteName.home,
+      (route) => false,
+    );
   }
 
-  void _handelState(BuildContext context, state) async {
-    if (state is VerificationIsEmailVerificationSend) {
+  void _handleState(BuildContext context, VerificationState state) async {
+    final status = state.status;
+    if (status is PageSuccess<bool>) {
       snackBar(
         context: context,
         text: context.tr.sendToEmailSuccess,
         color: AppColors.primary,
       );
-    } else if (state is VerificationSuccess) {
-      _pushToHomeView();
-    } else if (state is VerificationFailure) {
-      snackBar(context: context, text: "Error: ${state.errorMsg}");
+      if (status.data!) {
+        _pushToHomeView();
+      }
+    } else if (status is PageFailure<bool>) {
+      snackBar(context: context, text: "Error: ${status.message}");
     }
   }
 
@@ -86,7 +93,7 @@ class _VerificationViewBodyState extends State<VerificationViewBody> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<VerificationCubit, VerificationState>(
-      listener: (context, state) => _handelState(context, state),
+      listener: (context, state) => _handleState(context, state),
       builder: (context, state) {
         return StreamBuilder<bool>(
           stream: _verificationController.stream,
@@ -107,18 +114,18 @@ class _VerificationViewBodyState extends State<VerificationViewBody> {
                       crossAxisAlignment: WrapCrossAlignment.center,
                       alignment: WrapAlignment.center,
                       runAlignment: WrapAlignment.center,
-                      spacing: Dimensions.width20,
+                      spacing: context.responsive.width20,
                       runSpacing: context.responsive.height3,
                       children: [
                         Text(
                           context.tr.sendLinkVerificationYourEmailTo,
-                          style: AppStyles.textStyle16(context),
+                          style: context.textStyle.s16W500,
                         ),
                         Text(
                           widget.email,
-                          style: AppStyles.textStyle12(
-                            context,
-                          ).copyWith(color: AppColors.primary),
+                          style: context.textStyle.s12W400.copyWith(
+                            color: AppColors.primary,
+                          ),
                         ),
                       ],
                     ),
@@ -126,10 +133,10 @@ class _VerificationViewBodyState extends State<VerificationViewBody> {
                     Image.asset(AppAssets.verify),
                     const Spacer(),
                     AppButton(
-                      text: context.read<VerificationCubit>().time != 0
-                          ? "${context.read<VerificationCubit>().time}s"
+                      text: state.time != 0
+                          ? "${state.time}s"
                           : context.tr.resendEmail,
-                      isEnabled: context.read<VerificationCubit>().canSend,
+                      isEnabled: state.canSend,
                       onClick: () => _sendEmailVerification(context),
                     ),
                     context.responsive.height30.verticalSpace,

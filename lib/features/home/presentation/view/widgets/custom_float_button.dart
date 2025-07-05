@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodix/core/styles/app_colors.dart';
+import 'package:foodix/core/utils/extensions.dart';
+
+import '../../../../../core/shared/functions/current_locale_is_arabic.dart';
 
 class CustomFloatButton extends StatelessWidget {
   final void Function() onClick;
@@ -18,13 +20,13 @@ class CustomFloatButton extends StatelessWidget {
           color: AppColors.primary,
           borderRadius: BorderRadius.circular(5000),
         ),
-        padding: EdgeInsets.all(context.responsive.width10),
+        padding: EdgeInsets.all(context.responsive.padding10),
         child: IconButton(
           onPressed: onClick,
           enableFeedback: false,
           icon: Icon(
             Icons.add,
-            size: Dimensions.screenWidth * 0.070,
+            size: context.responsive.screenWidth * 0.070,
             color: Colors.white,
           ),
         ),

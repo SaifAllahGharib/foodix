@@ -8,8 +8,6 @@ import '../../../../core/di/dependency_injection.dart';
 import 'widgets/foods_category_view_body.dart';
 
 class FoodsCategoryView extends StatelessWidget {
-  static const String id = "/category_foods_view";
-
   const FoodsCategoryView({super.key});
 
   @override
@@ -18,9 +16,7 @@ class FoodsCategoryView extends StatelessWidget {
       body: BlocProvider(
         create: (context) =>
             FoodsCategoryCubit(getIt<FoodsCategoryRepositoryImp>()),
-        child: FoodsCategoryViewBody(
-          categoryId: context.goRouterState.extra as String,
-        ),
+        child: FoodsCategoryViewBody(categoryId: context.arguments as String),
       ),
     );
   }

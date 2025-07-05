@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:foodix/core/utils/AppStyles.dart';
-import 'package:foodix/core/utils/extensionom_details_order_name_image.dart';
+import 'package:foodix/core/routing/app_route_name.dart';
+import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/widgets/custom_row_cost.dart';
-import 'package:foodix/features/details_order/presentation/view/details_order_view.dart';
+
+import '../../../../../core/widgets/custom_details_order_name_image.dart';
 
 class BottomSectionCustomItemOrderListView extends StatelessWidget {
   const BottomSectionCustomItemOrderListView({super.key});
@@ -11,9 +12,9 @@ class BottomSectionCustomItemOrderListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-        top: context.responsive.height20,
-        right: context.responsive.height15,
-        bottom: context.responsive.height20,
+        top: context.responsive.padding20,
+        right: context.responsive.padding15,
+        bottom: context.responsive.padding20,
         left: context.responsive.height15,
       ),
       child: Column(
@@ -24,7 +25,7 @@ class BottomSectionCustomItemOrderListView extends StatelessWidget {
           const CustomRowCost(egp: 280),
           SizedBox(height: context.responsive.height3),
           InkWell(
-            onTap: () => context.navigator.push(DetailsOrderView.id),
+            onTap: () => context.navigator.pushNamed(AppRouteName.detailsOrder),
             hoverColor: Colors.transparent,
             splashColor: Colors.transparent,
             enableFeedback: false,

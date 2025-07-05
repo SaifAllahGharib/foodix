@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:foodix/core/di/dependency_injection.dart';
+import 'package:foodix/core/utils/roles.dart';
 import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -26,6 +28,24 @@ class SharedPreferencesService {
       await setLanguageCode(deviceLocale.languageCode);
     }
   }
+
+  Future<void> storeUser(Map<String, dynamic> user) async {
+    for (var entry in user.entries) {
+      await storeString(entry.key, entry.value.toString());
+    }
+  }
+
+  String? getIdUser() => getString("uid");
+
+  String? getNameUser() => getString('name');
+
+  String? getEmailUser() => getString('email');
+
+  String? getPhoneUser() => getString('phone');
+
+  UserRole? getRoleUser() => getString('role') == getIt<Seller>().toString()
+      ? getIt<Seller>()
+      : getIt<Buyer>();
 
   Future<bool> storeString(String key, String value) async {
     return await _safeWrite(

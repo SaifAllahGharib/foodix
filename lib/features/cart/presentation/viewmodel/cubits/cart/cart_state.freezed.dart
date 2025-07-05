@@ -12,47 +12,59 @@ part of 'cart_state.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
+
 /// @nodoc
 mixin _$CartState {
 
- PageState get status; Map<int, int> get countMap;
-/// Create a copy of CartState
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$CartStateCopyWith<CartState> get copyWith => _$CartStateCopyWithImpl<CartState>(this as CartState, _$identity);
+  PageState get status;
+
+  Map<int, int> get countMap;
+
+  /// Create a copy of CartState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $CartStateCopyWith<CartState> get copyWith =>
+      _$CartStateCopyWithImpl<CartState>(this as CartState, _$identity);
 
 
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is CartState &&
+            (identical(other.status, status) || other.status == status) &&
+            const DeepCollectionEquality().equals(other.countMap, countMap));
+  }
 
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CartState&&(identical(other.status, status) || other.status == status)&&const DeepCollectionEquality().equals(other.countMap, countMap));
-}
 
+  @override
+  int get hashCode =>
+      Object.hash(
+      runtimeType, status, const DeepCollectionEquality().hash(countMap));
 
-@override
-int get hashCode => Object.hash(runtimeType,status,const DeepCollectionEquality().hash(countMap));
-
-@override
-String toString() {
-  return 'CartState(status: $status, countMap: $countMap)';
-}
+  @override
+  String toString() {
+    return 'CartState(status: $status, countMap: $countMap)';
+  }
 
 
 }
 
 /// @nodoc
-abstract mixin class $CartStateCopyWith<$Res>  {
-  factory $CartStateCopyWith(CartState value, $Res Function(CartState) _then) = _$CartStateCopyWithImpl;
-@useResult
-$Res call({
- PageState status, Map<int, int> countMap
-});
+abstract mixin class $CartStateCopyWith<$Res> {
+  factory $CartStateCopyWith(CartState value,
+      $Res Function(CartState) _then) = _$CartStateCopyWithImpl;
+
+  @useResult
+  $Res call({
+    PageState status, Map<int, int> countMap
+  });
 
 
-$PageStateCopyWith<$Res> get status;
+  $PageStateCopyWith<dynamic, $Res> get status;
 
 }
+
 /// @nodoc
 class _$CartStateCopyWithImpl<$Res>
     implements $CartStateCopyWith<$Res> {
@@ -61,25 +73,32 @@ class _$CartStateCopyWithImpl<$Res>
   final CartState _self;
   final $Res Function(CartState) _then;
 
-/// Create a copy of CartState
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? status = null,Object? countMap = null,}) {
-  return _then(_self.copyWith(
-status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
-as PageState,countMap: null == countMap ? _self.countMap : countMap // ignore: cast_nullable_to_non_nullable
-as Map<int, int>,
-  ));
-}
-/// Create a copy of CartState
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$PageStateCopyWith<$Res> get status {
-  
-  return $PageStateCopyWith<$Res>(_self.status, (value) {
-    return _then(_self.copyWith(status: value));
-  });
-}
+  /// Create a copy of CartState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? status = null, Object? countMap = null,}) {
+    return _then(_self.copyWith(
+      status: null == status
+          ? _self.status
+          : status // ignore: cast_nullable_to_non_nullable
+      as PageState,
+      countMap: null == countMap
+          ? _self.countMap
+          : countMap // ignore: cast_nullable_to_non_nullable
+      as Map<int, int>,
+    ));
+  }
+
+  /// Create a copy of CartState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $PageStateCopyWith<dynamic, $Res> get status {
+    return $PageStateCopyWith<dynamic, $Res>(_self.status, (value) {
+      return _then(_self.copyWith(status: value));
+    });
+  }
 }
 
 
@@ -87,55 +106,72 @@ $PageStateCopyWith<$Res> get status {
 
 
 class _CartState implements CartState {
-  const _CartState({this.status = const PageState.init(), final  Map<int, int> countMap = const {}}): _countMap = countMap;
-  
-
-@override@JsonKey() final  PageState status;
- final  Map<int, int> _countMap;
-@override@JsonKey() Map<int, int> get countMap {
-  if (_countMap is EqualUnmodifiableMapView) return _countMap;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableMapView(_countMap);
-}
+  const _CartState({this.status = const PageState.init(), final Map<int,
+      int> countMap = const {}}) : _countMap = countMap;
 
 
-/// Create a copy of CartState
-/// with the given fields replaced by the non-null parameter values.
-@override @JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-_$CartStateCopyWith<_CartState> get copyWith => __$CartStateCopyWithImpl<_CartState>(this, _$identity);
+  @override
+  @JsonKey()
+  final PageState status;
+  final Map<int, int> _countMap;
+
+  @override
+  @JsonKey()
+  Map<int, int> get countMap {
+    if (_countMap is EqualUnmodifiableMapView) return _countMap;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_countMap);
+  }
 
 
+  /// Create a copy of CartState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$CartStateCopyWith<_CartState> get copyWith =>
+      __$CartStateCopyWithImpl<_CartState>(this, _$identity);
 
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CartState&&(identical(other.status, status) || other.status == status)&&const DeepCollectionEquality().equals(other._countMap, _countMap));
-}
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _CartState &&
+            (identical(other.status, status) || other.status == status) &&
+            const DeepCollectionEquality().equals(other._countMap, _countMap));
+  }
 
 
-@override
-int get hashCode => Object.hash(runtimeType,status,const DeepCollectionEquality().hash(_countMap));
+  @override
+  int get hashCode =>
+      Object.hash(
+      runtimeType, status, const DeepCollectionEquality().hash(_countMap));
 
-@override
-String toString() {
-  return 'CartState(status: $status, countMap: $countMap)';
-}
+  @override
+  String toString() {
+    return 'CartState(status: $status, countMap: $countMap)';
+  }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$CartStateCopyWith<$Res> implements $CartStateCopyWith<$Res> {
-  factory _$CartStateCopyWith(_CartState value, $Res Function(_CartState) _then) = __$CartStateCopyWithImpl;
-@override @useResult
-$Res call({
- PageState status, Map<int, int> countMap
-});
+abstract mixin class _$CartStateCopyWith<$Res>
+    implements $CartStateCopyWith<$Res> {
+  factory _$CartStateCopyWith(_CartState value,
+      $Res Function(_CartState) _then) = __$CartStateCopyWithImpl;
+
+  @override
+  @useResult
+  $Res call({
+    PageState status, Map<int, int> countMap
+  });
 
 
-@override $PageStateCopyWith<$Res> get status;
+  @override $PageStateCopyWith<dynamic, $Res> get status;
 
 }
+
 /// @nodoc
 class __$CartStateCopyWithImpl<$Res>
     implements _$CartStateCopyWith<$Res> {
@@ -144,26 +180,32 @@ class __$CartStateCopyWithImpl<$Res>
   final _CartState _self;
   final $Res Function(_CartState) _then;
 
-/// Create a copy of CartState
-/// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? status = null,Object? countMap = null,}) {
-  return _then(_CartState(
-status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
-as PageState,countMap: null == countMap ? _self._countMap : countMap // ignore: cast_nullable_to_non_nullable
-as Map<int, int>,
-  ));
-}
+  /// Create a copy of CartState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({Object? status = null, Object? countMap = null,}) {
+    return _then(_CartState(
+      status: null == status
+          ? _self.status
+          : status // ignore: cast_nullable_to_non_nullable
+      as PageState,
+      countMap: null == countMap
+          ? _self._countMap
+          : countMap // ignore: cast_nullable_to_non_nullable
+      as Map<int, int>,
+    ));
+  }
 
-/// Create a copy of CartState
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$PageStateCopyWith<$Res> get status {
-  
-  return $PageStateCopyWith<$Res>(_self.status, (value) {
-    return _then(_self.copyWith(status: value));
-  });
-}
+  /// Create a copy of CartState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $PageStateCopyWith<dynamic, $Res> get status {
+    return $PageStateCopyWith<dynamic, $Res>(_self.status, (value) {
+      return _then(_self.copyWith(status: value));
+    });
+  }
 }
 
 // dart format on

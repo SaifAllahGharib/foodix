@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodix/core/styles/app_colors.dart';
+import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/features/home/presentation/viewmodel/cubits/home/home_cubit.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {
@@ -19,9 +20,9 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(Dimensions.height12 * 0.7),
-      margin: EdgeInsets.all(context.responsive.height20),
-      height: Dimensions.height45 * 1.4,
+      padding: EdgeInsets.all(context.responsive.padding12 * 0.7),
+      margin: EdgeInsets.all(context.responsive.padding20),
+      height: context.responsive.height45 * 1.4,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(context.responsive.radius20 * 1.2),
@@ -67,7 +68,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
           duration: const Duration(milliseconds: 300),
           curve: Curves.easeInOut,
           height: context.responsive.width10 * 0.8,
-          width: isSelected ? Dimensions.screenWidth * 0.055 : 0,
+          width: isSelected ? context.responsive.screenWidth * 0.055 : 0,
           decoration: BoxDecoration(
             color: isSelected ? AppColors.primary : Colors.transparent,
             borderRadius: BorderRadius.circular(context.responsive.radius10),
@@ -77,7 +78,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
         Icon(
           iconData[index],
           color: isSelected ? AppColors.primary : AppColors.gray,
-          size: Dimensions.screenWidth * 0.055,
+          size: context.responsive.screenWidth * 0.055,
         ),
       ],
     );

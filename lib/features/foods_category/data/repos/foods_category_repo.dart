@@ -1,12 +1,15 @@
+import 'package:failure_handler/failure_handler.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:foodix/core/shared/models/food_model.dart';
-
-import '../../../../core/errors/failure.dart';
+import 'package:foodix/core/utils/result.dart';
 
 abstract class FoodsCategoryRepository {
-  Stream<Either<Failure, DataSnapshot>> getFoodsCategory(String categoryId);
+  Stream<Result<AppFailure, DataSnapshot>> getFoodsCategory(String categoryId);
 
-  Future<Either<Failure, void>> updateFood(String categoryId, FoodModel food);
+  Future<Result<AppFailure, void>> updateFood(
+    String categoryId,
+    FoodModel food,
+  );
 
-  Future<Either<Failure, void>> deleteFood(String categoryId, String foodId);
+  Future<Result<AppFailure, void>> deleteFood(String categoryId, String foodId);
 }

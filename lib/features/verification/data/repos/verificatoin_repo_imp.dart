@@ -1,5 +1,8 @@
- ices/auth_services.dart';
+import 'package:failure_handler/failure_handler.dart';
 import 'package:foodix/features/verification/data/repos/verificarion_repo.dart';
+
+import '../../../../core/services/auth_services.dart';
+import '../../../../core/utils/result.dart';
 
 class VerificationRepositoryImp extends VerificationRepository {
   final AuthServices _authServices;
@@ -7,20 +10,20 @@ class VerificationRepositoryImp extends VerificationRepository {
   VerificationRepositoryImp(this._authServices);
 
   @override
-  Future<Either<Failure, void>> sendEmailVerification() async {
+  Future<Result<AppFailure, void>> sendEmailVerification() async {
     try {
-      return right(await _authServices.sendEmailVerification());
+      return Success(await _authServices.sendEmailVerification());
     } catch (e) {
-      return left(FirebaseFailure(e.toString()));
+      return Failure(ErrorHandler.handle(e));
     }
   }
 
   @override
-  Future<Either<Failure, bool>> isEmailVerified() async {
+  Future<Result<AppFailure, bool>> isEmailVerified() async {
     try {
-      return right(await _authServices.isEmailVerified());
+      return Success(await _authServices.isEmailVerified());
     } catch (e) {
-      return left(FirebaseFailure(e.toString()));
+      return Failure(ErrorHandler.handle(e));
     }
   }
 }

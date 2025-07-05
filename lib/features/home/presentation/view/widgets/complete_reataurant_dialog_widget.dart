@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:foodix/core/utils/extensions.dart';
 
 import '../../../../../core/styles/app_colors.dart';
-t';
-
-import '../../../../../core/utils/dimensionpStyles.dart';
 
 class CompleteRestaurantDialogWidget extends StatelessWidget {
   const CompleteRestaurantDialogWidget({super.key});
@@ -23,7 +20,7 @@ class CompleteRestaurantDialogWidget extends StatelessWidget {
           children: [
             Icon(
               Icons.restaurant_menu_rounded,
-              size: Dimensions.height45,
+              size: context.responsive.height45,
               color: AppColors.primary,
             ),
             context.responsive.height10.verticalSpace,
@@ -35,7 +32,7 @@ class CompleteRestaurantDialogWidget extends StatelessWidget {
             context.responsive.height10.verticalSpace,
             Text(
               context.tr.toProceedPlease,
-              style: AppStyles.textStyle12(context),
+              style: context.textStyle.s12W400,
               textAlign: TextAlign.center,
             ),
             context.responsive.height20.verticalSpace,
@@ -48,9 +45,9 @@ class CompleteRestaurantDialogWidget extends StatelessWidget {
                 ),
                 label: Text(
                   context.tr.gotIt,
-                  style: AppStyles.textStyle12(
-                    context,
-                  ).copyWith(color: Colors.white),
+                  style: context.textStyle.s12W400.copyWith(
+                    color: Colors.white,
+                  ),
                 ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.primary,
@@ -63,7 +60,7 @@ class CompleteRestaurantDialogWidget extends StatelessWidget {
                     vertical: context.responsive.height10,
                   ),
                 ),
-                onPressed: context.pop,
+                onPressed: context.navigator.pop,
               ),
             ),
           ],

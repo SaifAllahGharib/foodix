@@ -21,12 +21,7 @@ class YourAddressesViewBody extends StatelessWidget {
                 children: [
                   const CustomBackButton(),
                   context.responsive.width30.horizontalSpace,
-                  Text(
-                    context.tr.addresses,
-                    style: AppStyles.textStyle18(
-                      context,
-                    ).copyWith(fontWeight: FontWeight.w500),
-                  ),
+                  Text(context.tr.addresses, style: context.textStyle.s15W500),
                 ],
               ),
               MaterialButton(
@@ -39,9 +34,9 @@ class YourAddressesViewBody extends StatelessWidget {
                 ),
                 child: Text(
                   context.tr.add,
-                  style: AppStyles.textStyle15(
-                    context,
-                  ).copyWith(color: Colors.white, fontWeight: FontWeight.w400),
+                  style: context.textStyle.s15W400.copyWith(
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ],

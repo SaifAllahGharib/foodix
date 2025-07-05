@@ -1,15 +1,18 @@
- my_restaurant/data/models/restaurant_model.dart';
+import 'package:failure_handler/failure_handler.dart';
+
+import '../../../../core/utils/result.dart';
+import '../models/restaurant_model.dart';
 
 abstract class MyRestaurantRepository {
-  Future<Either<Failure, void>> createRestaurant(RestaurantModel restaurant);
+  Future<Result<AppFailure, void>> createRestaurant(RestaurantModel restaurant);
 
-  Future<Either<Failure, void>> updateRestaurantName(String name);
+  Future<Result<AppFailure, void>> updateRestaurantName(String name);
 
-  Future<Either<Failure, void>> updateRestaurantTimeDelivery(int time);
+  Future<Result<AppFailure, void>> updateRestaurantTimeDelivery(int time);
 
-  Future<Either<Failure, void>> updateRestaurantCostDelivery(int cost);
+  Future<Result<AppFailure, void>> updateRestaurantCostDelivery(int cost);
 
-  Future<Either<Failure, void>> updateRestaurantOpenTime(String openTime);
+  Future<Result<AppFailure, void>> updateRestaurantOpenTime(String openTime);
 
-  Future<Either<Failure, void>> updateRestaurantCloseTime(String closeTime);
+  Future<Result<AppFailure, void>> updateRestaurantCloseTime(String closeTime);
 }

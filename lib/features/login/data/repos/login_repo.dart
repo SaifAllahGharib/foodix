@@ -1,7 +1,7 @@
-import 'package:failure_handler/failure_handler.dart';
+import 'package:failure_handler/failure_handler.dart';  
 
-import '../../../../core/utils/result.dart';
-import '../models/login_model.dart';
+import '../../../../core/utils/result.dart';  
+import '../models/login_model.dart';  
 
 abstract class LoginRepository {
   Future<Result<AppFailure, String>> login(

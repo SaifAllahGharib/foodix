@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodix/core/di/dependency_injection.dart';
-import 'package:foodix/core/utils/my_shared_preferences.dart';
 import 'package:foodix/core/widgets/loading.dart';
 import 'package:foodix/features/home/data/repos/main_buyer/main_buyer_repo_imp.dart';
 import 'package:foodix/features/home/presentation/view/widgets/custom_bottom_navigation_bar.dart';
@@ -9,6 +8,8 @@ import 'package:foodix/features/home/presentation/view/widgets/home_view_body.da
 import 'package:foodix/features/home/presentation/viewmodel/cubits/home/home_cubit.dart';
 import 'package:foodix/features/home/presentation/viewmodel/cubits/home/home_state.dart';
 
+import '../../../../core/services/shared_preferences_service.dart';
+import '../../../../core/shared/functions/snack_bar.dart';
 import '../../../../core/shared/models/user_model.dart';
 import '../viewmodel/cubits/main_buyer/main_buyer/main_buyer_cubit.dart';
 
@@ -41,15 +42,13 @@ class _HomeViewState extends State<HomeView> {
     }
   }
 
-  void _handleState(state) async {
+  void _handleState(HomeState state) async {
     if (state is HomeChangeViewState) {
       _selectedIndex = state.selectedIndex;
     } else if (state is HomeSuccessState) {
       _user = state.user;
       await getIt.get<SharedPreferencesService>().storeUser(_user.toJson());
-    } else if (state is FirebaseDBFailure) {
-      snackBar(context: context, text: state.errorMsg);
-    } else if (state is FirebaseFailure) {
+    } else if (state is HomeFailureState) {
       snackBar(context: context, text: state.errorMsg);
     }
   }

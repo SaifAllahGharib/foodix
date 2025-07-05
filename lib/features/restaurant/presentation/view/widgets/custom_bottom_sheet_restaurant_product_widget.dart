@@ -21,10 +21,7 @@ class CustomBottomSheetRestaurantProductWidget extends StatelessWidget {
         children: [
           const TopSectionBottomSheetProduct(),
           const Spacer(),
-          BottomSectionBottomSheetProduct(
-            index: index,
-            price: price,
-          ),
+          BottomSectionBottomSheetProduct(index: index, price: price),
         ],
       ),
     );

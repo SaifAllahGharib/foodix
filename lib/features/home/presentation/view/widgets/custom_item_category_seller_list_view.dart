@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:foodix/core/routing/app_route_name.dart';
 import 'package:foodix/core/styles/app_colors.dart';
+import 'package:foodix/core/utils/extensions.dart';
 
 import '../../../../../core/shared/models/category_model.dart';
-import '../../../../foods_category/presentation/view/foods_category_view.dart';
 
 class CustomItemCategorySellerListView extends StatelessWidget {
   final int index;
@@ -19,7 +20,10 @@ class CustomItemCategorySellerListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: () => context.push(FoodsCategoryView.id, extra: list[index].id!),
+      onTap: () => context.navigator.pushNamed(
+        AppRouteName.foodsCategory,
+        arguments: list[index].id!,
+      ),
       contentPadding: EdgeInsets.zero,
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

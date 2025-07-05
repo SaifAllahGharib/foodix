@@ -1,7 +1,9 @@
- 
-import 'package:firebase_auth/firebase_auth.dart';ices/auth_services.dart';
-import 'package:foodix/core/services/db_services.dart';
-import 'package:foodix/features/home/data/repos/profile/profile_repo.dart';
+import 'package:failure_handler/failure_handler.dart';  
+import 'package:foodix/core/services/db_services.dart';  
+import 'package:foodix/features/home/data/repos/profile/profile_repo.dart';  
+
+import '../../../../../core/services/auth_services.dart';  
+import '../../../../../core/utils/result.dart';  
 
 class ProfileRepositoryImp extends ProfileRepository {
   final AuthServices _authServices;
@@ -10,24 +12,20 @@ class ProfileRepositoryImp extends ProfileRepository {
   ProfileRepositoryImp(this._authServices, this._dbServices);
 
   @override
-  Future<Either<Failure, void>> signOut() async {
+  Future<Result<AppFailure, void>> signOut() async {
     try {
-      return right(await _authServices.signOut());
-    } on FirebaseAuthException catch (e) {
-      return left(FirebaseAuthFailure(e.code));
+      return Success(await _authServices.signOut());
     } catch (e) {
-      return left(FirebaseFailure(e.toString()));
+      return Failure(ErrorHandler.handle(e));
     }
   }
 
   @override
-  Future<Either<Failure, void>> updateName(String name) async {
+  Future<Result<AppFailure, void>> updateName(String name) async {
     try {
-      return right(await _dbServices.updateName(name));
-    } on FirebaseAuthException catch (e) {
-      return left(FirebaseAuthFailure(e.code));
+      return Success(await _dbServices.updateName(name));
     } catch (e) {
-      return left(FirebaseFailure(e.toString()));
+      return Failure(ErrorHandler.handle(e));
     }
   }
 }

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodix/core/shared/models/food_model.dart';
-import 'package:foodix/core/utils/AppStyles.dart';
-import 'package:foodix/core/utils/dimensionom_row_cost.dart';
+import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/features/home/presentation/view/widgets/custom_image_food.dart';
+
+import '../../../../../core/shared/functions/current_locale_is_arabic.dart';
+import '../../../../../core/widgets/custom_row_cost.dart';
 
 class GridItemView extends StatelessWidget {
   final FoodModel food;
@@ -35,7 +36,7 @@ class GridItemView extends StatelessWidget {
             context.responsive.height10.verticalSpace,
             Padding(
               padding: EdgeInsets.symmetric(
-                horizontal: context.responsive.height5,
+                horizontal: context.responsive.padding5,
               ),
               child: Column(
                 children: [

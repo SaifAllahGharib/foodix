@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:foodix/core/styles/app_colors.dart';
-import 'package:foodix/core/utils/extensions.dart';
+import 'package:flutter/material.dart';  
+import 'package:foodix/core/styles/app_colors.dart';  
+import 'package:foodix/core/utils/extensions.dart';  
 
 class AppButtonCartView extends StatelessWidget {
   final String text;

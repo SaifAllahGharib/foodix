@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:foodix/core/routing/app_route_name.dart';
 import 'package:foodix/core/styles/app_colors.dart';
-import 'package:foodix/core/utils/app_styles.dart';
-import 'package:foodix/features/cart/presentation/view/cart_view.dart';
-import 'package:foodix/features/home/presentation/view/widgets/custom_search_text_field.dart';
-import 'package:go_router/go_routereld.dart';
+import 'package:foodix/core/utils/extensions.dart';
+
+import 'custom_search_text_field.dart';
 
 class CustomAppBarMainBuyerView extends StatefulWidget {
   const CustomAppBarMainBuyerView({super.key});
@@ -32,10 +32,10 @@ class _CustomAppBarMainBuyerViewState extends State<CustomAppBarMainBuyerView> {
   Widget build(BuildContext context) {
     return Container(
       color: AppColors.primary,
-      height: Dimensions.height130 * 1.65,
+      height: context.responsive.height130 * 1.65,
       child: Padding(
         padding: EdgeInsets.only(
-          top: Dimensions.height45,
+          top: context.responsive.height45,
           right: context.responsive.height20,
           left: context.responsive.height20,
         ),
@@ -69,7 +69,7 @@ class _CustomAppBarMainBuyerViewState extends State<CustomAppBarMainBuyerView> {
                   ),
                   child: IconButton(
                     onPressed: () {
-                      context.navigator.push(CartView.id);
+                      context.navigator.pushNamed(AppRouteName.cart);
                     },
                     enableFeedback: false,
                     icon: const Icon(

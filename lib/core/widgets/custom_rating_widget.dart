@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:foodix/core/utils/extensions.dart';
+import 'package:flutter/material.dart';  
+import 'package:foodix/core/utils/extensions.dart';  
 
 class CustomRatingWidget extends StatelessWidget {
   final double rating;

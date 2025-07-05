@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:foodix/core/styles/app_colors.dart';
-import 'package:foodix/core/widgets/custom_row_cost.dart';
+import 'package:flutter/material.dart';  
+import 'package:foodix/core/styles/app_colors.dart';  
+import 'package:foodix/core/utils/extensions.dart';  
+import 'package:foodix/core/widgets/custom_row_cost.dart';  
 
 class AppButtonAddToCart extends StatelessWidget {
   final double price;
@@ -12,8 +13,8 @@ class AppButtonAddToCart extends StatelessWidget {
     return Expanded(
       child: Container(
         padding: EdgeInsets.symmetric(
-          horizontal: context.responsive.height20,
-          vertical: context.responsive.height15,
+          horizontal: context.responsive.padding20,
+          vertical: context.responsive.padding15,
         ),
         decoration: BoxDecoration(
           color: AppColors.primary,
@@ -27,9 +28,7 @@ class AppButtonAddToCart extends StatelessWidget {
                 "add_to_cart",
                 overflow: TextOverflow.ellipsis,
                 softWrap: true,
-                style: AppStyles.textStyle15(
-                  context,
-                ).copyWith(color: Colors.white, fontWeight: FontWeight.w500),
+                style: context.textStyle.s15W500.copyWith(color: Colors.white),
               ),
             ),
             context.responsive.width20.horizontalSpace,

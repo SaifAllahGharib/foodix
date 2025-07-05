@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodix/core/utils/extensions.dart';
 
 import '../../../../../core/utils/app_assets.dart';
 import '../../../../../core/widgets/custom_cashed_network_image.dart';

@@ -17,9 +17,7 @@ class TopSectionCustomItemOrderListView extends StatelessWidget {
             children: [
               Text(
                 "Today",
-                style: AppStyles.textStyle15(
-                  context,
-                ).copyWith(fontWeight: FontWeight.w500, color: Colors.grey),
+                style: context.textStyle.s15W500.copyWith(color: Colors.grey),
               ),
               SizedBox(width: context.responsive.width10),
               Icon(
@@ -30,9 +28,7 @@ class TopSectionCustomItemOrderListView extends StatelessWidget {
               SizedBox(width: context.responsive.width10),
               Text(
                 "12:30 PM",
-                style: AppStyles.textStyle15(
-                  context,
-                ).copyWith(fontWeight: FontWeight.w500, color: Colors.grey),
+                style: context.textStyle.s15W500.copyWith(color: Colors.grey),
               ),
             ],
           ),
@@ -47,9 +43,7 @@ class TopSectionCustomItemOrderListView extends StatelessWidget {
             ),
             child: Text(
               context.tr.completed,
-              style: AppStyles.textStyle15(
-                context,
-              ).copyWith(fontWeight: FontWeight.w500, color: Colors.black54),
+              style: context.textStyle.s15W500.copyWith(color: Colors.black54),
             ),
           ),
         ],

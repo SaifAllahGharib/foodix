@@ -14,9 +14,10 @@ import 'package:foodix/features/home/presentation/viewmodel/cubits/main_seller/m
 import 'package:foodix/features/my_restaurant/data/models/restaurant_model.dart';
 
 import '../../../../core/di/dependency_injection.dart';
+import '../../../../core/services/shared_preferences_service.dart';
+import '../../../../core/shared/functions/snack_bar.dart';
 import '../../../../core/shared/models/category_model.dart';
 import '../../../../core/utils/enums.dart';
-import '../../../../core/utils/my_shared_preferences.dart';
 
 class MainSellerView extends StatefulWidget {
   const MainSellerView({super.key});
@@ -89,20 +90,20 @@ class _MainSellerViewState extends State<MainSellerView> {
   }
 
   bool get _myRestaurantIsNotValid {
-    final SharedPreferencesService = getIt<SharedPreferencesService>();
-    final String? restaurantName = SharedPreferencesService.getString(
+    final sharedPreferencesService = getIt<SharedPreferencesService>();
+    final String? restaurantName = sharedPreferencesService.getString(
       RestaurantInfoParams.restaurantName.toString(),
     );
-    final String? deliveryTime = SharedPreferencesService.getString(
+    final String? deliveryTime = sharedPreferencesService.getString(
       RestaurantInfoParams.deliveryTime.toString(),
     );
-    final String? deliveryCost = SharedPreferencesService.getString(
+    final String? deliveryCost = sharedPreferencesService.getString(
       RestaurantInfoParams.deliveryCost.toString(),
     );
-    final String? openTime = SharedPreferencesService.getString(
+    final String? openTime = sharedPreferencesService.getString(
       RestaurantInfoParams.openTime.toString(),
     );
-    final String? closeTime = SharedPreferencesService.getString(
+    final String? closeTime = sharedPreferencesService.getString(
       RestaurantInfoParams.closeTime.toString(),
     );
 
@@ -186,7 +187,7 @@ class _MainSellerViewState extends State<MainSellerView> {
                           context.responsive.height20.verticalSpace,
                           Text(
                             context.tr.categories,
-                            style: AppStyles.textStyle30(context),
+                            style: context.textStyle.s30W600,
                           ),
                           context.responsive.height20.verticalSpace,
                           CategorySellerListView(

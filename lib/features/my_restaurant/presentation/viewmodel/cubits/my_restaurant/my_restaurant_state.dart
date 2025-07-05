@@ -1,31 +1,19 @@
+import 'package:foodix/core/shared/page_state.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
 import '../../../../data/models/restaurant_model.dart';
 
-sealed class MyRestaurantState {}
+part 'my_restaurant_state.freezed.dart';
 
-class MyRestaurantInit extends MyRestaurantState {}
-
-class MyRestaurantLoading extends MyRestaurantState {}
-
-class MyRestaurantCreated extends MyRestaurantState {
-  final RestaurantModel restaurant;
-
-  MyRestaurantCreated(this.restaurant);
-}
-
-class MyRestaurantValidationFields extends MyRestaurantState {}
-
-class MyRestaurantNameUpdated extends MyRestaurantState {}
-
-class MyRestaurantTimeDeliveryUpdated extends MyRestaurantState {}
-
-class MyRestaurantCostDeliveryUpdated extends MyRestaurantState {}
-
-class MyRestaurantOpenTimeUpdated extends MyRestaurantState {}
-
-class MyRestaurantCloseTimeUpdated extends MyRestaurantState {}
-
-class MyRestaurantFailure extends MyRestaurantState {
-  final String errorMsg;
-
-  MyRestaurantFailure(this.errorMsg);
+@freezed
+sealed class MyRestaurantState with _$MyRestaurantState {
+  const factory MyRestaurantState({
+    @Default(PageState.init()) PageState<RestaurantModel> status,
+    @Default(false) bool isValidate,
+    @Default(false) bool nameUpdated,
+    @Default(false) bool timeDeliveryUpdated,
+    @Default(false) bool costDeliveryUpdated,
+    @Default(false) bool openTimeUpdated,
+    @Default(false) bool closeTimeUpdated,
+  }) = _MyRestaurantState;
 }

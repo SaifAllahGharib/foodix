@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';  
+import 'package:foodix/core/utils/extensions.dart';  
 
 class VerifyTextFormFields extends StatefulWidget {
   final Function(String code) verifyCode;
@@ -53,10 +54,12 @@ class _VerifyTextFormFieldsState extends State<VerifyTextFormFields> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(4, (index) {
         return Padding(
-          padding: EdgeInsets.symmetric(horizontal: context.responsive.width15),
+          padding: EdgeInsets.symmetric(
+            horizontal: context.responsive.padding15,
+          ),
           child: SizedBox(
-            width: Dimensions.width65,
-            height: Dimensions.height80,
+            width: context.responsive.width65,
+            height: context.responsive.height80,
             child: TextFormField(
               controller: controllers[index],
               focusNode: focusNodes[index],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodix/core/styles/app_colors.dart';
+import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/widgets/custom_back_button.dart';
 import 'package:foodix/features/restaurant/presentation/view/widgets/custom_category_tab_bar.dart';
 
@@ -40,10 +41,10 @@ class CustomAppBarRestaurantView extends StatelessWidget {
                   ]
                 : null,
           ),
-          height: Dimensions.height45 * 1.85,
+          height: context.responsive.height45 * 1.85,
           padding: EdgeInsets.only(
-            left: Dimensions.width30,
-            right: Dimensions.width30,
+            left: context.responsive.width30,
+            right: context.responsive.width30,
             top: context.responsive.height20,
           ),
           child: Row(
@@ -52,8 +53,8 @@ class CustomAppBarRestaurantView extends StatelessWidget {
             children: [
               const CustomBackButton(),
               Container(
-                width: Dimensions.height45,
-                height: Dimensions.height45,
+                width: context.responsive.height45,
+                height: context.responsive.height45,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(5000),
@@ -73,9 +74,9 @@ class CustomAppBarRestaurantView extends StatelessWidget {
             ],
           ),
         ),
-        if (appBarHeight >= Dimensions.height45 * 4)
+        if (appBarHeight >= context.responsive.height45 * 4)
           const Divider(height: 1, color: AppColors.gray),
-        if (appBarHeight >= Dimensions.height45 * 4)
+        if (appBarHeight >= context.responsive.height45 * 4)
           CustomCategoryTabBar(
             tabController: tabController,
             onClickCategory: onClickCategory,

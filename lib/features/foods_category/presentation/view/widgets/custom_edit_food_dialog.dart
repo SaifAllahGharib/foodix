@@ -4,7 +4,6 @@ import 'package:foodix/core/shared/models/food_model.dart';
 import 'package:foodix/core/utils/extensions.dart';
 
 import '../../../../../core/styles/app_colors.dart';
-import '../../../../../core/utils/dimensionppStyles.dart';
 import '../../../../../core/widgets/app_text_form_field.dart';
 import '../../viewmodel/cubit/foods_category/foods_category_cubit.dart';
 
@@ -98,14 +97,12 @@ class _CustomEditFoodDialogState extends State<CustomEditFoodDialog> {
           },
           child: Text(
             context.tr.save,
-            style: AppStyles.textStyle12(
-              context,
-            ).copyWith(color: AppColors.primary),
+            style: context.textStyle.s12W400.copyWith(color: AppColors.primary),
           ),
         ),
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: Text(context.tr.cancel, style: AppStyles.textStyle12(context)),
+          child: Text(context.tr.cancel, style: context.textStyle.s12W400),
         ),
       ],
     );

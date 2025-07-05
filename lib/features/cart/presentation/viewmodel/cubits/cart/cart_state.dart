@@ -1,8 +1,8 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';  
 
-import '../../../../../../core/shared/page_state.dart';
+import '../../../../../../core/shared/page_state.dart';  
 
-part 'cart_state.freezed.dart';
+part 'cart_state.freezed.dart';  
 
 @freezed
 sealed class CartState with _$CartState {

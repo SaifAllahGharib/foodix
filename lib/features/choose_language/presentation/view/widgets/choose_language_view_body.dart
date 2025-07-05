@@ -1,13 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodix/core/routing/app_route_name.dart';
-import 'package:foodix/core/styles/app_colors.dart';
-import 'package:foodix/core/utils/extensions.dart';
-import 'package:foodix/core/widgets/app_button.dart';
+import 'package:flutter/material.dart';  
+import 'package:flutter_bloc/flutter_bloc.dart';  
+import 'package:foodix/core/routing/app_route_name.dart';  
+import 'package:foodix/core/styles/app_colors.dart';  
+import 'package:foodix/core/utils/extensions.dart';  
+import 'package:foodix/core/widgets/app_button.dart';  
 
-import '../../../../../core/shared/viewmodel/cubits/locale_cubit.dart';
-import '../../../../../core/utils/app_assets.dart';
-import 'lang_widget.dart';
+import '../../../../../core/shared/viewmodel/cubits/locale_cubit.dart';  
+import '../../../../../core/utils/app_assets.dart';  
+import 'lang_widget.dart';  
 
 class ChooseLanguageViewBody extends StatefulWidget {
   const ChooseLanguageViewBody({super.key});

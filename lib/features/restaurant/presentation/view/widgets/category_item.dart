@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';  
+import 'package:foodix/core/utils/extensions.dart';  
 
 class CategoryItem extends StatefulWidget {
   final String text;
@@ -32,7 +33,6 @@ class _CategoryItemState extends State<CategoryItem> {
       text: TextSpan(
         text: widget.text,
         style: context.textStyle.s15W400.copyWith(
-          fontWeight: FontWeight.w500,
           color: widget.selected ? Colors.black : Colors.grey,
         ),
       ),
@@ -46,7 +46,7 @@ class _CategoryItemState extends State<CategoryItem> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: Dimensions.width20),
+          padding: EdgeInsets.symmetric(horizontal: context.responsive.width20),
           child: Text(
             widget.text,
             style: context.textStyle.s15W400.copyWith(
@@ -60,7 +60,7 @@ class _CategoryItemState extends State<CategoryItem> {
           duration: const Duration(milliseconds: 240),
           curve: Curves.easeInOut,
           width: widget.selected
-              ? _textPainter.width + Dimensions.width20 * 1.65
+              ? _textPainter.width + context.responsive.width20 * 1.65
               : 0,
           height: context.responsive.height10 * 0.2,
           color: Colors.black,
