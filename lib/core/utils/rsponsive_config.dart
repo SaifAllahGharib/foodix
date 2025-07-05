@@ -182,6 +182,8 @@ class ResponsiveConfig {
 
   double get height312 => r(150);
 
+  double get height650 => r(650);
+
   // Fonts
   double get fontSize8 => r(8);
 

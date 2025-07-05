@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodix/core/utils/AppStyles.dart';
-import 'package:foodix/core/utils/dimensionom_text.dart';
+import 'package:foodix/core/utils/extensions.dart';
 
 import '../../../../../core/shared/models/food_model.dart';
 
@@ -13,17 +11,11 @@ class FoodNameAndDesc extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(context.responsive.height15),
+      padding: EdgeInsets.all(context.responsive.padding15),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CustomText(
-            text: food.foodName,
-            alignment: currentLocaleIsArabic
-                ? Alignment.topLeft
-                : Alignment.topLeft,
-            textSize: context.responsive.height20 * 1.1,
-          ),
+          Text(food.foodName, style: context.textStyle.s20WB),
           context.responsive.height5.verticalSpace,
           Text(
             food.foodDesc,

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:foodix/core/di/dependency_injection.dart';
+import 'package:foodix/core/routing/app_route_name.dart';
 import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/utils/roles.dart';
 import 'package:foodix/core/widgets/app_button.dart';
 import 'package:foodix/features/choose_role/presentation/view/widgets/role_widget.dart';
-import 'package:foodix/features/signup/presentation/view/signup_view.dart';
 
 import '../../../../../core/styles/app_colors.dart';
 import '../../../../../core/widgets/custom_back_button.dart';
@@ -89,6 +89,9 @@ class _ChooseRoleViewBodyState extends State<ChooseRoleViewBody> {
   }
 
   void _goToSignup(String role) {
-    context.navigator.pushReplacementNamed(SignupView.id, arguments: role);
+    context.navigator.pushReplacementNamed(
+      AppRouteName.signup,
+      arguments: role,
+    );
   }
 }

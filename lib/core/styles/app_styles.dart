@@ -51,6 +51,11 @@ class AppStyles {
   /// -----------------------------------------
 
   /// ----------- Sizes 18 --------------------
+  TextStyle get s18W500 => TextStyle(
+    fontSize: context.responsive.fontSize18,
+    fontWeight: FontWeight.w500,
+  );
+
   TextStyle get s18W600 => TextStyle(
     fontSize: context.responsive.fontSize18,
     fontWeight: FontWeight.w600,

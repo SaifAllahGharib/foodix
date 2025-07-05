@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:foodix/core/utils/colorles.dart';
+import 'package:foodix/core/utils/extensions.dart';
+
+import '../../../../../core/styles/app_colors.dart';
 
 class CustomRadioListTile extends StatelessWidget {
   final String title;
   final String value;
   final String groupValue;
-  final ValueChanged<String> onChanged;
+  final void Function(String?)? onChanged;
 
   const CustomRadioListTile({
     super.key,
@@ -22,15 +24,8 @@ class CustomRadioListTile extends StatelessWidget {
       activeColor: AppColors.primary,
       value: value,
       groupValue: groupValue,
-      title: Text(
-        title,
-        style: AppStyles.textStyle18(
-          context,
-        ).copyWith(fontWeight: FontWeight.w500),
-      ),
-      onChanged: (value) {
-        onChanged(value!);
-      },
+      title: Text(title, style: context.textStyle.s18W500),
+      onChanged: onChanged,
     );
   }
 }

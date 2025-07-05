@@ -35,14 +35,14 @@ class _EditFoodDerailsWidgetsState extends State<EditFoodDerailsWidgets> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: Dimensions.height130 * 5,
+      height: context.responsive.height650,
       width: double.infinity,
       child: Padding(
         padding: EdgeInsets.only(
-          top: context.responsive.height10,
-          right: context.responsive.height20,
-          bottom: context.responsive.height20,
-          left: context.responsive.height20,
+          top: context.responsive.padding10,
+          right: context.responsive.padding20,
+          bottom: context.responsive.padding20,
+          left: context.responsive.padding20,
         ),
         child: Column(
           children: [

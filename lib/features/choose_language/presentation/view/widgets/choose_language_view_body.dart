@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:foodix/core/routing/app_route_name.dart';
 import 'package:foodix/core/styles/app_colors.dart';
 import 'package:foodix/core/utils/extensions.dart';
 import 'package:foodix/core/widgets/app_button.dart';
 
 import '../../../../../core/shared/viewmodel/cubits/locale_cubit.dart';
 import '../../../../../core/utils/app_assets.dart';
-import '../../../../login/presentation/view/login_view.dart';
 import 'lang_widget.dart';
 
 class ChooseLanguageViewBody extends StatefulWidget {
@@ -84,7 +84,7 @@ class _ChooseLanguageViewBodyState extends State<ChooseLanguageViewBody> {
             isEnabled: true,
             text: context.tr.continueText,
             onClick: () => context.navigator.pushNamedAndRemoveUntil(
-              LoginView.id,
+              AppRouteName.login,
               (route) => false,
             ),
           ),
